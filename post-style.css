@@ -98,20 +98,19 @@ input, textarea, select, button {
 .nav.scrolled { padding: 12px 0; }
 .nav .container { display: flex; align-items: center; justify-content: space-between; }
 .nav-logo {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.5rem; font-weight: 800; color: var(--text-primary);
-  display: flex; align-items: baseline; gap: 10px; letter-spacing: -0.5px;
+  display: flex; align-items: center;
+  text-decoration: none;
 }
-.nav-logo-brand {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.75rem; font-weight: 900; letter-spacing: -1px;
-  color: var(--text-primary);
+.nav-logo-img {
+  display: block;
+  height: 40px;
+  width: auto;
 }
-.nav-logo-blue { color: var(--primary); }
-.nav-logo-sub {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 0.7rem; color: var(--text-muted); font-weight: 500;
-  letter-spacing: 0.3px;
+.nav-logo-img.nav-logo-light { display: none; }
+:root[data-theme="light"] .nav-logo-img.nav-logo-dark { display: none; }
+:root[data-theme="light"] .nav-logo-img.nav-logo-light { display: block; }
+@media (max-width: 640px) {
+  .nav-logo-img { height: 34px; }
 }
 .nav-links { display: flex; gap: 28px; align-items: center; }
 .nav-links a {
@@ -644,12 +643,15 @@ input, textarea, select, button {
  * ========================================================================== */
 .footer { padding: 48px 0 28px; background: var(--footer-bg); border-top: 1px solid var(--card-border); }
 .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-.footer-logo { display: flex; flex-direction: column; }
-.footer-logo-brand {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.7rem; font-weight: 900; letter-spacing: -1px; color: var(--text-primary);
+.footer-logo { display: flex; flex-direction: column; gap: 8px; }
+.footer-logo-img {
+  display: block;
+  height: 48px;
+  width: auto;
 }
-.footer-logo-blue { color: var(--primary); }
+.footer-logo-img.footer-logo-light { display: none; }
+:root[data-theme="light"] .footer-logo-img.footer-logo-dark { display: none; }
+:root[data-theme="light"] .footer-logo-img.footer-logo-light { display: block; }
 .footer-logo-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
 .footer-nav { display: flex; gap: 24px; flex-wrap: wrap; }
 .footer-nav a { font-size: 0.82rem; color: var(--text-muted); transition: color 0.3s; }
@@ -679,8 +681,6 @@ input, textarea, select, button {
   .nav-links.active { display: flex; }
   .nav-links a { padding: 12px 0; width: 100%; }
   .mobile-toggle { display: flex; }
-  .nav-logo-sub { display: none; }
-  .nav-logo-brand { font-size: 1.55rem; }
 
   .post-article { padding: 100px 0 60px; }
   .post-container { padding: 0 20px; }

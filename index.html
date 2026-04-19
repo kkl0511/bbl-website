@@ -5374,37 +5374,23 @@
       .featured-info { padding: 32px 28px; }
     }
 
-    /* ===== NAV LOGO (TEXT) ===== */
+    /* ===== NAV LOGO (IMAGE) ===== */
     .nav-logo {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      line-height: 1.1;
+      align-items: center;
       text-decoration: none;
-      gap: 4px;
     }
-    .nav-logo-brand {
-      font-family: 'Inter', 'Noto Sans KR', sans-serif;
-      font-weight: 900;
-      font-size: 2rem;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      line-height: 1;
+    .nav-logo-img {
+      display: block;
+      height: 44px;
+      width: auto;
     }
-    .nav-logo-blue {
-      color: var(--primary);
-    }
-    .nav-logo-sub {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      color: var(--text-muted);
-      text-transform: none;
-    }
+    /* 다크 모드(기본) = 다크 버전 로고, 라이트 모드 = 원본(라이트) 로고 */
+    .nav-logo-img.nav-logo-light { display: none; }
+    :root[data-theme="light"] .nav-logo-img.nav-logo-dark { display: none; }
+    :root[data-theme="light"] .nav-logo-img.nav-logo-light { display: block; }
     @media (max-width: 640px) {
-      .nav-logo-sub { display: none; }
-      .nav-logo-brand { font-size: 1.75rem; }
+      .nav-logo-img { height: 36px; }
     }
 
     /* ===== TRUST ===== */
@@ -5489,20 +5475,17 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 4px;
+      gap: 8px;
       line-height: 1.1;
     }
-    .footer-logo-brand {
-      font-family: 'Inter', sans-serif;
-      font-weight: 900;
-      font-size: 1.9rem;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      line-height: 1;
+    .footer-logo-img {
+      display: block;
+      height: 52px;
+      width: auto;
     }
-    .footer-logo-blue {
-      color: var(--primary);
-    }
+    .footer-logo-img.footer-logo-light { display: none; }
+    :root[data-theme="light"] .footer-logo-img.footer-logo-dark { display: none; }
+    :root[data-theme="light"] .footer-logo-img.footer-logo-light { display: block; }
     .footer-logo-sub {
       font-family: 'Inter', sans-serif;
       font-size: 0.72rem;
@@ -5585,8 +5568,7 @@
     /* 매우 좁은 화면에서는 링크 더 축소 */
     @media (max-width: 480px) {
       .nav .container { padding-left: 14px; padding-right: 14px; }
-      .nav-logo { font-size: 1.15rem; }
-      .nav-logo-brand { font-size: 1.4rem !important; }
+      .nav-logo-img { height: 32px; }
       .nav-links { gap: 10px; }
       .nav-links a { font-size: 0.74rem; }
     }
@@ -5816,8 +5798,9 @@
   <!-- NAV -->
   <nav class="nav" id="navbar">
     <div class="container">
-      <a href="#" class="nav-logo">
-        <span class="nav-logo-brand"><span class="nav-logo-blue">B</span>B<span class="nav-logo-blue">L</span></span>
+      <a href="#" class="nav-logo" aria-label="BBL - Baseball Biomechanics Lab 홈으로">
+        <img src="assets/logo-bbl-nav-dark.png" alt="BBL - Baseball Biomechanics Lab" class="nav-logo-img nav-logo-dark">
+        <img src="assets/logo-bbl-nav.png" alt="BBL - Baseball Biomechanics Lab" class="nav-logo-img nav-logo-light">
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#about">랩 소개</a>
@@ -6641,7 +6624,10 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo">
-          <div class="footer-logo-brand"><span class="footer-logo-blue">B</span>B<span class="footer-logo-blue">L</span></div>
+          <a href="#" style="display:block; text-decoration:none;" aria-label="BBL 홈">
+            <img src="assets/logo-bbl-nav-dark.png" alt="BBL - Baseball Biomechanics Lab" class="footer-logo-img footer-logo-dark">
+            <img src="assets/logo-bbl-nav.png" alt="BBL - Baseball Biomechanics Lab" class="footer-logo-img footer-logo-light">
+          </a>
           <div class="footer-logo-sub">BioMotion · 베이스볼 바이오메카닉스 랩</div>
         </div>
         <div class="footer-nav">
