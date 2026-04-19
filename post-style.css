@@ -89,13 +89,13 @@ input, textarea, select, button {
 /* ===== NAV (index.html과 동일) ===== */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 14px 0; transition: all 0.4s ease;
+  padding: 18px 0; transition: all 0.4s ease;
   background: var(--nav-bg-scrolled);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--card-border);
 }
-.nav.scrolled { padding: 12px 0; }
+.nav.scrolled { padding: 16px 0; }
 .nav .container { display: flex; align-items: center; justify-content: space-between; }
 .nav-logo {
   display: flex; align-items: center;
@@ -103,18 +103,18 @@ input, textarea, select, button {
 }
 .nav-logo-img {
   display: block;
-  height: 40px;
+  height: 52px;
   width: auto;
 }
 .nav-logo-img.nav-logo-light { display: none; }
 :root[data-theme="light"] .nav-logo-img.nav-logo-dark { display: none; }
 :root[data-theme="light"] .nav-logo-img.nav-logo-light { display: block; }
 @media (max-width: 640px) {
-  .nav-logo-img { height: 34px; }
+  .nav-logo-img { height: 44px; }
 }
-.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links { display: flex; gap: 34px; align-items: center; }
 .nav-links a {
-  font-size: 0.92rem; font-weight: 500; color: var(--text-secondary);
+  font-size: 1.05rem; font-weight: 500; color: var(--text-secondary);
   transition: color 0.3s; position: relative;
 }
 .nav-links a:hover { color: var(--text-primary); }
@@ -125,18 +125,19 @@ input, textarea, select, button {
 .nav-links a:hover::after { width: 100%; }
 .nav-cta {
   background: var(--primary) !important; color: #fff !important;
-  padding: 10px 24px; border-radius: 8px; font-weight: 600 !important;
+  padding: 13px 30px; border-radius: 10px; font-weight: 600 !important;
+  font-size: 1.05rem;
   transition: all 0.3s !important;
 }
 .nav-cta:hover { background: var(--primary-dark) !important; transform: translateY(-1px); }
 .nav-cta::after { display: none !important; }
 
 .mobile-toggle {
-  display: none; flex-direction: column; gap: 5px;
-  cursor: pointer; background: none; border: none; padding: 4px;
+  display: none; flex-direction: column; gap: 6px;
+  cursor: pointer; background: none; border: none; padding: 6px;
 }
 .mobile-toggle span {
-  width: 24px; height: 2px; background: var(--text-primary);
+  width: 28px; height: 3px; background: var(--text-primary);
   border-radius: 2px; transition: all 0.3s;
 }
 
@@ -144,8 +145,8 @@ input, textarea, select, button {
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
+  gap: 10px;
+  padding: 9px 14px;
   background: transparent;
   border: 1px solid var(--card-border);
   border-radius: 50px;
@@ -157,7 +158,7 @@ input, textarea, select, button {
 .theme-toggle:hover { border-color: rgba(37,99,235,0.4); }
 .theme-toggle::after { display: none !important; }
 .theme-icon {
-  width: 14px; height: 14px; flex-shrink: 0;
+  width: 18px; height: 18px; flex-shrink: 0;
   transition: color 0.25s ease, opacity 0.25s ease;
 }
 .theme-toggle .icon-sun { color: var(--text-muted); opacity: 0.5; }
@@ -165,7 +166,7 @@ input, textarea, select, button {
 :root[data-theme="light"] .theme-toggle .icon-sun { color: var(--primary); opacity: 1; }
 :root[data-theme="light"] .theme-toggle .icon-moon { color: var(--text-muted); opacity: 0.5; }
 .theme-track {
-  width: 30px; height: 16px;
+  width: 40px; height: 22px;
   background: var(--card-bg-hover);
   border-radius: 50px;
   position: relative;
@@ -173,19 +174,19 @@ input, textarea, select, button {
 }
 :root[data-theme="light"] .theme-track { background: #d4d4dc; }
 .theme-knob {
-  position: absolute; top: 2px; left: 2px;
-  width: 12px; height: 12px;
+  position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px;
   background: var(--primary);
   border-radius: 50%;
   transition: left 0.25s ease, background 0.25s ease;
 }
-:root[data-theme="light"] .theme-knob { left: 16px; }
+:root[data-theme="light"] .theme-knob { left: 21px; }
 @media (max-width: 768px) {
-  .theme-toggle { padding: 5px 8px; gap: 6px; }
-  .theme-icon { width: 12px; height: 12px; }
-  .theme-track { width: 26px; height: 14px; }
-  .theme-knob { width: 10px; height: 10px; }
-  :root[data-theme="light"] .theme-knob { left: 14px; }
+  .theme-toggle { padding: 7px 11px; gap: 8px; }
+  .theme-icon { width: 15px; height: 15px; }
+  .theme-track { width: 34px; height: 18px; }
+  .theme-knob { width: 13px; height: 13px; top: 2px; left: 2px; }
+  :root[data-theme="light"] .theme-knob { left: 19px; }
 }
 
 /* ===== BUTTON ===== */

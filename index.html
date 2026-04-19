@@ -883,11 +883,11 @@
     /* ===== NAVIGATION ===== */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 18px 0; transition: all 0.4s ease; background: transparent;
+      padding: 22px 0; transition: all 0.4s ease; background: transparent;
     }
     .nav.scrolled {
       background: var(--nav-bg-scrolled); backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--card-border); padding: 12px 0;
+      border-bottom: 1px solid var(--card-border); padding: 16px 0;
     }
     .nav .container { display: flex; align-items: center; justify-content: space-between; }
     .nav-logo {
@@ -898,9 +898,9 @@
     .nav-logo .logo-mark { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; }
     .nav-logo .logo-mark svg { width: 38px; height: 38px; }
     .nav-logo .blue { color: var(--primary); }
-    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links { display: flex; gap: 34px; align-items: center; }
     .nav-links a {
-      font-size: 0.92rem; font-weight: 500; color: var(--text-secondary);
+      font-size: 1.05rem; font-weight: 500; color: var(--text-secondary);
       transition: color 0.3s; position: relative;
     }
     .nav-links a:hover { color: var(--text-primary); }
@@ -911,7 +911,8 @@
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
       background: var(--primary) !important; color: #fff !important;
-      padding: 10px 24px; border-radius: 8px; font-weight: 600 !important;
+      padding: 13px 30px; border-radius: 10px; font-weight: 600 !important;
+      font-size: 1.05rem;
       transition: all 0.3s !important;
     }
     .nav-cta:hover { background: var(--primary-dark) !important; transform: translateY(-1px); }
@@ -921,20 +922,20 @@
     .nav-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .mobile-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
+      display: none; flex-direction: column; gap: 6px;
+      cursor: pointer; background: none; border: none; padding: 6px;
     }
-    .mobile-toggle span { width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
+    .mobile-toggle span { width: 28px; height: 3px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
 
     /* ===== THEME TOGGLE (다크/라이트) ===== */
     .theme-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
+      gap: 10px;
+      padding: 9px 14px;
       background: transparent;
       border: 1px solid var(--card-border);
       border-radius: 50px;
@@ -948,8 +949,8 @@
     }
     .theme-toggle::after { display: none !important; }
     .theme-icon {
-      width: 14px;
-      height: 14px;
+      width: 18px;
+      height: 18px;
       flex-shrink: 0;
       transition: color 0.25s ease, opacity 0.25s ease;
     }
@@ -958,8 +959,8 @@
     :root[data-theme="light"] .theme-toggle .icon-sun { color: var(--primary); opacity: 1; }
     :root[data-theme="light"] .theme-toggle .icon-moon { color: var(--text-muted); opacity: 0.5; }
     .theme-track {
-      width: 30px;
-      height: 16px;
+      width: 40px;
+      height: 22px;
       background: var(--card-bg-hover);
       border-radius: 50px;
       position: relative;
@@ -968,34 +969,34 @@
     :root[data-theme="light"] .theme-track { background: #d4d4dc; }
     .theme-knob {
       position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 12px;
-      height: 12px;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
       background: var(--primary);
       border-radius: 50%;
       transition: left 0.25s ease, background 0.25s ease;
     }
     :root[data-theme="light"] .theme-knob {
-      left: 16px;
+      left: 21px;
       background: var(--primary);
     }
     @media (max-width: 768px) {
       .theme-toggle {
-        padding: 5px 8px;
-        gap: 6px;
+        padding: 7px 11px;
+        gap: 8px;
       }
-      .theme-icon { width: 12px; height: 12px; }
-      .theme-track { width: 26px; height: 14px; }
-      .theme-knob { width: 10px; height: 10px; }
-      :root[data-theme="light"] .theme-knob { left: 14px; }
+      .theme-icon { width: 15px; height: 15px; }
+      .theme-track { width: 34px; height: 18px; }
+      .theme-knob { width: 13px; height: 13px; top: 2px; left: 2px; }
+      :root[data-theme="light"] .theme-knob { left: 19px; }
     }
 
     /* ===== HERO ===== */
     .hero {
       min-height: 100vh; background: var(--gradient-hero);
       display: flex; align-items: center; position: relative; overflow: hidden;
-      padding-top: 90px;
+      padding-top: 120px;
     }
     .hero::before {
       content: ''; position: absolute; top: -40%; right: -15%;
@@ -1039,7 +1040,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .hero-sub {
-      font-size: 1.08rem; color: var(--text-secondary); line-height: 1.85;
+      font-size: 1.4rem; color: var(--text-secondary); line-height: 1.75;
       margin-bottom: 36px; animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0;
     }
     .hero-buttons {
@@ -5382,7 +5383,7 @@
     }
     .nav-logo-img {
       display: block;
-      height: 44px;
+      height: 56px;
       width: auto;
     }
     /* 다크 모드(기본) = 다크 버전 로고, 라이트 모드 = 원본(라이트) 로고 */
@@ -5390,7 +5391,7 @@
     :root[data-theme="light"] .nav-logo-img.nav-logo-dark { display: none; }
     :root[data-theme="light"] .nav-logo-img.nav-logo-light { display: block; }
     @media (max-width: 640px) {
-      .nav-logo-img { height: 36px; }
+      .nav-logo-img { height: 46px; }
     }
 
     /* ===== TRUST ===== */
@@ -5568,9 +5569,9 @@
     /* 매우 좁은 화면에서는 링크 더 축소 */
     @media (max-width: 480px) {
       .nav .container { padding-left: 14px; padding-right: 14px; }
-      .nav-logo-img { height: 32px; }
-      .nav-links { gap: 10px; }
-      .nav-links a { font-size: 0.74rem; }
+      .nav-logo-img { height: 40px; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 0.92rem; }
     }
 
     @media (max-width: 360px) {
@@ -5761,7 +5762,7 @@
 
       /* Hero 소개문을 조금 더 타이트하게 */
       .hero-sub {
-        font-size: 14px !important;
+        font-size: 18px !important;
         line-height: 1.65 !important;
       }
 
@@ -5834,11 +5835,11 @@
       <div class="hero-grid">
         <div class="hero-content">
           <h1>
-            연구실의 과학이,<br>
-            <span class="gradient-text">그라운드로.</span>
+            감(感)의 시대는<br>
+            <span class="gradient-text">끝났다.</span>
           </h1>
           <p class="hero-sub">
-            국민대학교 30년 바이오메카닉스 연구가, 이제 현장 선수를 위한 분석으로.<br>
+            국민대의 30년 바이오메카닉스 연구가, 이제 현장 선수를 위한 분석으로.<br>
             3D 모션캡쳐·포스플레이트·볼 트래킹으로 <strong style="color:var(--text-primary)">보이지 않던 실력의 열쇠</strong>를 찾아냅니다.
           </p>
           <div class="hero-buttons">
@@ -5870,7 +5871,7 @@
   <section class="about" id="about">
     <div class="container">
       <div class="about-header">
-        <div class="section-title fade-in"><span class="highlight">30년 연구</span>를 비즈니스로, <span class="highlight">BBL</span></div>
+        <div class="section-title fade-in"><span class="highlight">30년 연구 노하우</span>를 분석 서비스로, <span class="highlight">BBL</span></div>
       </div>
       <div class="about-mission fade-in">
         <div class="about-statement">
@@ -5954,10 +5955,7 @@
   <section class="assessment" id="assessment">
     <div class="container">
       <div class="assessment-header">
-        <div class="section-title fade-in">3단계 <span class="highlight">BBL 분석</span></div>
-        <p class="section-desc fade-in">
-          국민대 <strong style="color:var(--text-primary)">30년 연구 자산</strong>과 <strong style="color:var(--text-primary)">한국 선수 1,000명 데이터</strong> 기반의 <strong style="color:var(--text-primary)">BBL 고유 3단계 진단 시스템</strong>.
-        </p>
+        <div class="section-title fade-in">BBL <span class="highlight">3단계 분석</span></div>
       </div>
 
 
