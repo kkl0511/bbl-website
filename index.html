@@ -88,8 +88,8 @@
     html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
     body {
       font-family: 'Noto Sans KR', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #d8d8e2;
-      background: #08080c;
+      color: var(--text-secondary);
+      background: var(--dark-bg);
       line-height: 1.7;
       font-weight: 400;
       overflow-x: hidden;
@@ -174,6 +174,494 @@
     .post-container, .form-wrap, .contact-info, .post-body, input, textarea, select, button {
       transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     }
+
+    /* =====================================================================
+       라이트 모드 포괄 오버라이드 — 하드코딩된 다크 색상을 라이트로 치환
+       (기존 다크 모드 CSS를 수정하지 않고 라이트 모드에서만 덮어씀)
+       ===================================================================== */
+    :root[data-theme="light"] {
+      /* 라이트 모드용 서브톤 팔레트 */
+      --light-section-bg: #ffffff;
+      --light-section-bg-alt: #f5f7fb;   /* 섹션 교차 배경(연한 회청) */
+      --light-section-bg-alt2: #eef1f7;  /* 더 진한 교차 배경 */
+      --light-card-bg: #ffffff;
+      --light-card-bg-subtle: #f7f8fc;
+      --light-card-border: rgba(15,25,55,0.10);
+      --light-card-border-strong: rgba(15,25,55,0.16);
+      --light-accent-bg: rgba(37,99,235,0.06);
+      --light-accent-bg-strong: rgba(37,99,235,0.10);
+      --light-warm-bg: rgba(231,119,34,0.06);
+      --light-warm-bg-strong: rgba(231,119,34,0.12);
+    }
+
+    /* --- 섹션 배경 (하드코딩된 #0c0c14 및 다크 그라디언트 교체) --- */
+    :root[data-theme="light"] .about,
+    :root[data-theme="light"] .assessment,
+    :root[data-theme="light"] .team,
+    :root[data-theme="light"] .courses,
+    :root[data-theme="light"] .faq,
+    :root[data-theme="light"] .field,
+    :root[data-theme="light"] .tech,
+    :root[data-theme="light"] .process,
+    :root[data-theme="light"] .contact,
+    :root[data-theme="light"] .report-section,
+    :root[data-theme="light"] .cases,
+    :root[data-theme="light"] .trust,
+    :root[data-theme="light"] .credentials {
+      background: var(--light-section-bg) !important;
+    }
+    /* 섹션 교차 배경으로 입체감 부여 */
+    :root[data-theme="light"] .about,
+    :root[data-theme="light"] .team,
+    :root[data-theme="light"] .courses,
+    :root[data-theme="light"] .field,
+    :root[data-theme="light"] .report-section {
+      background: linear-gradient(180deg, #ffffff, var(--light-section-bg-alt)) !important;
+    }
+    :root[data-theme="light"] .faq,
+    :root[data-theme="light"] .assessment {
+      background: var(--light-section-bg-alt) !important;
+    }
+
+    /* --- 카드/패널/박스 계열 일괄 오버라이드 ---
+       속성 선택자로 card/panel/box/note가 들어간 모든 요소의 다크 배경을 화이트로 */
+    :root[data-theme="light"] [class*="-card"]:not(.benefit-card-pitcher):not(.benefit-card-hitter):not(.benefit-card-coach):not(.benefit-card-parent),
+    :root[data-theme="light"] [class*="-panel"],
+    :root[data-theme="light"] [class*="-box"],
+    :root[data-theme="light"] [class*="-item"]:not(.nav-links a):not(.hero-buttons *),
+    :root[data-theme="light"] [class*="-note"],
+    :root[data-theme="light"] [class*="-tile"],
+    :root[data-theme="light"] [class*="-block"],
+    :root[data-theme="light"] .about-card,
+    :root[data-theme="light"] .tech-card,
+    :root[data-theme="light"] .layer-card,
+    :root[data-theme="light"] .phase-card,
+    :root[data-theme="light"] .pillar-card,
+    :root[data-theme="light"] .unique-card,
+    :root[data-theme="light"] .team-card,
+    :root[data-theme="light"] .benefit-card,
+    :root[data-theme="light"] .course-card,
+    :root[data-theme="light"] .course-card-v2,
+    :root[data-theme="light"] .cred-card,
+    :root[data-theme="light"] .bench-card,
+    :root[data-theme="light"] .field-card,
+    :root[data-theme="light"] .media-card,
+    :root[data-theme="light"] .stage-result-box,
+    :root[data-theme="light"] .assess-info-card,
+    :root[data-theme="light"] .contact-form-box,
+    :root[data-theme="light"] .faq-item {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+    }
+
+    /* 보조 톤 카드(연한 회청 배경이 필요한 경우) */
+    :root[data-theme="light"] .media-item,
+    :root[data-theme="light"] .physical-media-item,
+    :root[data-theme="light"] .delivery-media-item,
+    :root[data-theme="light"] .cost-item,
+    :root[data-theme="light"] .case-item,
+    :root[data-theme="light"] .j-step-note,
+    :root[data-theme="light"] .cred-sidenote,
+    :root[data-theme="light"] .cred-quote-box,
+    :root[data-theme="light"] .courses-note,
+    :root[data-theme="light"] .course-footnote,
+    :root[data-theme="light"] .team-plan-note,
+    :root[data-theme="light"] .reality-cases-note {
+      background: var(--light-card-bg-subtle) !important;
+      border-color: var(--light-card-border) !important;
+    }
+
+    /* --- 텍스트 색 강제 (다크 모드 전제로 하드코딩된 흰색 텍스트) --- */
+    :root[data-theme="light"] [class*="-card"] h1,
+    :root[data-theme="light"] [class*="-card"] h2,
+    :root[data-theme="light"] [class*="-card"] h3,
+    :root[data-theme="light"] [class*="-card"] h4,
+    :root[data-theme="light"] [class*="-card"] h5,
+    :root[data-theme="light"] [class*="-card"] h6,
+    :root[data-theme="light"] [class*="-card"] p,
+    :root[data-theme="light"] [class*="-card"] li,
+    :root[data-theme="light"] [class*="-card"] span,
+    :root[data-theme="light"] [class*="-card"] strong,
+    :root[data-theme="light"] [class*="-panel"] h1,
+    :root[data-theme="light"] [class*="-panel"] h2,
+    :root[data-theme="light"] [class*="-panel"] h3,
+    :root[data-theme="light"] [class*="-panel"] h4,
+    :root[data-theme="light"] [class*="-panel"] p,
+    :root[data-theme="light"] [class*="-panel"] li,
+    :root[data-theme="light"] [class*="-box"] h1,
+    :root[data-theme="light"] [class*="-box"] h2,
+    :root[data-theme="light"] [class*="-box"] h3,
+    :root[data-theme="light"] [class*="-box"] h4,
+    :root[data-theme="light"] [class*="-box"] p,
+    :root[data-theme="light"] [class*="-box"] li {
+      color: var(--text-primary);
+    }
+    /* 카드 내부 본문/보조 텍스트는 secondary */
+    :root[data-theme="light"] [class*="-card"] p,
+    :root[data-theme="light"] [class*="-card"] li,
+    :root[data-theme="light"] [class*="-panel"] p,
+    :root[data-theme="light"] [class*="-panel"] li,
+    :root[data-theme="light"] [class*="-box"] p,
+    :root[data-theme="light"] [class*="-box"] li {
+      color: var(--text-secondary);
+    }
+    /* 카드 안의 제목은 primary로 강화 */
+    :root[data-theme="light"] [class*="-card"] h1,
+    :root[data-theme="light"] [class*="-card"] h2,
+    :root[data-theme="light"] [class*="-card"] h3,
+    :root[data-theme="light"] [class*="-card"] h4,
+    :root[data-theme="light"] [class*="-card"] h5,
+    :root[data-theme="light"] [class*="-card"] h6,
+    :root[data-theme="light"] [class*="-card"] strong {
+      color: var(--text-primary);
+    }
+
+    /* --- 테두리 (rgba(255,255,255,X) → 라이트 테두리) --- */
+    :root[data-theme="light"] [class*="-card"],
+    :root[data-theme="light"] [class*="-panel"],
+    :root[data-theme="light"] [class*="-box"],
+    :root[data-theme="light"] [class*="-item"],
+    :root[data-theme="light"] [class*="-note"] {
+      border-color: var(--light-card-border) !important;
+    }
+
+    /* 흰색 반투명 구분선들 */
+    :root[data-theme="light"] *[style*="rgba(255,255,255"] { /* inline용 예비 */ }
+
+    /* --- Hero 영역 내부 요소 (어두운 오버레이/태그) --- */
+    :root[data-theme="light"] .hero-visual-frame {
+      border-color: var(--light-card-border);
+      background: transparent;
+      box-shadow: 0 20px 60px rgba(15,25,55,0.12), 0 0 0 1px rgba(15,25,55,0.04);
+    }
+    :root[data-theme="light"] .hero-visual-tag {
+      background: rgba(255,255,255,0.92) !important;
+      border-color: var(--light-card-border) !important;
+      color: var(--text-primary);
+    }
+    :root[data-theme="light"] .hero-visual-caption {
+      background: rgba(255,255,255,0.94) !important;
+      border-color: var(--light-card-border) !important;
+    }
+    :root[data-theme="light"] .hero-visual-caption .caption-label,
+    :root[data-theme="light"] .hero-visual-caption .caption-title { color: var(--text-primary); }
+    :root[data-theme="light"] .hero-badge {
+      background: var(--light-accent-bg) !important;
+      border-color: rgba(37,99,235,0.2) !important;
+      color: var(--primary);
+    }
+    :root[data-theme="light"] .btn-outline {
+      border-color: var(--light-card-border-strong);
+      color: var(--text-primary);
+    }
+    :root[data-theme="light"] .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* --- 페이지 상단 네비 --- */
+    :root[data-theme="light"] .nav {
+      border-bottom: 1px solid transparent;
+    }
+    :root[data-theme="light"] .nav.scrolled {
+      background: var(--nav-bg-scrolled) !important;
+      border-bottom-color: var(--light-card-border);
+      backdrop-filter: blur(12px);
+    }
+    :root[data-theme="light"] .nav-links a { color: var(--text-secondary); }
+    :root[data-theme="light"] .nav-links a:hover { color: var(--primary); }
+
+    /* --- FAQ --- */
+    :root[data-theme="light"] .faq-item {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+    }
+    :root[data-theme="light"] .faq-a-inner {
+      color: var(--text-secondary);
+    }
+    :root[data-theme="light"] .faq-item summary,
+    :root[data-theme="light"] .faq-item [class*="question"] {
+      color: var(--text-primary);
+    }
+
+    /* --- 컨테이너 프레임들 (인코너 내부 프레임) --- */
+    :root[data-theme="light"] .credentials-inner,
+    :root[data-theme="light"] .biomech-intro-inner,
+    :root[data-theme="light"] .bbl-diagram-wrap,
+    :root[data-theme="light"] .pillars-diagram-wrap,
+    :root[data-theme="light"] .process-diagram-wrap,
+    :root[data-theme="light"] .courses-guide-wrap,
+    :root[data-theme="light"] .team-vision-inner {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+    }
+
+    /* --- 테이블 --- */
+    :root[data-theme="light"] .cc-cell,
+    :root[data-theme="light"] .course-compare-table th,
+    :root[data-theme="light"] .course-compare-table td {
+      color: var(--text-primary);
+      border-color: var(--light-card-border) !important;
+    }
+    :root[data-theme="light"] .cc-cell.cc-highlight {
+      background: var(--light-accent-bg) !important;
+      color: var(--primary) !important;
+    }
+    :root[data-theme="light"] .cc-sub { color: var(--text-muted); }
+
+    /* --- 입력 폼 --- */
+    :root[data-theme="light"] input,
+    :root[data-theme="light"] textarea,
+    :root[data-theme="light"] select {
+      background: #ffffff !important;
+      border-color: var(--light-card-border-strong) !important;
+      color: var(--text-primary) !important;
+    }
+    :root[data-theme="light"] input::placeholder,
+    :root[data-theme="light"] textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* --- Report/갤러리/lightbox 카드 --- */
+    :root[data-theme="light"] .bench-card {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+      color: var(--text-primary);
+    }
+
+    /* --- 기타: 흰색/회색 텍스트 하드코딩 --- */
+    :root[data-theme="light"] [style*="color: #fff"],
+    :root[data-theme="light"] [style*="color:#fff"] {
+      color: var(--text-primary) !important;
+    }
+
+    /* --- 태그/배지류의 흰색 대비 문제 --- */
+    :root[data-theme="light"] .cred-card-tag,
+    :root[data-theme="light"] .team-card-tag,
+    :root[data-theme="light"] .pillar-highlight-tag {
+      color: var(--primary);
+    }
+
+    /* --- Pillar highlight background --- */
+    :root[data-theme="light"] .pillar-highlight-tag {
+      background: var(--light-accent-bg-strong) !important;
+      border-color: rgba(37,99,235,0.25) !important;
+    }
+
+    /* --- 오렌지/웜 계열 배지 (라이트 모드에서도 가독성 확보) --- */
+    :root[data-theme="light"] [class*="warm"]:not(.hero-visual-tag *),
+    :root[data-theme="light"] .benefit-card-hitter .benefit-target-label {
+      /* 오렌지 액센트 유지 — 배경만 밝게 */
+    }
+
+    /* --- 강조용 굵은 테두리가 안 보이는 경우 --- */
+    :root[data-theme="light"] .benefit-card {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+      box-shadow: var(--card-shadow);
+    }
+
+    /* --- 리스트 구분선(대시) --- */
+    :root[data-theme="light"] [style*="border-bottom: 1px dashed rgba(255,255,255"],
+    :root[data-theme="light"] [style*="border-top: 1px dashed rgba(255,255,255"] {
+      /* inline 대비용 */
+    }
+
+    /* --- 본문 내 '다크' 프레임 배경 (hero-visual-frame 등 영상/이미지 프레임)은 유지 --- */
+    :root[data-theme="light"] .hero-visual-frame::after {
+      /* 인셋 하이라이트 그대로 */
+    }
+
+    /* --- 푸터 --- */
+    :root[data-theme="light"] .footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--light-card-border);
+      color: var(--text-secondary);
+    }
+    :root[data-theme="light"] .footer a { color: var(--text-secondary); }
+    :root[data-theme="light"] .footer a:hover { color: var(--primary); }
+
+    /* --- 카드 내부에 남아있을 수 있는 흰색 제목 텍스트 보정 --- */
+    :root[data-theme="light"] .tech-card h3,
+    :root[data-theme="light"] .team-card h3,
+    :root[data-theme="light"] .benefit-card h3,
+    :root[data-theme="light"] .pillar-card h3,
+    :root[data-theme="light"] .phase-card h3,
+    :root[data-theme="light"] .course-card h3,
+    :root[data-theme="light"] .course-card-v2 h3,
+    :root[data-theme="light"] .cred-card h3,
+    :root[data-theme="light"] .field-card h3,
+    :root[data-theme="light"] .unique-card h3 {
+      color: var(--text-primary) !important;
+    }
+
+    /* --- 그라디언트 배경이 있는 특수 카드들은 다크 톤이 살짝 남도록 조정 --- */
+    :root[data-theme="light"] .credentials-inner {
+      background: linear-gradient(145deg, #ffffff 0%, var(--light-section-bg-alt) 100%) !important;
+    }
+    :root[data-theme="light"] .team-card-highlight,
+    :root[data-theme="light"] .team-card-v2-highlight {
+      background: linear-gradient(145deg, rgba(37,99,235,0.06) 0%, #ffffff 100%) !important;
+      border-color: rgba(37,99,235,0.25) !important;
+    }
+    :root[data-theme="light"] .course-card-v2[class*="recommend"],
+    :root[data-theme="light"] .course-card-v2[class*="accent"] {
+      background: linear-gradient(145deg, var(--light-accent-bg-strong), #ffffff) !important;
+    }
+
+    /* --- 프로세스 플로우 노드 --- */
+    :root[data-theme="light"] .flow-node,
+    :root[data-theme="light"] .flow-node-highlight {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+      color: var(--text-primary);
+    }
+    :root[data-theme="light"] .flow-node-num {
+      color: var(--primary);
+    }
+
+    /* --- '미디어 없음' 프레임 / 비디오 포스터 프레임 뒷배경은 어두워도 OK --- */
+    :root[data-theme="light"] .cred-card-media,
+    :root[data-theme="light"] .cred-card-video,
+    :root[data-theme="light"] .hero-visual-frame-video {
+      /* 그대로 유지 — 실제 비디오는 다크 영상 */
+    }
+
+    /* --- 'Featured chapters' 등 리스트 아이템 --- */
+    :root[data-theme="light"] .featured-chapters li {
+      color: var(--text-secondary);
+    }
+    :root[data-theme="light"] .featured-chapters li.highlighted {
+      color: var(--text-primary);
+    }
+
+    /* --- 추가 안전망: 카드 내부에서 여전히 흰 글자로 남는 경우에 대한 보험 --- */
+    :root[data-theme="light"] [class*="-card"] {
+      color: var(--text-secondary);
+    }
+    :root[data-theme="light"] [class*="-card"] a:not(.btn) {
+      color: var(--primary);
+    }
+
+    /* --- 섹션 내부에 모두 상속되도록 --- */
+    :root[data-theme="light"] section { color: var(--text-secondary); }
+    :root[data-theme="light"] section h1,
+    :root[data-theme="light"] section h2,
+    :root[data-theme="light"] section h3,
+    :root[data-theme="light"] section h4,
+    :root[data-theme="light"] section h5,
+    :root[data-theme="light"] section h6 { color: var(--text-primary); }
+
+    /* --- 추가 보강: 초기 스크린샷에서 놓친 클래스들 (process-step 등) --- */
+    :root[data-theme="light"] .process-step,
+    :root[data-theme="light"] .step-duration,
+    :root[data-theme="light"] .layer-card,
+    :root[data-theme="light"] .stage-result-box,
+    :root[data-theme="light"] .stage-result-item,
+    :root[data-theme="light"] .phase-card,
+    :root[data-theme="light"] .pillar-card,
+    :root[data-theme="light"] .assess-info-card,
+    :root[data-theme="light"] .tech-card,
+    :root[data-theme="light"] .biomech-why-card,
+    :root[data-theme="light"] .delivery-media-item,
+    :root[data-theme="light"] .physical-media-item,
+    :root[data-theme="light"] .media-item,
+    :root[data-theme="light"] .case-item,
+    :root[data-theme="light"] .cost-item,
+    :root[data-theme="light"] .about-stat {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+      color: var(--text-secondary);
+    }
+    :root[data-theme="light"] .process-step h4,
+    :root[data-theme="light"] .layer-card h3,
+    :root[data-theme="light"] .layer-card h4,
+    :root[data-theme="light"] .stage-result-box h3,
+    :root[data-theme="light"] .stage-result-box h4,
+    :root[data-theme="light"] .stage-result-item h3,
+    :root[data-theme="light"] .stage-result-item strong,
+    :root[data-theme="light"] .phase-card h3,
+    :root[data-theme="light"] .phase-card h4,
+    :root[data-theme="light"] .pillar-card h3,
+    :root[data-theme="light"] .assess-info-card h3,
+    :root[data-theme="light"] .assess-info-card strong,
+    :root[data-theme="light"] .biomech-why-card h3,
+    :root[data-theme="light"] .biomech-why-card strong {
+      color: var(--text-primary) !important;
+    }
+    :root[data-theme="light"] .process-step p,
+    :root[data-theme="light"] .layer-card p,
+    :root[data-theme="light"] .layer-card li,
+    :root[data-theme="light"] .stage-result-box p,
+    :root[data-theme="light"] .stage-result-box li,
+    :root[data-theme="light"] .stage-result-item p,
+    :root[data-theme="light"] .stage-result-item li,
+    :root[data-theme="light"] .phase-card p,
+    :root[data-theme="light"] .phase-card li,
+    :root[data-theme="light"] .biomech-why-card p,
+    :root[data-theme="light"] .biomech-why-card li,
+    :root[data-theme="light"] .assess-info-card p,
+    :root[data-theme="light"] .assess-info-card li {
+      color: var(--text-secondary) !important;
+    }
+    /* step circle 내부 숫자 */
+    :root[data-theme="light"] .step-circle {
+      background: var(--light-accent-bg-strong) !important;
+      border-color: rgba(37,99,235,0.35) !important;
+      color: var(--primary) !important;
+    }
+    /* courses section 배경 (하드코딩된 #0c0c14 제거) */
+    :root[data-theme="light"] .courses {
+      background: linear-gradient(180deg, #ffffff, var(--light-section-bg-alt)) !important;
+    }
+    /* about-stat hover 상태 */
+    :root[data-theme="light"] .about-stat:hover {
+      border-color: rgba(37,99,235,0.35) !important;
+    }
+    /* footer 하단 */
+    :root[data-theme="light"] .footer,
+    :root[data-theme="light"] .footer * { color: var(--text-secondary); }
+    :root[data-theme="light"] .footer h4,
+    :root[data-theme="light"] .footer strong { color: var(--text-primary); }
+    :root[data-theme="light"] .footer a:hover { color: var(--primary); }
+
+    /* 업적/커리어 뱃지 */
+    :root[data-theme="light"] .cred-field-item {
+      background: var(--light-accent-bg) !important;
+      border-color: rgba(37,99,235,0.22) !important;
+      color: var(--primary) !important;
+    }
+
+    /* CTA 배너 (하드코딩된 어두운 그라디언트 오버라이드) */
+    :root[data-theme="light"] .cta-banner {
+      background: linear-gradient(135deg, var(--light-section-bg-alt), var(--light-section-bg-alt2)) !important;
+    }
+    :root[data-theme="light"] .cta-banner h2,
+    :root[data-theme="light"] .cta-banner p {
+      color: var(--text-primary);
+    }
+    :root[data-theme="light"] .cta-banner p {
+      color: var(--text-secondary);
+    }
+
+    /* 최신 노트 섹션 (하드코딩 #0a0a10) */
+    :root[data-theme="light"] .latest-notes {
+      background: var(--light-section-bg-alt) !important;
+    }
+    :root[data-theme="light"] .latest-note-card {
+      background: var(--light-card-bg) !important;
+      border-color: var(--light-card-border) !important;
+      color: var(--text-secondary);
+    }
+    :root[data-theme="light"] .latest-note-card h3,
+    :root[data-theme="light"] .latest-note-card h4,
+    :root[data-theme="light"] .latest-note-card strong {
+      color: var(--text-primary) !important;
+    }
+
+    /* ===================================================================
+       라이트 모드 포괄 오버라이드 끝
+       =================================================================== */
 
     /* ===== UTILITY ===== */
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
@@ -6176,6 +6664,118 @@
 
     // Theme toggle (다크/라이트 모드)
     (function() {
+      /* ============ SVG 다이어그램 테마 전환 ============
+         4개의 주요 다이어그램(pillars/bbl/courses-guide/process)은
+         내부에 하드코딩된 다크 색(#111118, #08080c, #ffffff 등)이 들어있어
+         CSS만으로 라이트 모드 전환이 불가능하므로 JS로 런타임 패치한다. */
+      var SVG_SELECTOR = '.pillars-diagram, .bbl-diagram, .courses-guide-diagram, .process-diagram';
+      // 다크→라이트 색상 매핑 (다이어그램 공통)
+      var SVG_COLOR_MAP = {
+        '#ffffff': '#0a0a14',
+        '#fff':    '#0a0a14',
+        '#c8c8d8': '#4a4a5a',
+        '#8e8ea2': '#6a6a7a',
+        '#08080c': '#ffffff',
+        '#0a0a12': '#f5f7fb',
+        '#0c0c14': '#ffffff',
+        '#111118': '#ffffff'
+      };
+      function norm(v){ return (v||'').trim().toLowerCase(); }
+
+      // text가 파란 primary 도형 위에 있는지 기하학적으로 판정
+      function isOnPrimaryShape(textEl, svg) {
+        var tx = parseFloat(textEl.getAttribute('x') || '0');
+        var ty = parseFloat(textEl.getAttribute('y') || '0');
+        var shapes = svg.querySelectorAll('rect, circle, ellipse');
+        for (var i=0; i<shapes.length; i++) {
+          var s = shapes[i];
+          var f = norm(s.getAttribute('fill') || '');
+          if (!/#2563eb|#1d4ed8|#3b82f6|#60a5fa/.test(f)) continue;
+          if (s.tagName.toLowerCase() === 'circle') {
+            var cx = parseFloat(s.getAttribute('cx')||'0');
+            var cy = parseFloat(s.getAttribute('cy')||'0');
+            var r  = parseFloat(s.getAttribute('r')||'0');
+            var dx = tx-cx, dy = ty-cy;
+            if (dx*dx + dy*dy <= r*r * 1.05) return true;
+          } else if (s.tagName.toLowerCase() === 'ellipse') {
+            var ex = parseFloat(s.getAttribute('cx')||'0');
+            var ey = parseFloat(s.getAttribute('cy')||'0');
+            var rx = parseFloat(s.getAttribute('rx')||'0');
+            var ry = parseFloat(s.getAttribute('ry')||'0');
+            if (rx>0 && ry>0) {
+              var nx=(tx-ex)/rx, ny=(ty-ey)/ry;
+              if (nx*nx + ny*ny <= 1.05) return true;
+            }
+          } else if (s.tagName.toLowerCase() === 'rect') {
+            var rxx=parseFloat(s.getAttribute('x')||'0');
+            var ryy=parseFloat(s.getAttribute('y')||'0');
+            var ww=parseFloat(s.getAttribute('width')||'0');
+            var hh=parseFloat(s.getAttribute('height')||'0');
+            if (tx>=rxx && tx<=rxx+ww && ty>=ryy && ty<=ryy+hh) return true;
+          }
+        }
+        return false;
+      }
+
+      // 첫 로드 시 각 요소의 다크/라이트 색을 data-* 속성에 저장
+      function tagSvgColors() {
+        document.querySelectorAll(SVG_SELECTOR).forEach(function(svg){
+          if (svg.dataset.bblThemed === '1') return;
+          svg.dataset.bblThemed = '1';
+          // rect·circle·ellipse·polygon·path·line·text·stop 대상
+          var els = svg.querySelectorAll('rect, circle, ellipse, polygon, path, line, text, tspan, stop');
+          els.forEach(function(el){
+            ['fill','stroke','stop-color'].forEach(function(attr){
+              var v = el.getAttribute(attr);
+              if (!v) return;
+              var lk = norm(v);
+              if (SVG_COLOR_MAP[lk]) {
+                el.setAttribute('data-dark-' + attr, v);
+                el.setAttribute('data-light-' + attr, SVG_COLOR_MAP[lk]);
+              }
+            });
+            // 파란 도형 위의 흰 글자(STEP 번호 등)는 다크 모드와 동일하게 유지
+            if (el.tagName.toLowerCase() === 'text') {
+              var f = norm(el.getAttribute('fill')||'');
+              if (f === '#ffffff' || f === '#fff') {
+                if (isOnPrimaryShape(el, svg)) {
+                  // data-* 제거 → 라이트 모드에서도 흰색 유지
+                  el.removeAttribute('data-light-fill');
+                  el.removeAttribute('data-dark-fill');
+                }
+              }
+            }
+          });
+        });
+      }
+
+      // 테마 적용: data-* 속성에 따라 fill/stroke/stop-color 갱신
+      function applySvgTheme(theme) {
+        document.querySelectorAll(SVG_SELECTOR).forEach(function(svg){
+          ['fill','stroke','stop-color'].forEach(function(attr){
+            svg.querySelectorAll('[data-dark-' + attr + ']').forEach(function(el){
+              var dv = el.getAttribute('data-dark-' + attr);
+              var lv = el.getAttribute('data-light-' + attr);
+              if (!dv || !lv) return;
+              el.setAttribute(attr, theme === 'light' ? lv : dv);
+            });
+          });
+        });
+      }
+
+      // 페이지 로드 시 현재 테마 기준으로 초기 적용
+      function initSvgTheme() {
+        tagSvgColors();
+        var current = document.documentElement.getAttribute('data-theme') || 'dark';
+        applySvgTheme(current);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSvgTheme);
+      } else {
+        initSvgTheme();
+      }
+
+      // 토글 버튼 처리
       var toggle = document.getElementById('themeToggle');
       if (!toggle) return;
       toggle.addEventListener('click', function(e) {
@@ -6185,6 +6785,7 @@
         var next = current === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-theme', next);
         try { localStorage.setItem('bbl-theme', next); } catch (err) {}
+        applySvgTheme(next);
       });
     })();
 
