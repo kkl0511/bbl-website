@@ -1,0 +1,110 @@
+# ==============================================================================
+# Decap CMS 설정 파일
+# - 이 파일은 관리자 페이지(/admin/)가 어떤 컨텐츠를 어떻게 편집할지를 정의합니다.
+# - 백엔드는 Netlify Identity + Git Gateway를 사용합니다 (무료).
+# - 저장 시 GitHub에 커밋되고, Netlify가 자동으로 재배포합니다.
+# ==============================================================================
+
+backend:
+  name: git-gateway
+  branch: main  # GitHub 기본 브랜치 이름 (보통 main)
+
+# 이미지 업로드 대상 폴더
+media_folder: "assets/uploads"
+public_folder: "assets/uploads"
+
+# 사이트 미리보기 링크 (글 작성 화면에서 실시간 미리보기용)
+site_url: https://biomotion.co.kr
+display_url: https://biomotion.co.kr
+
+# 에디터 언어
+locale: 'ko'
+
+# 발행 전 에디터 검토 워크플로우 (simple / editorial_workflow)
+publish_mode: simple
+
+# ============================================================================
+# 콜렉션 정의
+# ============================================================================
+collections:
+
+  # --------------------------------------------------------------------------
+  # 연구 노트 (글 콜렉션)
+  # --------------------------------------------------------------------------
+  - name: "posts"
+    label: "연구 노트"
+    label_singular: "글"
+    folder: "posts"
+    create: true                        # 새 글 생성 허용
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"   # 파일명 규칙
+    extension: "md"
+    format: "frontmatter"
+    preview_path: "post.html?slug={{slug}}"
+    summary: "{{date | date('YYYY-MM-DD')}} — {{title}}"
+    sortable_fields: ['date', 'title']
+    view_filters:
+      - label: "공지"
+        field: category
+        pattern: "공지"
+      - label: "연구동향"
+        field: category
+        pattern: "연구동향"
+      - label: "바이오메카닉스"
+        field: category
+        pattern: "바이오메카닉스"
+      - label: "투구분석"
+        field: category
+        pattern: "투구분석"
+      - label: "타격분석"
+        field: category
+        pattern: "타격분석"
+      - label: "부상예방"
+        field: category
+        pattern: "부상예방"
+      - label: "적용사례"
+        field: category
+        pattern: "적용사례"
+
+    fields:
+      - {label: "제목", name: "title", widget: "string", hint: "글의 제목입니다."}
+
+      - {label: "발행일", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+
+      - label: "카테고리"
+        name: "category"
+        widget: "select"
+        options:
+          - "공지"
+          - "연구동향"
+          - "바이오메카닉스"
+          - "투구분석"
+          - "타격분석"
+          - "부상예방"
+          - "적용사례"
+        default: "연구동향"
+        hint: "분류를 하나 선택하세요."
+
+      - label: "요약"
+        name: "summary"
+        widget: "text"
+        hint: "2~3문장. 블로그 카드와 SNS 공유 시 표시됩니다."
+        pattern: ['.{20,}', "최소 20자 이상 입력해 주세요."]
+
+      - {label: "작성자", name: "author", widget: "string", default: "BBL 연구팀", required: false}
+
+      - {label: "읽기 시간", name: "readTime", widget: "string", default: "5분", hint: "예: '3분', '6분'", required: false}
+
+      - label: "대표 이미지"
+        name: "cover"
+        widget: "image"
+        required: false
+        hint: "선택사항. 글 상단과 카드에 표시됩니다. 16:9 비율 권장."
+
+      - {label: "초안 (저장만 하고 발행 안 함)", name: "draft", widget: "boolean", default: false, required: false}
+
+      - label: "본문"
+        name: "body"
+        widget: "markdown"
+        hint: "상단 툴바로 제목·굵게·리스트·이미지·인용 등을 넣을 수 있습니다. 좌측에서 쓰고 우측에서 미리보기 확인."
+        buttons: ["bold", "italic", "code", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"]
+        editor_components: ["image", "code-block"]
