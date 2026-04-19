@@ -1428,7 +1428,7 @@
 
     /* --- 3대 경쟁우위 벤다이어그램 --- */
     .pillars-diagram-wrap {
-      max-width: 1200px;
+      max-width: 720px;
       margin: 40px auto 0;
       padding: 0 12px;
       position: relative;
@@ -1439,14 +1439,10 @@
       display: block;
     }
     @media (max-width: 720px) {
-      .pillars-diagram-wrap::after {
-        content: '🔍 손가락으로 확대하여 자세히 보세요';
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        color: var(--text-muted);
-        margin-top: 10px;
-        letter-spacing: 0.5px;
+      .pillars-diagram-wrap {
+        padding: 0 4px;
+        margin-top: 24px;
+        max-width: 100%;
       }
     }
 
@@ -3546,16 +3542,16 @@
       height: auto;
       display: block;
     }
+    /* 데스크톱/모바일 버전 전환 */
+    .courses-guide-mobile { display: none; }
     @media (max-width: 760px) {
-      .courses-guide-wrap::after {
-        content: '🔍 손가락으로 확대하여 자세히 보세요';
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        color: var(--text-muted);
-        margin-top: 10px;
-        letter-spacing: 0.5px;
+      .courses-guide-wrap {
+        max-width: 100%;
+        padding: 0 8px;
+        margin-bottom: 48px;
       }
+      .courses-guide-desktop { display: none; }
+      .courses-guide-mobile { display: block; }
     }
 
     .courses-note {
@@ -5914,21 +5910,21 @@
       <!-- BBL의 3대 경쟁우위 -->
       <div class="about-pillars">
         <div class="pillars-head fade-in">
-          <h3 class="pillars-title"><span class="highlight">피드백 · 분석 · 장비</span> — 3박자를 모두 갖춘 국내 유일의 센터</h3>
+          <h3 class="pillars-title"><span class="highlight">피드백 · 분석 · 장비</span> — 모두 갖춘 국내 유일의 센터</h3>
         </div>
 
         <!-- 3대 경쟁우위 벤다이어그램 -->
         <div class="pillars-diagram-wrap fade-in">
-          <svg class="pillars-diagram" viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BBL의 3대 경쟁우위 벤다이어그램: 피드백·분석·장비 세 영역이 교차하는 지점이 BBL. 국내에서 세 가지 모두를 갖춘 유일한 센터">
+          <svg class="pillars-diagram" viewBox="180 60 640 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BBL의 3대 경쟁우위 벤다이어그램: 피드백·분석·장비 세 영역이 교차하는 지점이 BBL. 국내에서 세 가지 모두를 갖춘 유일한 센터">
 
             <!-- 세 원 (벤다이어그램) -->
             <circle cx="400" cy="260" r="145" fill="#2563EB" fill-opacity="0.15" stroke="#60a5fa" stroke-width="1.5"/>
             <circle cx="600" cy="260" r="145" fill="#3b82f6" fill-opacity="0.15" stroke="#60a5fa" stroke-width="1.5"/>
             <circle cx="500" cy="430" r="145" fill="#60a5fa" fill-opacity="0.18" stroke="#60a5fa" stroke-width="1.5"/>
 
-            <!-- 중앙 BBL 배지 (3원 교집합) -->
-            <circle cx="500" cy="335" r="95" fill="#2563EB" stroke="#ffffff" stroke-width="3"/>
-            <text x="500" y="352" fill="#ffffff" font-family="Inter, sans-serif" font-size="52" font-weight="900" letter-spacing="2" text-anchor="middle">BBL</text>
+            <!-- 중앙 BBL 배지 (3원 교집합) — 파란 원 + 흰색 로고 -->
+            <circle cx="500" cy="335" r="95" fill="#2563EB"/>
+            <image href="assets/logo-bbl-mono-white.png" x="410" y="272" width="180" height="126" preserveAspectRatio="xMidYMid meet"/>
 
             <!-- 01 피드백 라벨 (왼쪽 원 내부) -->
             <g>
@@ -6078,7 +6074,8 @@
 
       <!-- 서비스 선택 가이드 다이어그램 -->
       <div class="courses-guide-wrap fade-in">
-        <svg class="courses-guide-diagram" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="서비스 선택 가이드: 선수 유형에 따라 기본·정밀·1회 측정·연간 패키지 중 하나를 추천">
+        <!-- 데스크톱용: 가로 2열 레이아웃 (개인 왼쪽 / 단체 오른쪽) -->
+        <svg class="courses-guide-diagram courses-guide-desktop" viewBox="0 0 1000 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="서비스 선택 가이드: 선수 유형에 따라 기본·정밀·1회 측정·연간 패키지 중 하나를 추천">
           <defs>
             <linearGradient id="guideCardGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#111118"/>
@@ -6110,23 +6107,104 @@
           <line x1="860" y1="100" x2="860" y2="122" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#guideArrow)"/>
 
           <!-- 결과 카드 1: 기본 바이오메카닉스 -->
-          <rect x="40" y="160" width="200" height="120" rx="12" fill="url(#guideCardGrad)" stroke="#60a5fa" stroke-width="1.5"/>
-          <text x="140" y="208" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">기본</text>
-          <text x="140" y="240" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">바이오메카닉스</text>
+          <rect x="40" y="140" width="200" height="170" rx="12" fill="url(#guideCardGrad)" stroke="#60a5fa" stroke-width="1.5"/>
+          <text x="140" y="178" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">기본</text>
+          <text x="140" y="206" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">바이오메카닉스</text>
+          <line x1="70" y1="230" x2="210" y2="230" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="140" y="258" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">동작·체력</text>
+          <text x="140" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">기본 진단</text>
 
           <!-- 결과 카드 2: 정밀 바이오메카닉스 -->
-          <rect x="260" y="160" width="200" height="120" rx="12" fill="url(#guideCardGrad)" stroke="#60a5fa" stroke-width="1.5"/>
-          <text x="360" y="208" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">정밀</text>
-          <text x="360" y="240" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">바이오메카닉스</text>
+          <rect x="260" y="140" width="200" height="170" rx="12" fill="url(#guideCardGrad)" stroke="#60a5fa" stroke-width="1.5"/>
+          <text x="360" y="178" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">정밀</text>
+          <text x="360" y="206" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">바이오메카닉스</text>
+          <line x1="290" y1="230" x2="430" y2="230" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="360" y="258" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">지면반력·관절 토크</text>
+          <text x="360" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">심층 분석</text>
 
           <!-- 결과 카드 3: 1회 측정 -->
-          <rect x="540" y="160" width="200" height="120" rx="12" fill="url(#guideCardGrad)" stroke="#60a5fa" stroke-width="1.5"/>
-          <text x="640" y="228" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">1회 측정</text>
+          <rect x="540" y="140" width="200" height="170" rx="12" fill="url(#guideCardGrad)" stroke="#60a5fa" stroke-width="1.5"/>
+          <text x="640" y="192" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">1회 측정</text>
+          <line x1="570" y1="218" x2="710" y2="218" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="640" y="248" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">팀 단위</text>
+          <text x="640" y="270" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">기본 바이오메카닉스</text>
 
           <!-- 결과 카드 4: 연간 단체 패키지 (강조) -->
-          <rect x="760" y="160" width="200" height="120" rx="12" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
-          <text x="860" y="208" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">연간 단체</text>
-          <text x="860" y="240" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="700" text-anchor="middle">패키지</text>
+          <rect x="760" y="140" width="200" height="170" rx="12" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+          <text x="860" y="178" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">연간 단체</text>
+          <text x="860" y="206" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">패키지</text>
+          <line x1="790" y1="230" x2="930" y2="230" stroke="#ffffff" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="860" y="258" fill="#ffffff" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">연 12회</text>
+          <text x="860" y="280" fill="#ffffff" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">(기본 10 + 정밀 2)</text>
+        </svg>
+
+        <!-- 모바일용: 세로 2단 레이아웃 (개인 위 / 단체 아래, 각 행은 좌우 2카드) -->
+        <svg class="courses-guide-diagram courses-guide-mobile" viewBox="0 0 500 740" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="서비스 선택 가이드: 선수 유형에 따라 기본·정밀·1회 측정·연간 패키지 중 하나를 추천">
+          <defs>
+            <linearGradient id="guideCardGradM" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#111118"/>
+              <stop offset="100%" stop-color="#0a0a12"/>
+            </linearGradient>
+            <marker id="guideArrowM" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 Z" fill="#60a5fa"/>
+            </marker>
+          </defs>
+
+          <!-- ==== 개인 블록 (y: 0 ~ 340) ==== -->
+          <!-- 라벨 -->
+          <rect x="160" y="15" width="180" height="54" rx="27" fill="#2563EB"/>
+          <text x="250" y="50" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">👤 개인</text>
+
+          <!-- 2차 분기 선 -->
+          <line x1="250" y1="69" x2="250" y2="100" stroke="#60a5fa" stroke-width="1.8"/>
+          <line x1="125" y1="100" x2="375" y2="100" stroke="#60a5fa" stroke-width="1.8"/>
+          <line x1="125" y1="100" x2="125" y2="130" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#guideArrowM)"/>
+          <line x1="375" y1="100" x2="375" y2="130" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#guideArrowM)"/>
+
+          <!-- 카드 1: 기본 바이오메카닉스 -->
+          <rect x="20" y="150" width="210" height="180" rx="14" fill="url(#guideCardGradM)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text x="125" y="196" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">기본</text>
+          <text x="125" y="226" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">바이오메카닉스</text>
+          <line x1="55" y1="250" x2="195" y2="250" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="125" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">동작·체력</text>
+          <text x="125" y="302" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">기본 진단</text>
+
+          <!-- 카드 2: 정밀 바이오메카닉스 -->
+          <rect x="270" y="150" width="210" height="180" rx="14" fill="url(#guideCardGradM)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text x="375" y="196" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">정밀</text>
+          <text x="375" y="226" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">바이오메카닉스</text>
+          <line x1="305" y1="250" x2="445" y2="250" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="375" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">지면반력·관절 토크</text>
+          <text x="375" y="302" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">심층 분석</text>
+
+          <!-- ==== 구분선 ==== -->
+          <line x1="40" y1="370" x2="460" y2="370" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+
+          <!-- ==== 단체 블록 (y: 395 ~ 740) ==== -->
+          <!-- 라벨 -->
+          <rect x="130" y="395" width="240" height="54" rx="27" fill="#2563EB"/>
+          <text x="250" y="430" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">👥 단체 (10명+)</text>
+
+          <!-- 2차 분기 선 -->
+          <line x1="250" y1="449" x2="250" y2="480" stroke="#60a5fa" stroke-width="1.8"/>
+          <line x1="125" y1="480" x2="375" y2="480" stroke="#60a5fa" stroke-width="1.8"/>
+          <line x1="125" y1="480" x2="125" y2="510" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#guideArrowM)"/>
+          <line x1="375" y1="480" x2="375" y2="510" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#guideArrowM)"/>
+
+          <!-- 카드 3: 1회 측정 -->
+          <rect x="20" y="530" width="210" height="180" rx="14" fill="url(#guideCardGradM)" stroke="#60a5fa" stroke-width="1.8"/>
+          <text x="125" y="590" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">1회 측정</text>
+          <line x1="55" y1="618" x2="195" y2="618" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="125" y="648" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">팀 단위</text>
+          <text x="125" y="670" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">기본 바이오메카닉스</text>
+
+          <!-- 카드 4: 연간 단체 패키지 (강조) -->
+          <rect x="270" y="530" width="210" height="180" rx="14" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+          <text x="375" y="578" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">연간 단체</text>
+          <text x="375" y="608" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">패키지</text>
+          <line x1="305" y1="632" x2="445" y2="632" stroke="#ffffff" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="375" y="662" fill="#ffffff" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">연 12회</text>
+          <text x="375" y="684" fill="#ffffff" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">(기본 10 + 정밀 2)</text>
         </svg>
       </div>
 
