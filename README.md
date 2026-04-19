@@ -208,7 +208,7 @@ netlify deploy --prod
 
 - **운영**: ㈜ 바이오모션
 - **주소**: 서울특별시 성북구 정릉로 77 국민대학교 캠퍼스타운
-- **이메일**: kklee@kookmin.ac.kr
+- **이메일**: happygh@kookmin.ac.kr
 
 ---
 
