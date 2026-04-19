@@ -5374,23 +5374,14 @@
       .featured-info { padding: 32px 28px; }
     }
 
-    /* ===== NAV LOGO (IMAGE) ===== */
+    /* ===== NAV LOGO (TEXT) ===== */
     .nav-logo {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
       text-decoration: none;
-      gap: 10px;
-    }
-    .nav-logo-img {
-      height: 52px;
-      width: auto;
-      display: block;
-      /* 기본(다크 테마): 밝은 색 로고 */
-      content: url('assets/logo-bbl-nav-dark.png');
-    }
-    /* 라이트 테마: 원본 로고 */
-    :root[data-theme="light"] .nav-logo-img {
-      content: url('assets/logo-bbl-nav.png');
+      gap: 4px;
     }
     .nav-logo-brand {
       font-family: 'Inter', 'Noto Sans KR', sans-serif;
@@ -5414,7 +5405,6 @@
     @media (max-width: 640px) {
       .nav-logo-sub { display: none; }
       .nav-logo-brand { font-size: 1.75rem; }
-      .nav-logo-img { height: 44px; }
     }
 
     /* ===== TRUST ===== */
@@ -5499,15 +5489,8 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 6px;
+      gap: 4px;
       line-height: 1.1;
-    }
-    .footer-logo-img {
-      height: 56px; width: auto; display: block; margin-bottom: 2px;
-      content: url('assets/logo-bbl-nav-dark.png');
-    }
-    :root[data-theme="light"] .footer-logo-img {
-      content: url('assets/logo-bbl-nav.png');
     }
     .footer-logo-brand {
       font-family: 'Inter', sans-serif;
@@ -5833,8 +5816,8 @@
   <!-- NAV -->
   <nav class="nav" id="navbar">
     <div class="container">
-      <a href="#" class="nav-logo" aria-label="BBL - Baseball Biomechanics Lab 홈">
-        <img src="assets/logo-bbl-nav-dark.png" alt="BBL - Baseball Biomechanics Lab" class="nav-logo-img">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-brand"><span class="nav-logo-blue">B</span>B<span class="nav-logo-blue">L</span></span>
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#about">랩 소개</a>
@@ -6658,7 +6641,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-logo">
-          <img src="assets/logo-bbl-nav-dark.png" alt="BBL - Baseball Biomechanics Lab" class="footer-logo-img">
+          <div class="footer-logo-brand"><span class="footer-logo-blue">B</span>B<span class="footer-logo-blue">L</span></div>
           <div class="footer-logo-sub">BioMotion · 베이스볼 바이오메카닉스 랩</div>
         </div>
         <div class="footer-nav">

@@ -100,15 +100,7 @@ input, textarea, select, button {
 .nav-logo {
   font-family: 'Inter', sans-serif;
   font-size: 1.5rem; font-weight: 800; color: var(--text-primary);
-  display: flex; align-items: center; gap: 12px; letter-spacing: -0.5px;
-  text-decoration: none;
-}
-.nav-logo-img {
-  height: 48px; width: auto; display: block;
-  content: url('assets/logo-bbl-nav-dark.png');
-}
-:root[data-theme="light"] .nav-logo-img {
-  content: url('assets/logo-bbl-nav.png');
+  display: flex; align-items: baseline; gap: 10px; letter-spacing: -0.5px;
 }
 .nav-logo-brand {
   font-family: 'Inter', sans-serif;
@@ -652,14 +644,7 @@ input, textarea, select, button {
  * ========================================================================== */
 .footer { padding: 48px 0 28px; background: var(--footer-bg); border-top: 1px solid var(--card-border); }
 .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-.footer-logo { display: flex; flex-direction: column; gap: 4px; }
-.footer-logo-img {
-  height: 52px; width: auto; display: block; margin-bottom: 2px;
-  content: url('assets/logo-bbl-nav-dark.png');
-}
-:root[data-theme="light"] .footer-logo-img {
-  content: url('assets/logo-bbl-nav.png');
-}
+.footer-logo { display: flex; flex-direction: column; }
 .footer-logo-brand {
   font-family: 'Inter', sans-serif;
   font-size: 1.7rem; font-weight: 900; letter-spacing: -1px; color: var(--text-primary);
@@ -696,7 +681,6 @@ input, textarea, select, button {
   .mobile-toggle { display: flex; }
   .nav-logo-sub { display: none; }
   .nav-logo-brand { font-size: 1.55rem; }
-  .nav-logo-img { height: 40px; }
 
   .post-article { padding: 100px 0 60px; }
   .post-container { padding: 0 20px; }
