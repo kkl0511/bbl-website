@@ -3624,11 +3624,11 @@
       border: none;
     }
     .course-compare-title {
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--text-primary);
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       letter-spacing: -0.01em;
     }
     .course-compare-table {
@@ -5380,6 +5380,7 @@
       display: flex;
       align-items: center;
       text-decoration: none;
+      flex-shrink: 0;
     }
     .nav-logo-img {
       display: block;
@@ -5390,8 +5391,11 @@
     .nav-logo-img.nav-logo-light { display: none; }
     :root[data-theme="light"] .nav-logo-img.nav-logo-dark { display: none; }
     :root[data-theme="light"] .nav-logo-img.nav-logo-light { display: block; }
+    @media (max-width: 768px) {
+      .nav-logo-img { height: 40px; }
+    }
     @media (max-width: 640px) {
-      .nav-logo-img { height: 46px; }
+      .nav-logo-img { height: 36px; }
     }
 
     /* ===== TRUST ===== */
@@ -5537,6 +5541,8 @@
       .process-step:not(:last-child)::after { display: none; }
     }
     @media (max-width: 768px) {
+      .nav { padding: 12px 0; }
+      .nav.scrolled { padding: 10px 0; }
       .nav .container { gap: 8px; }
       .nav-logo { font-size: 1.3rem; }
       /* 메뉴를 항상 표시 - 링크 폰트 축소 + 간격 축소 */
@@ -5569,12 +5575,13 @@
     /* 매우 좁은 화면에서는 링크 더 축소 */
     @media (max-width: 480px) {
       .nav .container { padding-left: 14px; padding-right: 14px; }
-      .nav-logo-img { height: 40px; }
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: 0.92rem; }
+      .nav-logo-img { height: 32px; }
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 0.76rem; }
     }
 
     @media (max-width: 360px) {
+      .nav-logo-img { height: 28px; }
       .nav-links { gap: 8px; }
       .nav-links a { font-size: 0.7rem; }
     }
@@ -5844,7 +5851,7 @@
           </p>
           <div class="hero-buttons">
             <a href="#about" class="btn btn-primary">BBL 소개 보기 →</a>
-            <a href="#courses" class="btn btn-outline">분석 서비스 및 비용</a>
+            <a href="#courses" class="btn btn-outline">분석 서비스 소개</a>
           </div>
         </div>
 
@@ -6125,7 +6132,7 @@
 
       <!-- 서비스 비교 한눈 요약 (5열 구조: 단체 팀 분석을 단발/연간 2개 서브 열로 분리) -->
       <div class="course-compare fade-in">
-        <div class="course-compare-title">서비스 내용 및 가격</div>
+        <div class="course-compare-title">분석 서비스 세부내용</div>
         <div class="course-compare-table cc-5col">
 
           <!-- 그룹 헤더 (단체 팀 분석 묶음 표시) -->
@@ -6149,7 +6156,7 @@
           <div class="cc-row">
             <div class="cc-cell cc-label">주요 대상</div>
             <div class="cc-cell">초·중·고교생</div>
-            <div class="cc-cell">프로 지명권·프로선수</div>
+            <div class="cc-cell">아마추어 유망주·프로선수</div>
             <div class="cc-cell">중·고교팀</div>
             <div class="cc-cell cc-year">중·고교팀 · 1년 계약</div>
           </div>
@@ -6266,10 +6273,10 @@
           <!-- === 가격 === -->
           <div class="cc-row cc-row-price">
             <div class="cc-cell cc-label">가격 (VAT 포함)</div>
-            <div class="cc-cell"><strong>20만원</strong><br><span class="cc-sub">1인·1회</span></div>
-            <div class="cc-cell cc-highlight">아마 <strong>40만원</strong><br>프로 <strong>60만원</strong><br><span class="cc-sub">1인·1회</span></div>
-            <div class="cc-cell"><strong>15만원</strong><br><span class="cc-sub">1인·1회 / 25%↓</span></div>
-            <div class="cc-cell cc-year cc-year-price"><strong>10만원</strong><br><span class="cc-sub">1인·1회 / 50%↓</span></div>
+            <div class="cc-cell"><strong>20만원</strong></div>
+            <div class="cc-cell cc-highlight">아마 <strong>40만원</strong><br>프로 <strong>60만원</strong></div>
+            <div class="cc-cell"><strong>15만원</strong><br><span class="cc-sub">25%↓</span></div>
+            <div class="cc-cell cc-year cc-year-price"><strong>10만원</strong><br><span class="cc-sub">50%↓</span></div>
           </div>
         </div>
       </div>
@@ -6306,7 +6313,7 @@
             <svg class="arrow" viewBox="0 0 20 20" fill="currentColor"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
           </div>
           <div class="faq-a"><div class="faq-a-inner">
-            처음 방문하시는 선수는 <strong style="color:var(--text-primary)">"기본 바이오메카닉스"(20만원)</strong> 서비스부터 시작하시는 것을 권장합니다. 병원의 초진처럼, 동작 메카닉스와 체력의 기본 상태를 정밀 진단하는 과정입니다. 이후 <strong style="color:var(--text-primary)">프로 지명권 범위 이상의 고교선수·프로선수</strong>는 지면반력 분석과 관절 토크까지 포함된 <strong style="color:var(--text-primary)">"정밀 바이오메카닉스"(아마추어 40만원 · 프로 60만원)</strong>로 심화 분석을 받을 수 있습니다. 투수·타자 모두 동일한 서비스 체계가 적용됩니다.
+            처음 방문하시는 선수는 <strong style="color:var(--text-primary)">"기본 바이오메카닉스"(20만원)</strong> 서비스부터 시작하시는 것을 권장합니다. 병원의 초진처럼, 동작 메카닉스와 체력의 기본 상태를 정밀 진단하는 과정입니다. 이후 <strong style="color:var(--text-primary)">아마추어 유망주 이상의 고교선수·프로선수</strong>는 지면반력 분석과 관절 토크까지 포함된 <strong style="color:var(--text-primary)">"정밀 바이오메카닉스"(아마추어 40만원 · 프로 60만원)</strong>로 심화 분석을 받을 수 있습니다. 투수·타자 모두 동일한 서비스 체계가 적용됩니다.
           </div></div>
         </div>
 
