@@ -18,6 +18,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="post-style.css">
+
+  <!-- 테마 초기 설정 (FOUC 방지) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('bbl-theme');
+        document.documentElement.setAttribute('data-theme', saved || 'dark');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -33,6 +45,16 @@
         <a href="index.html#assessment">BBL 분석 시스템</a>
         <a href="index.html#courses">분석 서비스 및 비용</a>
         <a href="blog.html">연구 노트</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="다크/라이트 모드 전환" title="다크/라이트 모드 전환">
+          <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <span class="theme-track"><span class="theme-knob"></span></span>
+          <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
         <a href="index.html#contact" class="nav-cta">상담 신청</a>
       </div>
       <button class="mobile-toggle" id="mobileToggle" aria-label="메뉴 열기">
@@ -112,6 +134,19 @@
     const navLinks = document.getElementById('navLinks');
     mobileToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
     navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
+
+    // Theme toggle
+    (function() {
+      var toggle = document.getElementById('themeToggle');
+      if (!toggle) return;
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var root = document.documentElement;
+        var next = (root.getAttribute('data-theme') || 'dark') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('bbl-theme', next); } catch (err) {}
+      });
+    })();
 
     // ===== 날짜 포맷 =====
     function fmtDate(iso) {

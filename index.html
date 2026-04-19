@@ -129,6 +129,50 @@
       --gradient-hero: linear-gradient(160deg, #08080c 0%, #0a0f1a 40%, #0c1222 100%);
       --section-padding: 110px 0;
       --max-width: 1200px;
+
+      /* 테마 전환용 추가 변수 (다크 모드 기본값) */
+      --nav-bg-scrolled: rgba(8,8,12,0.94);
+      --overlay-bg: rgba(8,8,12,0.7);
+      --overlay-bg-light: rgba(8,8,12,0.5);
+      --overlay-bg-strong: rgba(8,8,12,0.94);
+      --overlay-bg-heavy: rgba(8,8,12,0.98);
+      --overlay-gradient-bottom: linear-gradient(180deg, transparent 70%, rgba(8,8,12,0.55));
+      --overlay-gradient-bottom-2: linear-gradient(180deg, transparent 50%, rgba(8,8,12,0.55));
+      --footer-bg: #050508;
+      --card-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    /* ===== 라이트 모드 오버라이드 ===== */
+    :root[data-theme="light"] {
+      --dark-bg: #ffffff;
+      --card-bg: #ffffff;
+      --card-bg-hover: #f7f7fa;
+      --card-border: rgba(10,10,30,0.10);
+
+      --text-primary: #0a0a14;
+      --text-secondary: #2d2d3a;
+      --text-muted: #5a5a6e;
+
+      --gradient-hero: linear-gradient(160deg, #ffffff 0%, #f5f7fb 40%, #eaf0f8 100%);
+
+      --nav-bg-scrolled: rgba(255,255,255,0.94);
+      --overlay-bg: rgba(255,255,255,0.7);
+      --overlay-bg-light: rgba(255,255,255,0.55);
+      --overlay-bg-strong: rgba(255,255,255,0.94);
+      --overlay-bg-heavy: rgba(255,255,255,0.98);
+      --overlay-gradient-bottom: linear-gradient(180deg, transparent 70%, rgba(248,249,252,0.85));
+      --overlay-gradient-bottom-2: linear-gradient(180deg, transparent 50%, rgba(248,249,252,0.85));
+      --footer-bg: #f2f3f7;
+      --card-shadow: 0 12px 40px rgba(10,20,40,0.08);
+
+      --accent-glow: rgba(37, 99, 235, 0.15);
+    }
+
+    /* 테마 전환 부드럽게 */
+    html, body, nav, footer, section, .card, .about-card, .service-card, .blog-card,
+    .biomech-why-card, .post-article, .latest-note-card, .latest-notes, .tech, .cases,
+    .post-container, .form-wrap, .contact-info, .post-body, input, textarea, select, button {
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     }
 
     /* ===== UTILITY ===== */
@@ -166,7 +210,7 @@
       padding: 18px 0; transition: all 0.4s ease; background: transparent;
     }
     .nav.scrolled {
-      background: rgba(8,8,12,0.94); backdrop-filter: blur(24px);
+      background: var(--nav-bg-scrolled); backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--card-border); padding: 12px 0;
     }
     .nav .container { display: flex; align-items: center; justify-content: space-between; }
@@ -201,6 +245,68 @@
       cursor: pointer; background: none; border: none; padding: 4px;
     }
     .mobile-toggle span { width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
+
+    /* ===== THEME TOGGLE (다크/라이트) ===== */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      color: var(--text-secondary);
+    }
+    .theme-toggle:hover {
+      border-color: rgba(37,99,235,0.4);
+    }
+    .theme-toggle::after { display: none !important; }
+    .theme-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+    .theme-toggle .icon-sun { color: var(--text-muted); opacity: 0.5; }
+    .theme-toggle .icon-moon { color: var(--text-primary); opacity: 1; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { color: var(--primary); opacity: 1; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { color: var(--text-muted); opacity: 0.5; }
+    .theme-track {
+      width: 30px;
+      height: 16px;
+      background: var(--card-bg-hover);
+      border-radius: 50px;
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    :root[data-theme="light"] .theme-track { background: #d4d4dc; }
+    .theme-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      transition: left 0.25s ease, background 0.25s ease;
+    }
+    :root[data-theme="light"] .theme-knob {
+      left: 16px;
+      background: var(--primary);
+    }
+    @media (max-width: 768px) {
+      .theme-toggle {
+        padding: 5px 8px;
+        gap: 6px;
+      }
+      .theme-icon { width: 12px; height: 12px; }
+      .theme-track { width: 26px; height: 14px; }
+      .theme-knob { width: 10px; height: 10px; }
+      :root[data-theme="light"] .theme-knob { left: 14px; }
+    }
 
     /* ===== HERO ===== */
     .hero {
@@ -4581,7 +4687,7 @@
     .form-submit-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
 
     /* ===== FOOTER ===== */
-    .footer { padding: 48px 0 28px; background: #050508; border-top: 1px solid var(--card-border); }
+    .footer { padding: 48px 0 28px; background: var(--footer-bg); border-top: 1px solid var(--card-border); }
     .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-logo {
       display: flex;
@@ -4654,7 +4760,7 @@
       .nav-links { display: none; }
       .nav-links.active {
         display: flex; flex-direction: column; position: absolute;
-        top: 100%; left: 0; right: 0; background: rgba(8,8,12,0.98);
+        top: 100%; left: 0; right: 0; background: var(--overlay-bg-heavy);
         backdrop-filter: blur(20px); padding: 24px; gap: 16px;
         border-bottom: 1px solid var(--card-border);
       }
@@ -4873,6 +4979,19 @@
   </style>
   <!-- Netlify Identity 위젯: /admin/ 로그인 지원 -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- 테마 초기 설정 (body 렌더링 전에 실행되어 깜빡임 방지) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('bbl-theme');
+        var theme = saved || 'dark'; // 기본값: 다크 모드
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -4889,6 +5008,16 @@
         <a href="#assessment">BBL 분석 시스템</a>
         <a href="#courses">분석 서비스 및 비용</a>
         <a href="blog.html">연구 노트</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="다크/라이트 모드 전환" title="다크/라이트 모드 전환">
+          <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <span class="theme-track"><span class="theme-knob"></span></span>
+          <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
         <a href="#contact" class="nav-cta">상담 신청</a>
       </div>
       <button class="mobile-toggle" id="mobileToggle" aria-label="메뉴 열기">
@@ -4909,7 +5038,7 @@
           </h1>
           <p class="hero-sub">
             국민대학교 30년 바이오메카닉스 연구가, 이제 현장 선수를 위한 분석으로.<br>
-            3D 모션캡쳐·포스플레이트·볼 트래킹으로 <strong style="color:#fff">보이지 않던 실력의 열쇠</strong>를 찾아냅니다.
+            3D 모션캡쳐·포스플레이트·볼 트래킹으로 <strong style="color:var(--text-primary)">보이지 않던 실력의 열쇠</strong>를 찾아냅니다.
           </p>
           <div class="hero-buttons">
             <a href="#about" class="btn btn-primary">BBL 소개 보기 →</a>
@@ -6044,6 +6173,20 @@
     const navLinks = document.getElementById('navLinks');
     mobileToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
     navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
+
+    // Theme toggle (다크/라이트 모드)
+    (function() {
+      var toggle = document.getElementById('themeToggle');
+      if (!toggle) return;
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var root = document.documentElement;
+        var current = root.getAttribute('data-theme') || 'dark';
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('bbl-theme', next); } catch (err) {}
+      });
+    })();
 
     // Scroll animations
     const obs = new IntersectionObserver((entries) => {
