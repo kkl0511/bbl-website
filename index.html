@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BioMotion 베이스볼 바이오메카닉스 랩 (BBL) | 국민대학교 교수진이 설립한 국내 유일 연구 기반 야구 바이오메카닉스 분석 센터</title>
-  <meta name="description" content="BioMotion 베이스볼 바이오메카닉스 랩(BBL)은 국민대학교 바이오메카닉스 연구진의 30년 학술 경력과 10년 야구 바이오메카닉스 전문성을 기반으로 한 국내 유일 연구 기반 야구 바이오메카닉스 분석 센터입니다. 해외 선도 기관과 동급의 정밀 측정·분석 서비스.">
-  <meta name="keywords" content="BBL, BioMotion 베이스볼 바이오메카닉스 랩, 야구 바이오메카닉스, 3D 모션캡쳐, 포스플레이트, 투구 분석, 타격 분석, 키네마틱 시퀀스, 국민대학교, KBO, 스포츠과학, Qualisys, Theia3D">
+  <title>BioMotion Baseball Lab (BBL) | 국민대학교 교수진이 설립한 국내 유일 연구 기반 야구 바이오메카닉스 분석 센터</title>
+  <meta name="description" content="BioMotion Baseball Lab (BBL)은 국민대학교 바이오메카닉스 연구진의 30년 학술 경력과 10년 야구 바이오메카닉스 전문성을 기반으로 한 국내 유일 연구 기반 야구 바이오메카닉스 분석 센터입니다. 해외 선도 기관과 동급의 정밀 측정·분석 서비스.">
+  <meta name="keywords" content="BBL, BioMotion Baseball Lab, 야구 바이오메카닉스, 3D 모션캡쳐, 포스플레이트, 투구 분석, 타격 분석, 키네마틱 시퀀스, 국민대학교, KBO, 스포츠과학, Qualisys, Theia3D">
   <meta name="author" content="㈜ 바이오모션 (BioMotion Inc.)">
   <meta name="theme-color" content="#2563EB">
   <link rel="canonical" href="https://biomotion.co.kr/">
@@ -31,8 +31,8 @@
 
   <!-- Open Graph (Facebook, 카카오톡, 네이버 블로그 등) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="BioMotion 베이스볼 바이오메카닉스 랩 (BBL)">
-  <meta property="og:title" content="BioMotion 베이스볼 바이오메카닉스 랩 (BBL) | 국민대 교수진 설립">
+  <meta property="og:site_name" content="BioMotion Baseball Lab (BBL)">
+  <meta property="og:title" content="BioMotion Baseball Lab (BBL) | 국민대 교수진 설립">
   <meta property="og:description" content="국민대학교 바이오메카닉스 연구진의 30년 학술 경력을 기반으로 한 국내 유일 연구 기반 야구 바이오메카닉스 분석 센터. 해외 선도 기관과 동급의 정밀 측정·분석을 한국 선수들에게.">
   <meta property="og:url" content="https://biomotion.co.kr/">
   <meta property="og:image" content="https://biomotion.co.kr/assets/hero-pitcher-analysis.jpg">
@@ -43,7 +43,7 @@
 
   <!-- Twitter Card (X/Twitter) -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BioMotion 베이스볼 바이오메카닉스 랩 (BBL)">
+  <meta name="twitter:title" content="BioMotion Baseball Lab (BBL)">
   <meta name="twitter:description" content="국민대학교 바이오메카닉스 연구진의 30년 학술 경력 기반 · 국내 유일 연구 기반 야구 바이오메카닉스 분석 센터.">
   <meta name="twitter:image" content="https://biomotion.co.kr/assets/hero-pitcher-analysis.jpg">
 
@@ -225,7 +225,7 @@
 
     /* --- 카드/패널/박스 계열 일괄 오버라이드 ---
        속성 선택자로 card/panel/box/note가 들어간 모든 요소의 다크 배경을 화이트로 */
-    :root[data-theme="light"] [class*="-card"]:not(.benefit-card-pitcher):not(.benefit-card-hitter):not(.benefit-card-coach):not(.benefit-card-parent),
+    :root[data-theme="light"] [class*="-card"]:not(.benefit-card-pitcher):not(.benefit-card-hitter):not(.benefit-card-coach):not(.benefit-card-parent):not(.flow-card),
     :root[data-theme="light"] [class*="-panel"],
     :root[data-theme="light"] [class*="-box"],
     :root[data-theme="light"] [class*="-item"]:not(.nav-links a):not(.hero-buttons *),
@@ -3011,7 +3011,7 @@
     .assessment-header { text-align: center; margin-bottom: 56px; }
     .assessment-header .section-desc { margin: 0 auto; }
 
-    /* --- 3단계 BBL 분석 — 카드형 수직 순서도 (Vertical Flowchart) --- */
+    /* --- 3단계 BBL 분석 — 미니멀 타이포그래피 순서도 --- */
     .bbl-flow {
       max-width: 620px;
       margin: 0 auto 72px;
@@ -3021,62 +3021,62 @@
       align-items: stretch;
     }
     .flow-card {
-      background: var(--card-bg);
-      border: 1.5px solid var(--card-border);
-      border-radius: 20px;
-      padding: 32px 32px 28px;
+      background: transparent;
+      border: none;
+      padding: 20px 10px;
       text-align: center;
-      transition: all 0.35s ease;
+      transition: none;
       position: relative;
     }
     .flow-card:hover {
-      border-color: rgba(37,99,235,0.45);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(37,99,235,0.08);
+      background: transparent;
+      transform: none;
+      box-shadow: none;
     }
     .flow-step {
       display: inline-block;
       font-family: 'Inter', sans-serif;
       font-size: 0.78rem;
       font-weight: 800;
-      letter-spacing: 2.5px;
+      letter-spacing: 3px;
       color: var(--primary);
-      background: rgba(96, 165, 250, 0.12);
-      padding: 6px 14px;
-      border-radius: 50px;
-      margin-bottom: 16px;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      margin-bottom: 14px;
+      text-transform: uppercase;
     }
     .flow-question {
-      font-size: 1.4rem;
+      font-size: 1.55rem;
       font-weight: 800;
       color: var(--text-primary);
       line-height: 1.4;
-      margin: 0 0 22px;
+      margin: 0 0 18px;
       letter-spacing: -0.02em;
     }
     .flow-outcome {
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       gap: 10px;
-      padding: 10px 18px;
-      background: rgba(37, 99, 235, 0.08);
-      border: 1px solid rgba(96, 165, 250, 0.28);
-      border-radius: 10px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
     }
     .flow-outcome-label {
       font-family: 'Inter', sans-serif;
       font-size: 0.7rem;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 1.8px;
-      color: var(--primary);
+      color: var(--text-muted);
       text-transform: uppercase;
-      padding-right: 10px;
-      border-right: 1px solid rgba(96, 165, 250, 0.35);
+      padding-right: 0;
+      border-right: none;
     }
     .flow-outcome-text {
-      font-size: 1.02rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--primary);
       letter-spacing: -0.01em;
     }
     .flow-arrow {
@@ -3084,24 +3084,26 @@
       justify-content: center;
       align-items: center;
       color: var(--primary);
-      padding: 10px 0;
-      height: 56px;
+      opacity: 0.5;
+      padding: 4px 0;
+      height: 40px;
     }
     .flow-arrow svg {
-      width: 28px;
-      height: 48px;
+      width: 20px;
+      height: 34px;
+      stroke-width: 1.5;
     }
 
     @media (max-width: 720px) {
-      .bbl-flow { padding: 0 16px; max-width: 100%; }
-      .flow-card { padding: 26px 22px 22px; }
-      .flow-step { font-size: 0.72rem; margin-bottom: 12px; }
-      .flow-question { font-size: 1.15rem; margin-bottom: 18px; }
-      .flow-outcome { padding: 8px 14px; flex-wrap: wrap; gap: 8px; }
-      .flow-outcome-label { font-size: 0.65rem; padding-right: 8px; }
-      .flow-outcome-text { font-size: 0.92rem; }
-      .flow-arrow { height: 44px; }
-      .flow-arrow svg { width: 22px; height: 36px; }
+      .bbl-flow { padding: 0 16px; max-width: 100%; margin-bottom: 56px; }
+      .flow-card { padding: 16px 8px; }
+      .flow-step { font-size: 0.72rem; margin-bottom: 10px; letter-spacing: 2.5px; }
+      .flow-question { font-size: 1.25rem; margin-bottom: 14px; }
+      .flow-outcome { gap: 8px; }
+      .flow-outcome-label { font-size: 0.62rem; }
+      .flow-outcome-text { font-size: 1rem; }
+      .flow-arrow { height: 32px; padding: 2px 0; }
+      .flow-arrow svg { width: 16px; height: 26px; }
     }
 
     /* --- 3-Layer Flow (핵심 독자성 시각화) --- */
@@ -5802,9 +5804,9 @@
   <!-- NAV -->
   <nav class="nav" id="navbar">
     <div class="container">
-      <a href="#" class="nav-logo" aria-label="BBL - Baseball Biomechanics Lab 홈으로">
-        <img src="assets/logo-bbl-nav-dark.png" alt="BBL - Baseball Biomechanics Lab" class="nav-logo-img nav-logo-dark">
-        <img src="assets/logo-bbl-nav.png" alt="BBL - Baseball Biomechanics Lab" class="nav-logo-img nav-logo-light">
+      <a href="#" class="nav-logo" aria-label="BBL - BioMotion Baseball Lab 홈으로">
+        <img src="assets/logo-bbl-nav-dark.png" alt="BBL - BioMotion Baseball Lab" class="nav-logo-img nav-logo-dark">
+        <img src="assets/logo-bbl-nav.png" alt="BBL - BioMotion Baseball Lab" class="nav-logo-img nav-logo-light">
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#about">랩 소개</a>
@@ -5944,8 +5946,8 @@
 
             <!-- 03 장비 라벨 (아래쪽 원 내부) -->
             <g>
-              <text x="500" y="490" fill="#ffffff" font-family="Inter, sans-serif" font-size="24" font-weight="700" text-anchor="middle">세계적 수준 분석 장비</text>
-              <text x="500" y="522" fill="#60a5fa" font-family="Inter, sans-serif" font-size="16" font-weight="600" text-anchor="middle">Driveline 급 정밀 측정 시스템</text>
+              <text x="500" y="490" fill="#ffffff" font-family="Inter, sans-serif" font-size="24" font-weight="700" text-anchor="middle">세계 최고 수준 분석 장비</text>
+              <text x="500" y="522" fill="#60a5fa" font-family="Inter, sans-serif" font-size="16" font-weight="600" text-anchor="middle">MLB/Driveline과 동급</text>
             </g>
           </svg>
         </div>
@@ -5967,7 +5969,7 @@
         <!-- 1단계 -->
         <div class="flow-card">
           <div class="flow-step">STEP 1</div>
-          <h3 class="flow-question">기술이 문제인가, 체력이 문제인가?</h3>
+          <h3 class="flow-question">피지컬이 문제인가, 메카닉이 문제인가?</h3>
           <div class="flow-outcome">
             <span class="flow-outcome-label">결과</span>
             <span class="flow-outcome-text">훈련 방향 결정</span>
@@ -5984,7 +5986,7 @@
         <!-- 2단계 -->
         <div class="flow-card">
           <div class="flow-step">STEP 2</div>
-          <h3 class="flow-question">어디에서 에너지가 새는가?</h3>
+          <h3 class="flow-question">동작의 어디에서 에너지가 새는가?</h3>
           <div class="flow-outcome">
             <span class="flow-outcome-label">결과</span>
             <span class="flow-outcome-text">에너지 누수 지점 포착</span>
@@ -6119,7 +6121,7 @@
           <text x="360" y="178" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">정밀</text>
           <text x="360" y="206" fill="#ffffff" font-family="Inter, sans-serif" font-size="20" font-weight="700" text-anchor="middle">바이오메카닉스</text>
           <line x1="290" y1="230" x2="430" y2="230" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
-          <text x="360" y="258" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">지면반력·관절 토크</text>
+          <text x="360" y="258" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="13" font-weight="500" text-anchor="middle">기본 + 지면반력·관절 토크</text>
           <text x="360" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">심층 분석</text>
 
           <!-- 결과 카드 3: 1회 측정 -->
@@ -6174,7 +6176,7 @@
           <text x="375" y="196" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">정밀</text>
           <text x="375" y="226" fill="#ffffff" font-family="Inter, sans-serif" font-size="22" font-weight="700" text-anchor="middle">바이오메카닉스</text>
           <line x1="305" y1="250" x2="445" y2="250" stroke="#60a5fa" stroke-width="1" stroke-opacity="0.35"/>
-          <text x="375" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">지면반력·관절 토크</text>
+          <text x="375" y="280" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="13" font-weight="500" text-anchor="middle">기본 + 지면반력·관절 토크</text>
           <text x="375" y="302" fill="#bfdbfe" font-family="Inter, sans-serif" font-size="14" font-weight="500" text-anchor="middle">심층 분석</text>
 
           <!-- ==== 구분선 ==== -->
@@ -6494,7 +6496,7 @@
   <!-- CTA -->
   <section class="cta-banner">
     <div class="container">
-      <h2 class="fade-in">BBL은 측정만 하지 않습니다.<br>단순 비교만 하지 않습니다.<br>현장에서 필요한 <span style="color:var(--primary)">답</span>을 찾아드리겠습니다.</h2>
+      <h2 class="fade-in">BBL은 측정만 하지 않습니다.<br>단순 비교만 하지 않습니다.<br>현장에 도움되는 <span style="color:var(--primary)">답</span>을 찾겠습니다.</h2>
       <a href="#contact" class="btn btn-primary fade-in">무료 상담 신청 →</a>
     </div>
   </section>
@@ -6708,10 +6710,10 @@
       <div class="footer-top">
         <div class="footer-logo">
           <a href="#" style="display:block; text-decoration:none;" aria-label="BBL 홈">
-            <img src="assets/logo-bbl-nav-dark.png" alt="BBL - Baseball Biomechanics Lab" class="footer-logo-img footer-logo-dark">
-            <img src="assets/logo-bbl-nav.png" alt="BBL - Baseball Biomechanics Lab" class="footer-logo-img footer-logo-light">
+            <img src="assets/logo-bbl-nav-dark.png" alt="BBL - BioMotion Baseball Lab" class="footer-logo-img footer-logo-dark">
+            <img src="assets/logo-bbl-nav.png" alt="BBL - BioMotion Baseball Lab" class="footer-logo-img footer-logo-light">
           </a>
-          <div class="footer-logo-sub">BioMotion · 베이스볼 바이오메카닉스 랩</div>
+          <div class="footer-logo-sub">BioMotion Baseball Lab</div>
         </div>
         <div class="footer-nav">
           <a href="#about">BBL 소개</a>
