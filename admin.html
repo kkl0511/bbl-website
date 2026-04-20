@@ -308,6 +308,43 @@
   }
   .pdf-progress.show { display: block; }
   .pdf-progress-bar { height: 100%; background: var(--primary); width: 0; transition: width 200ms; }
+
+  /* Image dropzone */
+  .img-dropzone {
+    display: block; position: relative;
+    border: 2px dashed var(--rule-2); border-radius: 8px;
+    padding: 20px 16px; text-align: center; cursor: pointer;
+    background: var(--bg-3); transition: all 200ms; margin-bottom: 8px;
+  }
+  .img-dropzone:hover { border-color: var(--primary-soft); background: rgba(37,99,235,0.04); }
+  .img-dropzone.drag-over { border-color: var(--primary); background: rgba(37,99,235,0.12); border-style: solid; }
+  .img-dropzone.has-file { border-color: var(--success); background: rgba(16,185,129,0.06); border-style: solid; padding: 10px; }
+  .img-dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .img-dz-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .img-dz-sub { font-size: 11.5px; color: var(--ink-3); }
+  .img-dz-sub code { font-family: ui-monospace, monospace; background: var(--bg); padding: 1px 5px; border-radius: 3px; color: var(--primary-soft); }
+  .img-preview { display: flex; gap: 12px; align-items: center; text-align: left; }
+  .img-preview img { width: 84px; height: 84px; object-fit: cover; border-radius: 4px; border: 1px solid var(--rule-2); }
+  .img-preview .meta { font-size: 12px; color: var(--ink-2); line-height: 1.5; flex: 1; min-width: 0; }
+  .img-preview .meta b { color: var(--ink); font-weight: 600; word-break: break-all; }
+  .img-preview .meta .k { font-family: ui-monospace, monospace; font-size: 10px; color: var(--ink-4); letter-spacing: 0.1em; text-transform: uppercase; }
+  .img-preview-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .img-preview-actions button {
+    background: var(--bg-3); border: 1px solid var(--rule-2); color: var(--ink-2);
+    padding: 5px 10px; font-size: 11px; border-radius: 4px; cursor: pointer; font-family: inherit;
+  }
+  .img-preview-actions button:hover { border-color: var(--ink-3); color: var(--ink); }
+
+  /* Translate badge */
+  .lang-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em;
+    padding: 2px 7px; border-radius: 3px;
+    background: rgba(96,165,250,0.14); color: var(--primary-soft);
+    margin-left: 8px; vertical-align: middle; text-transform: uppercase;
+  }
+  .lang-badge.work { background: rgba(245,158,11,0.14); color: #fbbf24; }
+  .lang-badge.done { background: rgba(16,185,129,0.14); color: #10b981; }
 </style>
 </head>
 <body>
@@ -415,7 +452,25 @@
           <div class="field">
             <label>이미지 파일명</label>
             <input type="text" name="img" id="f-img" placeholder="예) hero-pitcher-analysis.jpg">
-            <div class="hint">* 이미지는 <code>assets/</code> 폴더에 별도 업로드 후, 파일명만 입력하세요.</div>
+            <label class="img-dropzone" id="img-dz" style="margin-top:8px;">
+              <input type="file" id="img-file" accept="image/*">
+              <div id="img-dz-empty">
+                <div class="img-dz-title">🖼 이미지를 끌어다 놓거나, 이 영역을 클릭 / 붙여넣기(Ctrl+V)</div>
+                <div class="img-dz-sub">드래그·파일선택·클립보드 캡처 모두 OK — 자동 크롭 후 <code>note-&lt;n&gt;-thumb.jpg</code> 로 다운로드</div>
+              </div>
+              <div id="img-dz-preview" style="display:none;" class="img-preview">
+                <img id="img-thumb" alt="">
+                <div class="meta">
+                  <div class="k">Image</div>
+                  <b id="img-name">—</b>
+                  <div class="img-preview-actions">
+                    <button type="button" id="img-dl">⬇ 다운로드</button>
+                    <button type="button" id="img-clear">✕ 초기화</button>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <div class="hint">* 다운로드한 이미지는 <code>assets/</code> 폴더에 업로드하세요. 파일명만 입력해도 됩니다.</div>
           </div>
 
           <div class="field">
@@ -915,30 +970,50 @@
     return thumb;
   }
 
-  $('pdf-apply').addEventListener('click', (e) => {
+  $('pdf-apply').addEventListener('click', async (e) => {
     e.preventDefault();
     if (!pdfState.thumbBlob) return;
     const n = pdfState.noteNumber;
     const thumbFilename = `note-${n}-thumb.jpg`;
     const pdfFilename = `papers/note-${n}.pdf`;
 
-    // Fill form only if empty (don't override user's work)
-    if (!$('f-titleKo').value && pdfState.pdfTitle) $('f-titleKo').value = pdfState.pdfTitle;
-    if (!$('f-titleEn').value && pdfState.pdfTitle) $('f-titleEn').value = pdfState.pdfTitle;
-    if (!$('f-excerptKo').value && pdfState.fullText) {
-      $('f-excerptKo').value = pdfState.fullText.slice(0, 240).trim() + (pdfState.fullText.length > 240 ? '...' : '');
+    const btn = e.currentTarget;
+    const origLabel = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '⏳ 자동 채우기 중...';
+
+    // Detect dominant language of extracted text
+    const sample = (pdfState.pdfTitle + ' ' + pdfState.fullText.slice(0, 600));
+    const hasKorean = /[\uac00-\ud7af]/.test(sample);
+    const asciiChars = sample.replace(/\s/g, '').match(/[A-Za-z]/g)?.length || 0;
+    const totalChars = sample.replace(/\s/g, '').length || 1;
+    const isEnglish = !hasKorean && (asciiChars / totalChars) > 0.7;
+
+    const rawTitle = pdfState.pdfTitle || pdfState.originalName.replace(/\.pdf$/i, '').replace(/[_-]+/g, ' ');
+    const rawExcerpt = (pdfState.fullText || '').slice(0, 360).trim();
+
+    // Base: fill with source-language content first
+    let titleKo = '', titleEn = '', excerptKo = '', excerptEn = '';
+    if (hasKorean) {
+      titleKo = rawTitle;
+      excerptKo = rawExcerpt.slice(0, 220) + (rawExcerpt.length > 220 ? '...' : '');
+    } else if (isEnglish) {
+      titleEn = rawTitle;
+      excerptEn = rawExcerpt.slice(0, 240) + (rawExcerpt.length > 240 ? '...' : '');
+    } else {
+      titleKo = rawTitle; titleEn = rawTitle;
+      excerptKo = rawExcerpt.slice(0, 220); excerptEn = rawExcerpt.slice(0, 240);
     }
-    if (!$('f-excerptEn').value && pdfState.fullText) {
-      // heuristic: if text is mostly ASCII, use as English excerpt
-      const isLatin = /^[\x00-\x7F\s]+$/.test(pdfState.fullText.slice(0, 200));
-      if (isLatin) {
-        $('f-excerptEn').value = pdfState.fullText.slice(0, 240).trim() + (pdfState.fullText.length > 240 ? '...' : '');
-      }
-    }
+
+    // Fill form (allow override — even if fields already have content, update with fresh extraction)
+    if (titleKo)   $('f-titleKo').value = titleKo;
+    if (titleEn)   $('f-titleEn').value = titleEn;
+    if (excerptKo) $('f-excerptKo').value = excerptKo;
+    if (excerptEn) $('f-excerptEn').value = excerptEn;
     $('f-img').value = thumbFilename;
     $('f-pdf').value = pdfFilename;
 
-    // Auto-detect tag from filename/title
+    // Auto-detect tag
     const hay = (pdfState.pdfTitle + ' ' + pdfState.originalName + ' ' + pdfState.fullText.slice(0, 500)).toLowerCase();
     let tag = 'METHOD';
     if (/hit|batt|swing|타격|스윙/.test(hay)) tag = 'HITTING';
@@ -948,9 +1023,53 @@
     else if (/coach|코칭/.test(hay)) tag = 'COACHING';
     $('f-tag').value = tag;
 
-    showToast('✓ 폼에 자동 채움 완료 — 검토 후 "노트 추가" 버튼을 눌러주세요');
+    // Auto-translate the missing language via window.claude.complete
+    const canClaude = !!(window.claude && typeof window.claude.complete === 'function');
+    if (canClaude) {
+      try {
+        if (hasKorean) {
+          // translate KO → EN
+          btn.textContent = '🌐 영어 번역 중...';
+          const [tEn, eEn] = await Promise.all([
+            translate(rawTitle, 'en', 'title'),
+            translate(rawExcerpt, 'en', 'excerpt'),
+          ]);
+          if (tEn) $('f-titleEn').value = tEn;
+          if (eEn) $('f-excerptEn').value = eEn;
+        } else if (isEnglish) {
+          btn.textContent = '🌐 한국어 번역 중...';
+          const [tKo, eKo] = await Promise.all([
+            translate(rawTitle, 'ko', 'title'),
+            translate(rawExcerpt, 'ko', 'excerpt'),
+          ]);
+          if (tKo) $('f-titleKo').value = tKo;
+          if (eKo) $('f-excerptKo').value = eKo;
+        }
+        showToast('✓ 자동 채움 + 번역 완료 — 내용을 검토·수정하세요');
+      } catch (err) {
+        console.warn('Translation failed:', err);
+        showToast('⚠ 번역 실패 — 수동으로 입력해주세요 (' + (err.message || 'error') + ')');
+      }
+    } else {
+      showToast('✓ 자동 채움 완료 — 번역 엔진 미사용, 다른 언어는 수동 입력');
+    }
+
+    btn.disabled = false;
+    btn.textContent = origLabel;
     window.scrollTo({ top: document.querySelector('form').offsetTop - 40, behavior: 'smooth' });
   });
+
+  async function translate(text, targetLang, kind) {
+    if (!text || !text.trim()) return '';
+    const clean = text.trim().slice(0, 800);
+    const langLabel = targetLang === 'ko' ? 'Korean (한국어)' : 'English';
+    const styleHint = kind === 'title'
+      ? 'Produce ONLY a concise, editorial-style translated title (max 80 chars). No quotes, no prefix, no explanations.'
+      : 'Produce ONLY a 2-3 sentence natural, editorial-style translated summary (max 240 chars). No quotes, no prefix, no explanations.';
+    const prompt = `Translate the following text to ${langLabel}. It is from a sports biomechanics research paper (baseball pitching/hitting). Preserve numeric values and units (mph, km/h, °, Hz) exactly. ${styleHint}\n\n---\n${clean}\n---`;
+    const out = await window.claude.complete(prompt);
+    return (out || '').trim().replace(/^["'"'"]|["'"'"]$/g, '').replace(/^(번역|Translation):\s*/i, '').trim();
+  }
 
   $('pdf-dl-thumb').addEventListener('click', (e) => {
     e.preventDefault();
@@ -984,6 +1103,127 @@
   });
   // Stop clicks inside preview from re-opening file picker
   pdfStatus.addEventListener('click', (e) => { e.stopPropagation(); });
+
+  // ============================================================
+  // IMAGE UPLOAD — drag, click, paste (clipboard screenshots)
+  // ============================================================
+  let imgState = { blob: null, mime: 'image/jpeg', width: 0, height: 0, origName: '' };
+  const imgDz = $('img-dz');
+  const imgInput = $('img-file');
+  const imgEmpty = $('img-dz-empty');
+  const imgPrev = $('img-dz-preview');
+  const imgThumb = $('img-thumb');
+
+  ['dragenter','dragover'].forEach(ev => {
+    imgDz.addEventListener(ev, e => {
+      if (!e.dataTransfer || !Array.from(e.dataTransfer.types || []).includes('Files')) return;
+      e.preventDefault(); e.stopPropagation();
+      imgDz.classList.add('drag-over');
+    });
+  });
+  ['dragleave','drop'].forEach(ev => {
+    imgDz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); imgDz.classList.remove('drag-over'); });
+  });
+  imgDz.addEventListener('drop', e => {
+    const file = e.dataTransfer?.files?.[0];
+    if (file) handleImageFile(file);
+  });
+  imgInput.addEventListener('change', e => {
+    const file = e.target.files?.[0];
+    if (file) handleImageFile(file);
+  });
+  imgPrev.addEventListener('click', e => e.stopPropagation());
+
+  // Global paste listener — catches clipboard screenshots anywhere on the page
+  window.addEventListener('paste', async (e) => {
+    // Don't hijack paste into text fields
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) {
+      // Only hijack if target is f-img input (paste into the image field triggers upload)
+      if (t.id !== 'f-img') return;
+    }
+    const items = e.clipboardData?.items || [];
+    for (const item of items) {
+      if (item.type.startsWith('image/')) {
+        e.preventDefault();
+        const blob = item.getAsFile();
+        if (blob) {
+          const named = new File([blob], 'clipboard-' + Date.now() + '.' + (item.type.split('/')[1] || 'png'), { type: item.type });
+          handleImageFile(named);
+        }
+        return;
+      }
+    }
+  });
+
+  async function handleImageFile(file) {
+    if (!file.type.startsWith('image/')) {
+      showToast('⚠ 이미지 파일만 가능합니다');
+      return;
+    }
+    try {
+      const dataUrl = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = () => res(r.result);
+        r.onerror = () => rej(new Error('read error'));
+        r.readAsDataURL(file);
+      });
+      const img = await new Promise((res, rej) => {
+        const i = new Image();
+        i.onload = () => res(i);
+        i.onerror = () => rej(new Error('decode error'));
+        i.src = dataUrl;
+      });
+
+      // Resize to max 1200px width, keep aspect ratio, convert to JPG
+      const maxW = 1200;
+      const scale = img.width > maxW ? maxW / img.width : 1;
+      const outW = Math.round(img.width * scale);
+      const outH = Math.round(img.height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = outW; canvas.height = outH;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, outW, outH);
+      ctx.drawImage(img, 0, 0, outW, outH);
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.88));
+
+      imgState = { blob, mime: 'image/jpeg', width: outW, height: outH, origName: file.name };
+      imgThumb.src = URL.createObjectURL(blob);
+      const n = pdfState.noteNumber || nextN();
+      const filename = `note-${n}-thumb.jpg`;
+      $('img-name').innerHTML = `<b>${filename}</b> <span style="color:var(--ink-4);font-family:ui-monospace,monospace;font-size:11px;">· ${outW}×${outH} · ${(blob.size/1024).toFixed(0)}KB</span>`;
+      $('f-img').value = filename;
+      imgEmpty.style.display = 'none';
+      imgPrev.style.display = 'flex';
+      imgDz.classList.add('has-file');
+      showToast('✓ 이미지 준비됨 — "다운로드" 후 assets/ 에 업로드');
+    } catch (err) {
+      console.error(err);
+      showToast('⚠ 이미지 처리 실패: ' + err.message);
+    }
+  }
+
+  $('img-dl').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!imgState.blob) return;
+    const n = pdfState.noteNumber || nextN();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(imgState.blob);
+    a.download = `note-${n}-thumb.jpg`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    showToast('✓ 이미지 다운로드됨 — assets/ 에 업로드하세요');
+  });
+  $('img-clear').addEventListener('click', (e) => {
+    e.preventDefault();
+    imgState = { blob: null, mime: 'image/jpeg', width: 0, height: 0, origName: '' };
+    imgThumb.src = '';
+    imgEmpty.style.display = 'block';
+    imgPrev.style.display = 'none';
+    imgDz.classList.remove('has-file');
+    imgInput.value = '';
+  });
 
   // ============================================================
   // TAB SWITCHING

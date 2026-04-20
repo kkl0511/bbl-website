@@ -108,8 +108,8 @@ function Services() {
     ['Energy flow · leak points', '—', '✓', '—', '✓ (×2/yr)'],
   ];
   const priceRow = locale === 'en'
-    ? ['Price (incl. VAT)', '200,000', 'Am 400k · Pro 600k', '150,000 (-25%)', '100,000 (-50%)']
-    : ['가격 (VAT 포함)', '20만원', '아마 40만원 · 프로 60만원', '15만원 (25%↓)', '10만원 (50%↓)'];
+    ? ['Price (incl. VAT)', '300,000', '500–700,000', '210,000 / athlete', '150,000 / athlete / session']
+    : ['가격 (VAT 포함)', '30만원', '50–70만원', '21만원 / 인', '15만원 / 인 / 회'];
   const spec = locale === 'en' ? specEn : specKo;
   const header = locale === 'en'
     ? ['Item', 'Basic Biomechanics', 'Advanced Biomechanics', 'Single team', 'Annual team']

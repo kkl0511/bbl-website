@@ -60,7 +60,7 @@ function Hero() {
             </div>
             <video
               className="hp-hero-video"
-              src="assets/hero-hitting-analysis.mp4"
+              src="../assets/hero-hitting-analysis.mp4"
               autoPlay muted loop playsInline preload="metadata"
               aria-label="hitting biomechanics analysis"
             />

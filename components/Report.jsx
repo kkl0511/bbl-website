@@ -18,7 +18,7 @@ function Report() {
             <h3 className="hp-delivery-title">{T('report.ch1.title')}</h3>
             <p className="hp-delivery-desc">{T('report.ch1.desc')}</p>
             <div className="hp-delivery-visual">
-              <img src="assets/team-feedback-session.jpg" alt="team same-day feedback briefing" />
+              <img src="../assets/team-feedback-session.jpg" alt="team same-day feedback briefing" />
               <span className="hp-delivery-stamp">LIVE · ON-FIELD</span>
             </div>
           </article>
@@ -29,15 +29,15 @@ function Report() {
             <p className="hp-delivery-desc">{T('report.ch2.desc')}</p>
             <div className="hp-delivery-stack">
               <div className="hp-delivery-doc a">
-                <img src="assets/report-pitching-sample.jpg" alt="pitching report" />
+                <img src="../assets/report-pitching-sample.jpg" alt="pitching report" />
                 <div className="hp-delivery-doc-tag">PITCHING</div>
               </div>
               <div className="hp-delivery-doc b">
-                <img src="assets/report-hitting-sample.jpg" alt="hitting report" />
+                <img src="../assets/report-hitting-sample.jpg" alt="hitting report" />
                 <div className="hp-delivery-doc-tag">HITTING</div>
               </div>
               <div className="hp-delivery-doc c">
-                <img src="assets/analysis-software.jpg" alt="analysis hub" />
+                <img src="../assets/analysis-software.jpg" alt="analysis hub" />
                 <div className="hp-delivery-doc-tag">HUB APP</div>
               </div>
             </div>

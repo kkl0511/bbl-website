@@ -87,8 +87,9 @@ function ResearchNotes() {
           })}
         </div>
 
+
         <div className="hp-notes-all">
-          <a href="admin.html" className="btn btn-ghost">{T('research.viewall')} <span className="arr">→</span></a>
+          <a href="notes.html" className="btn btn-ghost">{T('research.viewall')} <span className="arr">→</span></a>
         </div>
       </div>
     </section>
