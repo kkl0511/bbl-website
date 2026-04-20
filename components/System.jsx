@@ -46,7 +46,7 @@ function KinematicSequence() {
         <figure className="hp-ksq-capture">
           <video
             className="hp-ksq-video"
-            src="assets/kinematic-sequence-hitting.mp4"
+            src="../assets/kinematic-sequence-hitting.mp4"
             autoPlay muted loop playsInline
             aria-label="Kinematic sequence 3D capture of a hitter"
           />
@@ -136,8 +136,6 @@ function System() {
   const EQUIPMENT = locale === 'en' ? [
     { name: 'Qualisys',        role: '3D Motion Capture',     spec: '240 Hz · 16-cam',           tag: 'optical',    src: 'equipment-qualisys.jpg' },
     { name: 'Theia3D',         role: 'Markerless Capture',    spec: 'AI pose · offline',         tag: 'ai vision',  src: 'equipment-theia3d.jpg' },
-    { name: 'VALD ForceDecks', role: 'Force Plates · Fitness',spec: '1000 Hz GRF · CMJ · IMTP',  tag: 'dual plate', src: 'equipment-vald-forcedecks.jpg' },
-    { name: 'VALD ForceFrame', role: 'Isometric Strength',    spec: 'shoulder · hip · posterior chain', tag: 'isometric', src: 'equipment-vald-forceframe.jpg' },
     { name: 'Rapsodo',         role: 'Ball Tracking',         spec: 'velocity · spin · trajectory', tag: 'radar',   src: 'equipment-rapsodo.jpg' },
     { name: 'Uplift Labs',     role: 'Mobile Markerless',     spec: 'iPad · on-site',            tag: 'mobile',     src: 'equipment-uplift-labs.jpg' },
     { name: 'AMTI',            role: 'Force Plate · Pitching',spec: 'GRF · drive leg',           tag: 'pitching',   src: 'equipment-amti.jpg' },
@@ -145,8 +143,6 @@ function System() {
   ] : [
     { name: 'Qualisys',        role: '3D 모션캡쳐',           spec: '240Hz · 16-cam',            tag: 'optical',    src: 'equipment-qualisys.jpg' },
     { name: 'Theia3D',         role: '마커리스 캡쳐',         spec: 'AI pose · offline',         tag: 'ai vision',  src: 'equipment-theia3d.jpg' },
-    { name: 'VALD ForceDecks', role: '포스플레이트 · 체력',   spec: '1000Hz GRF · CMJ · IMTP',   tag: 'dual plate', src: 'equipment-vald-forcedecks.jpg' },
-    { name: 'VALD ForceFrame', role: '등척성 근력 측정',      spec: '어깨 · 고관절 · 후면 사슬',  tag: 'isometric',  src: 'equipment-vald-forceframe.jpg' },
     { name: 'Rapsodo',         role: '볼 트래킹',             spec: '구속 · 회전 · 궤적',         tag: 'radar',     src: 'equipment-rapsodo.jpg' },
     { name: 'Uplift Labs',     role: '마커리스 모바일',       spec: 'iPad · 현장 출장',           tag: 'mobile',    src: 'equipment-uplift-labs.jpg' },
     { name: 'AMTI',            role: '투수용 포스플레이트',   spec: 'GRF · 드라이브 레그',        tag: 'pitching',  src: 'equipment-amti.jpg' },
@@ -174,7 +170,7 @@ function System() {
               <span className="hp-captureflow-tier-t">{locale === 'en' ? 'Basic biomechanics' : '기본 바이오메카닉스'}</span>
             </header>
             <figure className="hp-captureflow-tile is-field">
-              <img src="assets/uplift-field-session.jpg" alt="BBL analyst capturing a Korea University pitcher on the field" loading="lazy" />
+              <img src="../assets/uplift-field-session.jpg" alt="BBL analyst capturing a Korea University pitcher on the field" loading="lazy" />
               <div className="hp-captureflow-overlay">
                 <span className="hp-captureflow-step">01 · {locale === 'en' ? 'CAPTURE' : '캡쳐'}</span>
                 <span className="hp-captureflow-title">{locale === 'en' ? 'On the mound' : '마운드 위에서'}</span>
@@ -184,7 +180,7 @@ function System() {
             <div className="hp-captureflow-arrow" aria-hidden="true">→</div>
             <figure className="hp-captureflow-tile is-screen">
               <video
-                src="assets/uplift-analysis-ui.mp4"
+                src="../assets/uplift-analysis-ui.mp4"
                 autoPlay muted loop playsInline
                 aria-label="Uplift Labs kinematic sequence analysis software"
               />
@@ -204,7 +200,7 @@ function System() {
             </header>
             <figure className="hp-captureflow-tile is-field is-videocapture">
               <video
-                src="assets/lab-motion-capture.mp4"
+                src="../assets/lab-motion-capture.mp4"
                 autoPlay muted loop playsInline
                 aria-label="Live Qualisys motion capture of a marker-suited pitcher at SK Futures Park"
               />
@@ -217,7 +213,7 @@ function System() {
             <div className="hp-captureflow-arrow" aria-hidden="true">→</div>
             <figure className="hp-captureflow-tile is-screen is-black">
               <video
-                src="assets/pitching-skeleton.mp4"
+                src="../assets/pitching-skeleton.mp4"
                 autoPlay muted loop playsInline
                 aria-label="3D biomechanical skeleton of a pitcher on dual force plates"
               />
@@ -264,7 +260,7 @@ function System() {
               {e.src && (
                 <div className="hp-equip-img" style={e.src === 'equipment-vald-forcedecks.jpg' ? {overflow:'hidden'} : undefined}>
                   <img
-                    src={`assets/${e.src}`}
+                    src={`../assets/${e.src}`}
                     alt={e.name}
                     loading="lazy"
                     style={e.src === 'equipment-vald-forcedecks.jpg'

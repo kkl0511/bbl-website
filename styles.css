@@ -21,7 +21,7 @@
   --warn: #f59e0b;
   --err: #ef4444;
 
-  --serif: "Noto Serif KR", "Source Serif Pro", Georgia, serif;
+  --serif: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
   --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -50,17 +50,22 @@ body {
   color: var(--ink);
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   overflow-x: hidden;
 }
 
 ::selection { background: var(--primary); color: white; }
 
-h1,h2,h3,h4 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.02em; margin: 0; }
-p { margin: 0; color: var(--ink-2); }
+h1,h2,h3,h4 { font-family: var(--sans); font-weight: 600; letter-spacing: -0.02em; margin: 0; word-break: keep-all; }
+p { margin: 0; color: var(--ink-2); word-break: keep-all; overflow-wrap: break-word; }
 a { color: inherit; text-decoration: none; }
-em { font-style: italic; }
+em { font-style: normal; }
 
 .mono { font-family: var(--mono); font-feature-settings: "ss01","ss02"; letter-spacing: 0.02em; }
 
@@ -86,11 +91,34 @@ em { font-style: italic; }
 .hp-sec-label span:first-child { color: var(--primary-soft); }
 .hp-sec-label .dim { color: var(--ink-4); margin-left: auto; }
 .hp-h2 {
-  font-size: clamp(40px, 5.5vw, 88px);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-size: clamp(32px, 4.2vw, 60px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
-.hp-h2 em { color: var(--primary-soft); font-style: italic; }
+.hp-h2 em { color: var(--primary-soft); font-style: normal; font-weight: 600; }
+.hp-sub-title {
+  font-family: var(--sans);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0;
+}
+.hp-sub-head { margin-top: clamp(56px, 7vw, 96px); margin-bottom: clamp(28px, 4vw, 48px); }
+.hp-step-q {
+  font-family: var(--sans);
+  font-size: clamp(19px, 1.8vw, 24px);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  margin: 10px 0 8px;
+}
+.hp-step-desc {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin: 0 0 18px;
+}
 .hp-sec-lead {
   font-size: clamp(15px, 1.2vw, 18px);
   color: var(--ink-2);
@@ -1411,12 +1439,12 @@ em { font-style: italic; }
   color: var(--ink-4); text-transform: uppercase;
 }
 .hp-equip-name {
-  font-family: var(--serif);
-  font-size: clamp(26px, 2.4vw, 32px);
-  font-weight: 500;
+  font-family: var(--sans);
+  font-size: clamp(22px, 2.1vw, 28px);
+  font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ink);
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 10px;
 }
 .hp-equip-role {
