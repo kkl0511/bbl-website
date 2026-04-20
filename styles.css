@@ -277,10 +277,10 @@ em { font-style: normal; }
   font-weight: 400;
 }
 .hp-hero-h1 .line { display: block; }
-.hp-hero-h1 em { font-style: italic; color: var(--primary-soft); font-weight: 400; }
+.hp-hero-h1 em { font-style: normal; color: var(--primary-soft); font-weight: 600; }
 .hp-hero-h1-accent {
   color: var(--primary-soft);
-  font-style: italic;
+  font-style: normal;
   position: relative;
 }
 .hp-hero-h1-accent::after {
