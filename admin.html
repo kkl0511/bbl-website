@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BBL — 관리자</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  :root {
+    --bg: #07070b;
+    --bg-2: #0d0d14;
+    --bg-3: #14141d;
+    --ink: #f5f5f7;
+    --ink-2: #c8c8d4;
+    --ink-3: #8e8ea2;
+    --ink-4: #5a5a6e;
+    --rule: rgba(255,255,255,0.08);
+    --rule-2: rgba(255,255,255,0.14);
+    --primary: #2563EB;
+    --primary-soft: #60a5fa;
+    --danger: #ef4444;
+    --success: #10b981;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif; }
+  body { min-height: 100vh; padding: 40px 24px; }
+  .adm-container { max-width: 1280px; margin: 0 auto; }
+
+  header.adm-head {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .adm-head h1 { margin: 0 0 8px 0; font-size: 28px; letter-spacing: -0.02em; }
+  .adm-head .kicker { font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--primary-soft); text-transform: uppercase; }
+  .adm-head .sub { color: var(--ink-3); font-size: 14px; margin-top: 4px; }
+  .adm-head a { color: var(--ink-3); text-decoration: none; font-size: 13px; border: 1px solid var(--rule-2); padding: 8px 14px; border-radius: 6px; }
+  .adm-head a:hover { color: var(--ink); border-color: var(--ink-4); }
+
+  .adm-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: start; }
+  @media (max-width: 900px) { .adm-grid { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--bg-2); border: 1px solid var(--rule); border-radius: 12px; padding: 28px; }
+  .panel h2 { margin: 0 0 4px 0; font-size: 17px; letter-spacing: -0.01em; }
+  .panel h2 .count { color: var(--primary-soft); font-family: ui-monospace, monospace; font-size: 12px; margin-left: 8px; }
+  .panel .panel-sub { color: var(--ink-3); font-size: 13px; margin-bottom: 22px; }
+
+  /* Form */
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-family: ui-monospace, monospace; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3); margin-bottom: 7px;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%; box-sizing: border-box;
+    background: var(--bg-3); color: var(--ink);
+    border: 1px solid var(--rule-2); border-radius: 6px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit;
+    transition: border-color 160ms;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-color: var(--primary);
+  }
+  .field textarea { min-height: 80px; resize: vertical; line-height: 1.5; }
+  .field.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .hint { color: var(--ink-4); font-size: 11.5px; margin-top: 4px; }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--primary); color: white;
+    border: none; border-radius: 6px;
+    padding: 10px 18px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 160ms;
+    font-family: inherit;
+  }
+  .btn:hover { background: #1d4ed8; }
+  .btn.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--rule-2); }
+  .btn.ghost:hover { border-color: var(--ink-3); color: var(--ink); }
+  .btn.danger { background: transparent; color: var(--danger); border: 1px solid rgba(239,68,68,0.3); }
+  .btn.danger:hover { border-color: var(--danger); }
+  .btn.success { background: var(--success); }
+  .btn.success:hover { background: #059669; }
+
+  /* Note list */
+  .note-list { display: flex; flex-direction: column; gap: 10px; }
+  .note-item {
+    background: var(--bg-3);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+    transition: border-color 160ms;
+  }
+  .note-item:hover { border-color: var(--rule-2); }
+  .note-item.editing { border-color: var(--primary); }
+  .note-item .note-n {
+    font-family: ui-monospace, monospace;
+    font-size: 14px;
+    color: var(--primary-soft);
+    font-weight: 600;
+  }
+  .note-item .note-title {
+    font-size: 14px; line-height: 1.3;
+    color: var(--ink);
+  }
+  .note-item .note-meta {
+    font-family: ui-monospace, monospace;
+    font-size: 11px; color: var(--ink-4);
+    margin-top: 3px;
+  }
+  .note-item .note-actions { display: flex; gap: 6px; }
+  .note-item button {
+    background: transparent;
+    border: 1px solid var(--rule-2);
+    color: var(--ink-3);
+    padding: 5px 10px; font-size: 11px; border-radius: 4px;
+    cursor: pointer; font-family: ui-monospace, monospace;
+  }
+  .note-item button:hover { color: var(--ink); border-color: var(--ink-4); }
+  .note-item button.del { color: var(--danger); border-color: rgba(239,68,68,0.2); }
+
+  /* Export */
+  .export-box {
+    background: var(--bg); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 14px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px; line-height: 1.5;
+    color: var(--ink-2);
+    max-height: 280px; overflow: auto;
+    white-space: pre-wrap; word-break: break-all;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: var(--success); color: white;
+    padding: 12px 24px; border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    opacity: 0; pointer-events: none;
+    transition: opacity 260ms;
+    box-shadow: 0 8px 32px rgba(16,185,129,0.35);
+    z-index: 1000;
+  }
+  .toast.show { opacity: 1; }
+
+  /* Guide */
+  .guide {
+    margin-top: 28px;
+    background: rgba(37,99,235,0.08);
+    border: 1px solid rgba(37,99,235,0.25);
+    border-radius: 8px;
+    padding: 20px 22px;
+  }
+  .guide h3 { margin: 0 0 12px 0; font-size: 14px; color: var(--primary-soft); }
+  .guide ol { margin: 0; padding-left: 22px; color: var(--ink-2); font-size: 13.5px; line-height: 1.8; }
+  .guide code { background: var(--bg); padding: 2px 6px; border-radius: 3px; font-size: 12px; color: var(--primary-soft); }
+
+  .error { color: var(--danger); font-size: 12px; margin-top: 6px; }
+
+  /* Tabs */
+  .adm-tabs { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--rule); }
+  .adm-tab {
+    background: transparent; border: none; color: var(--ink-3);
+    padding: 14px 22px 14px 22px;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 160ms; font-family: inherit;
+    margin-bottom: -1px;
+    white-space: nowrap;
+  }
+  .adm-tab:hover { color: var(--ink); }
+  .adm-tab.active { color: var(--primary-soft); border-bottom-color: var(--primary-soft); }
+  .adm-tab .adm-tab-k { font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.12em; margin-right: 8px; color: var(--ink-4); }
+  .adm-tab.active .adm-tab-k { color: var(--primary); }
+  .adm-panel-wrap { display: none; }
+  .adm-panel-wrap.active { display: block; }
+
+  /* Booking calendar (admin) */
+  .slot-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; }
+  @media (max-width: 900px) { .slot-grid { grid-template-columns: 1fr; } }
+
+  .slot-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .slot-cal-head .month { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .slot-cal-head button {
+    background: var(--bg-3); border: 1px solid var(--rule-2); color: var(--ink-2);
+    width: 34px; height: 34px; border-radius: 6px; cursor: pointer; font-size: 14px;
+  }
+  .slot-cal-head button:hover { border-color: var(--ink-3); color: var(--ink); }
+  .slot-dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 4px; }
+  .slot-dow > div { text-align: center; font-size: 10px; font-family: ui-monospace, monospace; color: var(--ink-4); padding: 6px 0; letter-spacing: 0.1em; }
+  .slot-grid-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .slot-day {
+    aspect-ratio: 1;
+    background: var(--bg-3); border: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-2); font-family: ui-monospace, monospace;
+    cursor: pointer; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; transition: all 160ms;
+  }
+  .slot-day:hover:not(.empty):not(.past) { border-color: var(--ink-3); color: var(--ink); }
+  .slot-day.past { opacity: 0.3; cursor: not-allowed; }
+  .slot-day.empty { background: transparent; border-color: transparent; cursor: default; }
+  .slot-day.has-slots { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.35); color: var(--primary-soft); font-weight: 600; }
+  .slot-day.has-slots::after {
+    content: attr(data-count); position: absolute; top: 3px; right: 5px;
+    font-size: 9px; color: var(--primary); font-weight: 700;
+  }
+  .slot-day.selected { background: var(--primary); border-color: var(--primary); color: white; }
+  .slot-day.selected.has-slots { color: white; }
+  .slot-day.selected.has-slots::after { color: white; }
+
+  .slot-editor { background: var(--bg-3); border: 1px solid var(--rule); border-radius: 8px; padding: 20px; }
+  .slot-editor .editor-head { margin-bottom: 14px; }
+  .slot-editor .editor-date { font-size: 15px; font-weight: 600; line-height: 1.35; }
+  .slot-editor .editor-count { font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-4); margin-top: 4px; }
+  .slot-editor .editor-empty { color: var(--ink-4); font-size: 13px; text-align: center; padding: 28px 0; }
+  .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .time-chip {
+    padding: 10px 0; text-align: center;
+    background: var(--bg); border: 1px solid var(--rule-2);
+    font-family: ui-monospace, monospace; font-size: 12px; color: var(--ink-3);
+    cursor: pointer; border-radius: 4px; transition: all 140ms;
+  }
+  .time-chip:hover { border-color: var(--ink-3); color: var(--ink); }
+  .time-chip.on { background: var(--primary); border-color: var(--primary); color: white; }
+
+  .slot-quick { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .slot-quick button {
+    background: transparent; border: 1px solid var(--rule-2); color: var(--ink-3);
+    padding: 6px 12px; font-size: 11px; border-radius: 4px; cursor: pointer;
+    font-family: ui-monospace, monospace;
+  }
+  .slot-quick button:hover { border-color: var(--ink-3); color: var(--ink); }
+
+  .slot-legend {
+    display: flex; gap: 20px; font-size: 11px; color: var(--ink-4);
+    font-family: ui-monospace, monospace; margin-top: 14px; flex-wrap: wrap;
+  }
+  .slot-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+  .slot-legend-swatch { width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--rule-2); }
+  .slot-legend-swatch.open { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.35); }
+  .slot-legend-swatch.sel { background: var(--primary); border-color: var(--primary); }
+
+  /* PDF upload wizard */
+  .pdf-dropzone {
+    display: block;
+    border: 2px dashed var(--rule-2);
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 200ms;
+    margin-bottom: 24px;
+    background: var(--bg-3);
+    position: relative;
+  }
+  .pdf-dropzone:hover { border-color: var(--primary-soft); background: rgba(37,99,235,0.04); }
+  .pdf-dropzone.drag-over { border-color: var(--primary); background: rgba(37,99,235,0.12); border-style: solid; }
+  .pdf-dropzone.has-file { border-color: var(--success); background: rgba(16,185,129,0.06); border-style: solid; }
+  .pdf-dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .pdf-dz-icon { font-size: 32px; margin-bottom: 10px; filter: grayscale(0.3); }
+  .pdf-dz-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .pdf-dz-sub { font-size: 12px; color: var(--ink-3); }
+  .pdf-dz-sub code { font-family: ui-monospace, monospace; background: var(--bg); padding: 1px 6px; border-radius: 3px; color: var(--primary-soft); }
+
+  .pdf-status { display: none; margin-top: 14px; text-align: left; }
+  .pdf-status.show { display: block; }
+  .pdf-preview {
+    display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: start;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 12px;
+  }
+  .pdf-preview-thumb {
+    width: 92px; height: 130px; background: var(--bg-3);
+    border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pdf-preview-thumb img, .pdf-preview-thumb canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pdf-preview-info { font-size: 12px; line-height: 1.55; color: var(--ink-2); min-width: 0; }
+  .pdf-preview-info b { color: var(--ink); }
+  .pdf-preview-info .k { font-family: ui-monospace, monospace; font-size: 10px; color: var(--ink-4); letter-spacing: 0.1em; text-transform: uppercase; }
+  .pdf-preview-info .row { margin-bottom: 6px; }
+  .pdf-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .pdf-actions button {
+    background: var(--bg-3); border: 1px solid var(--rule-2); color: var(--ink-2);
+    padding: 7px 13px; font-size: 11.5px; border-radius: 4px; cursor: pointer;
+    font-family: inherit; display: inline-flex; align-items: center; gap: 5px;
+  }
+  .pdf-actions button:hover { border-color: var(--ink-3); color: var(--ink); }
+  .pdf-actions button.primary { background: var(--primary); border-color: var(--primary); color: white; }
+  .pdf-actions button.primary:hover { background: #1d4ed8; }
+  .pdf-progress {
+    height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; margin-top: 10px;
+    display: none;
+  }
+  .pdf-progress.show { display: block; }
+  .pdf-progress-bar { height: 100%; background: var(--primary); width: 0; transition: width 200ms; }
+</style>
+</head>
+<body>
+  <div class="adm-container">
+    <header class="adm-head">
+      <div>
+        <div class="kicker">BBL · ADMIN</div>
+        <h1>관리자 페이지</h1>
+        <div class="sub">연구 노트와 예약 가능 시간을 관리합니다. JSON을 GitHub에 업로드하면 홈페이지에 바로 반영됩니다.</div>
+      </div>
+      <a href="index.html">← 홈페이지로</a>
+    </header>
+
+    <nav class="adm-tabs">
+      <button class="adm-tab active" data-tab="notes"><span class="adm-tab-k">01</span>연구 노트</button>
+      <button class="adm-tab" data-tab="booking"><span class="adm-tab-k">02</span>예약 관리</button>
+    </nav>
+
+    <!-- ============ TAB 1: NOTES ============ -->
+    <div class="adm-panel-wrap active" data-panel="notes">
+    <div class="adm-grid">
+      <!-- LEFT: Form -->
+      <div class="panel">
+        <h2 id="form-title">새 노트 작성</h2>
+        <div class="panel-sub">PDF를 드래그하면 자동으로 썸네일·제목·요약이 채워집니다. 또는 아래 필드를 직접 입력하세요.</div>
+
+        <label class="pdf-dropzone" id="pdf-dz">
+          <input type="file" id="pdf-file" accept="application/pdf">
+          <div class="pdf-dz-icon">📄</div>
+          <div class="pdf-dz-title" id="pdf-dz-title">PDF 파일을 여기에 끌어다 놓으세요</div>
+          <div class="pdf-dz-sub">첫 페이지 썸네일 · 제목 · 요약이 자동 추출됩니다 — <code>assets/papers/</code> 업로드용 파일도 생성</div>
+          <div class="pdf-progress" id="pdf-progress"><div class="pdf-progress-bar" id="pdf-progress-bar"></div></div>
+          <div class="pdf-status" id="pdf-status">
+            <div class="pdf-preview">
+              <div class="pdf-preview-thumb" id="pdf-thumb"></div>
+              <div class="pdf-preview-info">
+                <div class="row"><span class="k">File</span><br><b id="pdf-name">—</b></div>
+                <div class="row"><span class="k">Pages · Title</span><br><span id="pdf-meta">—</span></div>
+                <div class="pdf-actions">
+                  <button type="button" class="primary" id="pdf-apply">✦ 폼에 자동 채우기</button>
+                  <button type="button" id="pdf-dl-thumb">⬇ 썸네일 다운로드</button>
+                  <button type="button" id="pdf-dl-pdf">⬇ PDF 다운로드 (리네임)</button>
+                  <button type="button" id="pdf-clear">✕ 초기화</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+
+        <form id="note-form">
+          <div class="field row3">
+            <div>
+              <label>번호 (자동)</label>
+              <input type="text" name="n" id="f-n" readonly>
+            </div>
+            <div>
+              <label>날짜</label>
+              <input type="text" name="date" id="f-date" placeholder="2026.04.20">
+            </div>
+            <div>
+              <label>태그</label>
+              <select name="tag" id="f-tag">
+                <option>KINEMATICS</option>
+                <option>HITTING</option>
+                <option>PITCHING</option>
+                <option>INJURY</option>
+                <option>METHOD</option>
+                <option>COACHING</option>
+                <option>CASE STUDY</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>제목 (한국어)</label>
+            <input type="text" name="titleKo" id="f-titleKo" placeholder="예) 분리각 35°의 문턱 — 골반과 몸통 사이에서 구속이 결정된다">
+          </div>
+
+          <div class="field">
+            <label>Title (English)</label>
+            <input type="text" name="titleEn" id="f-titleEn" placeholder="e.g. The 35° threshold — where pelvis and torso decide velocity">
+          </div>
+
+          <div class="field">
+            <label>요약 (한국어, 2~3문장)</label>
+            <textarea name="excerptKo" id="f-excerptKo" placeholder="국내 프로 30명 데이터 — 분리각 35°를 넘길 때 구속 평균 2.3mph 증가..."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Excerpt (English)</label>
+            <textarea name="excerptEn" id="f-excerptEn" placeholder="30 KBO pitchers — separation past 35° correlates with +2.3mph avg..."></textarea>
+          </div>
+
+          <div class="field row">
+            <div>
+              <label>읽는 시간 (KR, 분)</label>
+              <input type="number" name="readKo" id="f-readKo" min="1" max="30" value="5">
+            </div>
+            <div>
+              <label>Read time (EN, min)</label>
+              <input type="number" name="readEn" id="f-readEn" min="1" max="30" value="4">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>이미지 파일명</label>
+            <input type="text" name="img" id="f-img" placeholder="예) hero-pitcher-analysis.jpg">
+            <div class="hint">* 이미지는 <code>assets/</code> 폴더에 별도 업로드 후, 파일명만 입력하세요.</div>
+          </div>
+
+          <div class="field">
+            <label>PDF 파일명 (선택)</label>
+            <input type="text" name="pdf" id="f-pdf" placeholder="예) papers/note-005.pdf">
+            <div class="hint">* 비워두면 노트 카드는 클릭 불가. PDF는 <code>assets/papers/</code> 에 업로드.</div>
+          </div>
+
+          <div id="form-error" class="error" style="display:none;"></div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn" id="btn-submit">노트 추가</button>
+            <button type="button" class="btn ghost" id="btn-reset">초기화</button>
+            <button type="button" class="btn ghost" id="btn-cancel" style="display:none;">편집 취소</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: List + Export -->
+      <div>
+        <div class="panel" style="margin-bottom: 20px;">
+          <h2>작성된 노트 <span class="count" id="count">0</span></h2>
+          <div class="panel-sub">클릭하여 편집하거나 삭제할 수 있습니다.</div>
+          <div class="note-list" id="note-list"></div>
+        </div>
+
+        <div class="panel">
+          <h2>JSON 출력</h2>
+          <div class="panel-sub"><code>notes.json</code> 파일 내용을 복사하여 GitHub에 업로드하세요.</div>
+          <div class="export-box" id="export-box">[]</div>
+          <div class="btn-row">
+            <button type="button" class="btn success" id="btn-copy">📋 전체 복사</button>
+            <button type="button" class="btn ghost" id="btn-download">💾 notes.json 다운로드</button>
+          </div>
+
+          <div class="guide">
+            <h3>📘 업로드 방법</h3>
+            <ol>
+              <li>위 <b>"전체 복사"</b> 버튼 클릭</li>
+              <li>GitHub 저장소 → <code>notes.json</code> 파일 열기</li>
+              <li>연필 아이콘(Edit) 클릭 → 내용 전체 선택(Ctrl+A) → 붙여넣기</li>
+              <li>하단 <b>"Commit changes"</b> 초록 버튼 클릭</li>
+              <li>1~2분 후 홈페이지 새로고침 → 반영 완료</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- ============ /TAB 1 ============ -->
+
+    <!-- ============ TAB 2: BOOKING ============ -->
+    <div class="adm-panel-wrap" data-panel="booking">
+    <div class="adm-grid">
+      <div class="panel">
+        <h2>예약 가능 시간 설정</h2>
+        <div class="panel-sub">달력에서 <b>날짜를 선택</b>하고, 오른쪽에서 <b>시간대를 체크</b>하세요. 체크된 시간만 홈페이지에 노출됩니다.</div>
+
+        <div class="slot-grid">
+          <div>
+            <div class="slot-cal-head">
+              <button type="button" id="slot-prev" aria-label="prev">←</button>
+              <div class="month" id="slot-month">2026년 4월</div>
+              <button type="button" id="slot-next" aria-label="next">→</button>
+            </div>
+            <div class="slot-dow">
+              <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+            </div>
+            <div class="slot-grid-days" id="slot-days"></div>
+            <div class="slot-legend">
+              <span class="slot-legend-item"><span class="slot-legend-swatch open"></span>열려 있음</span>
+              <span class="slot-legend-item"><span class="slot-legend-swatch sel"></span>선택됨</span>
+              <span class="slot-legend-item">숫자 = 열린 시간 개수</span>
+            </div>
+          </div>
+
+          <div class="slot-editor" id="slot-editor">
+            <div class="editor-empty" id="editor-empty">왼쪽 달력에서 날짜를 선택하세요.</div>
+            <div id="editor-content" style="display:none;">
+              <div class="editor-head">
+                <div class="editor-date" id="editor-date">—</div>
+                <div class="editor-count" id="editor-count">0 / 12</div>
+              </div>
+              <div class="time-grid" id="time-grid"></div>
+              <div class="slot-quick">
+                <button type="button" data-preset="morning">오전 전체</button>
+                <button type="button" data-preset="afternoon">오후 전체</button>
+                <button type="button" data-preset="evening">저녁 전체</button>
+                <button type="button" data-preset="all">모두 선택</button>
+                <button type="button" data-preset="clear">모두 해제</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel" style="margin-bottom: 20px;">
+          <h2>관리자 이메일</h2>
+          <div class="panel-sub">고객이 예약을 신청하면 이 주소로 메일이 전송됩니다.</div>
+          <div class="field">
+            <label>Admin email</label>
+            <input type="email" id="f-admin-email" placeholder="bbl@kookmin.ac.kr">
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>JSON 출력</h2>
+          <div class="panel-sub"><code>slots.json</code> 파일 내용을 복사하여 GitHub에 업로드하세요.</div>
+          <div class="export-box" id="slots-export-box">{}</div>
+          <div class="btn-row">
+            <button type="button" class="btn success" id="btn-slots-copy">📋 전체 복사</button>
+            <button type="button" class="btn ghost" id="btn-slots-download">💾 slots.json 다운로드</button>
+          </div>
+
+          <div class="guide">
+            <h3>📘 업로드 방법</h3>
+            <ol>
+              <li>위 <b>"전체 복사"</b> 버튼 클릭</li>
+              <li>GitHub 저장소 → <code>slots.json</code> 파일 열기</li>
+              <li>연필 아이콘(Edit) 클릭 → 내용 전체 선택(Ctrl+A) → 붙여넣기</li>
+              <li>하단 <b>"Commit changes"</b> 초록 버튼 클릭</li>
+              <li>1~2분 후 예약 페이지 새로고침 → 반영 완료</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- ============ /TAB 2 ============ -->
+  </div>
+
+  <div class="toast" id="toast">✓ 복사되었습니다</div>
+
+<script>
+(() => {
+  const LS_KEY = 'bbl_admin_notes';
+  const $ = (id) => document.getElementById(id);
+
+  // Default notes (seed from existing notes.json)
+  const DEFAULT_NOTES = [
+    { n: '001', date: '2026.03.14', tag: 'KINEMATICS',
+      titleKo: '분리각 35°의 문턱 — 골반과 몸통 사이에서 구속이 결정된다',
+      titleEn: 'The 35° threshold — where pelvis and torso decide velocity',
+      excerptKo: '국내 프로 30명 데이터 — 분리각 35°를 넘길 때 구속 평균 2.3mph 증가. 다만 상체 과부하 위험이 동반되므로 ForceDecks 기반 보조 훈련이 필요.',
+      excerptEn: '30 KBO pitchers — separation past 35° correlates with +2.3mph avg. Upper-body overload risk calls for ForceDecks-based adjunct training.',
+      readKo: 7, readEn: 6, img: 'hero-pitcher-analysis.jpg' },
+    { n: '002', date: '2026.02.21', tag: 'HITTING',
+      titleKo: '뒤쪽 발의 1.8배 — 타구 속도를 가르는 숫자',
+      titleEn: '1.8× body weight — the rear-foot number that splits exit velocity',
+      excerptKo: '체중 대비 1.8배 이상의 뒤쪽 발 수직 지면반력을 보이는 타자는 평균 타구 속도가 6km/h 높았다. 고교생 25명 대상 측정 결과.',
+      excerptEn: 'Hitters peaking above 1.8× bodyweight in rear-foot vertical GRF showed +6 km/h avg exit velocity (n=25 HS).',
+      readKo: 5, readEn: 4, img: 'hero-hitting-analysis-poster.jpg' },
+    { n: '003', date: '2026.01.30', tag: 'INJURY',
+      titleKo: '팔꿈치가 먼저 말한다 — 토크가 자가 보고보다 정확한 이유',
+      titleEn: 'The elbow speaks first — why torque beats self-reported fatigue',
+      excerptKo: '토미 존 수술 이후 복귀 선수 12명 장기 추적. 3D 마커 기반 관절 토크가 자가 보고 피로도보다 재부상 예측에 유의미.',
+      excerptEn: '12-athlete longitudinal study post-TJ — marker-based joint torque beat self-report fatigue as a re-injury predictor.',
+      readKo: 9, readEn: 7, img: 'equipment-theia3d-forceplate.jpg' },
+    { n: '004', date: '2025.12.12', tag: 'METHOD',
+      titleKo: '마커리스와 마커 기반 — 언제, 무엇을, 왜 선택하는가',
+      titleEn: 'Markerless or marker-based — when, what, why',
+      excerptKo: '현장 빠른 피드백에는 마커리스, 정밀 관절 토크 분석에는 마커 기반. BBL 내부 비교 실험과 가이드라인.',
+      excerptEn: 'Markerless wins for fast on-field feedback; marker-based for precision joint torque. BBL internal guideline and benchmark.',
+      readKo: 6, readEn: 5, img: 'equipment-uplift-labs-poster.jpg' },
+  ];
+
+  let notes = [];
+  let editingIdx = -1;
+
+  // --- Storage ---
+  function load() {
+    try {
+      const s = localStorage.getItem(LS_KEY);
+      notes = s ? JSON.parse(s) : [...DEFAULT_NOTES];
+    } catch { notes = [...DEFAULT_NOTES]; }
+    if (!Array.isArray(notes) || notes.length === 0) notes = [...DEFAULT_NOTES];
+  }
+  function save() {
+    localStorage.setItem(LS_KEY, JSON.stringify(notes));
+  }
+
+  // --- Form ---
+  function nextN() {
+    if (notes.length === 0) return '001';
+    const max = Math.max(...notes.map(n => parseInt(n.n, 10) || 0));
+    return String(max + 1).padStart(3, '0');
+  }
+  function todayStr() {
+    const d = new Date();
+    return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+  }
+  function resetForm() {
+    editingIdx = -1;
+    $('form-title').textContent = '새 노트 작성';
+    $('btn-submit').textContent = '노트 추가';
+    $('btn-cancel').style.display = 'none';
+    $('f-n').value = nextN();
+    $('f-date').value = todayStr();
+    $('f-tag').value = 'KINEMATICS';
+    ['f-titleKo', 'f-titleEn', 'f-excerptKo', 'f-excerptEn', 'f-img', 'f-pdf'].forEach(id => $(id).value = '');
+    $('f-readKo').value = 5;
+    $('f-readEn').value = 4;
+    $('form-error').style.display = 'none';
+    document.querySelectorAll('.note-item.editing').forEach(el => el.classList.remove('editing'));
+  }
+  function fillForm(note, idx) {
+    editingIdx = idx;
+    $('form-title').textContent = `노트 편집 (No. ${note.n})`;
+    $('btn-submit').textContent = '수정 완료';
+    $('btn-cancel').style.display = 'inline-flex';
+    $('f-n').value = note.n;
+    $('f-date').value = note.date || '';
+    $('f-tag').value = note.tag || 'KINEMATICS';
+    $('f-titleKo').value = note.titleKo || '';
+    $('f-titleEn').value = note.titleEn || '';
+    $('f-excerptKo').value = note.excerptKo || '';
+    $('f-excerptEn').value = note.excerptEn || '';
+    $('f-readKo').value = note.readKo || 5;
+    $('f-readEn').value = note.readEn || 4;
+    $('f-img').value = note.img || '';
+    $('f-pdf').value = note.pdf || '';
+    $('form-error').style.display = 'none';
+    document.querySelectorAll('.note-item').forEach((el, i) => {
+      el.classList.toggle('editing', i === idx);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validate(form) {
+    const required = ['date', 'titleKo', 'titleEn', 'excerptKo', 'excerptEn', 'img'];
+    for (const f of required) {
+      if (!form[f] || !String(form[f]).trim()) {
+        return `"${f}" 필드를 채워주세요.`;
+      }
+    }
+    if (!/^\d{4}\.\d{2}\.\d{2}$/.test(form.date)) {
+      return '날짜는 YYYY.MM.DD 형식이어야 합니다.';
+    }
+    return null;
+  }
+
+  $('note-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = {
+      n: $('f-n').value.trim(),
+      date: $('f-date').value.trim(),
+      tag: $('f-tag').value,
+      titleKo: $('f-titleKo').value.trim(),
+      titleEn: $('f-titleEn').value.trim(),
+      excerptKo: $('f-excerptKo').value.trim(),
+      excerptEn: $('f-excerptEn').value.trim(),
+      readKo: parseInt($('f-readKo').value, 10) || 5,
+      readEn: parseInt($('f-readEn').value, 10) || 4,
+      img: $('f-img').value.trim(),
+      pdf: $('f-pdf').value.trim() || undefined,
+    };
+    // Drop empty optional fields so JSON stays clean
+    if (!form.pdf) delete form.pdf;
+    const err = validate(form);
+    if (err) {
+      $('form-error').textContent = err;
+      $('form-error').style.display = 'block';
+      return;
+    }
+    if (editingIdx >= 0) {
+      notes[editingIdx] = form;
+    } else {
+      notes.unshift(form);
+    }
+    save();
+    render();
+    resetForm();
+    showToast('✓ 저장되었습니다');
+  });
+
+  $('btn-reset').addEventListener('click', resetForm);
+  $('btn-cancel').addEventListener('click', resetForm);
+
+  // --- List ---
+  function render() {
+    const list = $('note-list');
+    $('count').textContent = notes.length;
+    list.innerHTML = '';
+    if (notes.length === 0) {
+      list.innerHTML = '<div style="padding:20px; color:var(--ink-4); font-size:13px; text-align:center;">작성된 노트가 없습니다.</div>';
+    } else {
+      notes.forEach((note, idx) => {
+        const div = document.createElement('div');
+        div.className = 'note-item' + (idx === editingIdx ? ' editing' : '');
+        div.innerHTML = `
+          <span class="note-n">${note.n}</span>
+          <div>
+            <div class="note-title">${escape(note.titleKo)}</div>
+            <div class="note-meta">${escape(note.date)} · ${escape(note.tag)} · ${note.readKo}min</div>
+          </div>
+          <div class="note-actions">
+            <button data-idx="${idx}" class="edit">편집</button>
+            <button data-idx="${idx}" class="del">삭제</button>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+      list.querySelectorAll('.edit').forEach(b => b.addEventListener('click', () => {
+        const i = parseInt(b.dataset.idx, 10);
+        fillForm(notes[i], i);
+      }));
+      list.querySelectorAll('.del').forEach(b => b.addEventListener('click', () => {
+        const i = parseInt(b.dataset.idx, 10);
+        if (confirm(`"${notes[i].titleKo}" 노트를 삭제할까요?`)) {
+          notes.splice(i, 1);
+          save();
+          if (editingIdx === i) resetForm();
+          render();
+          showToast('✓ 삭제되었습니다');
+        }
+      }));
+    }
+    $('export-box').textContent = JSON.stringify(notes, null, 2);
+  }
+
+  // --- Export ---
+  $('btn-copy').addEventListener('click', async () => {
+    const text = JSON.stringify(notes, null, 2);
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('✓ 클립보드에 복사되었습니다');
+    } catch {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+      showToast('✓ 복사되었습니다');
+    }
+  });
+
+  $('btn-download').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(notes, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'notes.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('✓ 다운로드되었습니다');
+  });
+
+  // --- Toast ---
+  let toastTimer;
+  function showToast(msg) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  // --- Escape ---
+  function escape(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  // --- Init ---
+  load();
+  render();
+  resetForm();
+
+  // ============================================================
+  // PDF UPLOAD WIZARD
+  // ============================================================
+  if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+
+  let pdfState = { thumbBlob: null, pdfBlob: null, noteNumber: null, originalName: null };
+
+  const dz = $('pdf-dz');
+  const pdfInput = $('pdf-file');
+  const pdfStatus = $('pdf-status');
+  const pdfProgress = $('pdf-progress');
+  const pdfProgressBar = $('pdf-progress-bar');
+  const pdfDzTitle = $('pdf-dz-title');
+
+  ['dragenter','dragover'].forEach(ev => {
+    dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('drag-over'); });
+  });
+  ['dragleave','drop'].forEach(ev => {
+    dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dz.classList.remove('drag-over'); });
+  });
+  dz.addEventListener('drop', e => {
+    const file = e.dataTransfer?.files?.[0];
+    if (file) handlePdfFile(file);
+  });
+  pdfInput.addEventListener('change', e => {
+    const file = e.target.files?.[0];
+    if (file) handlePdfFile(file);
+  });
+
+  async function handlePdfFile(file) {
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+      showToast('⚠ PDF 파일만 가능합니다');
+      return;
+    }
+    if (!window.pdfjsLib) {
+      showToast('⚠ PDF.js 라이브러리 로딩 실패 — 새로고침 후 다시 시도하세요');
+      return;
+    }
+
+    pdfProgress.classList.add('show');
+    pdfProgressBar.style.width = '10%';
+    pdfDzTitle.textContent = `⏳ ${file.name} 처리 중...`;
+
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      pdfProgressBar.style.width = '30%';
+
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      pdfProgressBar.style.width = '55%';
+
+      // Render first page to canvas → JPG blob
+      const page = await pdf.getPage(1);
+      const viewport = page.getViewport({ scale: 1.5 });
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+      pdfProgressBar.style.width = '75%';
+
+      // Create thumbnail with 3:4 aspect crop, max 600px wide
+      const thumbCanvas = createThumb(canvas, 600);
+      const thumbBlob = await new Promise(res => thumbCanvas.toBlob(res, 'image/jpeg', 0.85));
+      pdfProgressBar.style.width = '85%';
+
+      // Extract metadata
+      const meta = await pdf.getMetadata().catch(() => ({}));
+      const pdfTitle = (meta.info?.Title || '').trim();
+      const pdfAuthor = (meta.info?.Author || '').trim();
+
+      // Extract first-page text for excerpt
+      const textContent = await page.getTextContent();
+      const fullText = textContent.items.map(i => i.str).join(' ').replace(/\s+/g, ' ').trim();
+      pdfProgressBar.style.width = '100%';
+
+      // Save state
+      const noteN = nextN();
+      pdfState = {
+        thumbBlob,
+        pdfBlob: file,
+        noteNumber: noteN,
+        originalName: file.name,
+        pdfTitle,
+        pdfAuthor,
+        fullText,
+        numPages: pdf.numPages,
+      };
+
+      // Render preview
+      const thumbWrap = $('pdf-thumb');
+      thumbWrap.innerHTML = '';
+      const previewCanvas = createThumb(canvas, 200);
+      thumbWrap.appendChild(previewCanvas);
+
+      $('pdf-name').textContent = file.name;
+      $('pdf-meta').textContent = `${pdf.numPages}p · ${pdfTitle || '(제목 메타데이터 없음)'}${pdfAuthor ? ' · ' + pdfAuthor : ''}`;
+      pdfStatus.classList.add('show');
+      dz.classList.add('has-file');
+      pdfDzTitle.textContent = `✓ 준비 완료 — 아래 "자동 채우기" 버튼을 누르세요`;
+
+      setTimeout(() => { pdfProgress.classList.remove('show'); pdfProgressBar.style.width = '0'; }, 500);
+    } catch (err) {
+      console.error(err);
+      showToast('⚠ PDF 처리 실패: ' + err.message);
+      pdfProgress.classList.remove('show');
+      pdfDzTitle.textContent = 'PDF 파일을 여기에 끌어다 놓으세요';
+    }
+  }
+
+  function createThumb(srcCanvas, maxW) {
+    const srcW = srcCanvas.width, srcH = srcCanvas.height;
+    const targetRatio = 3 / 4; // 3:4 portrait
+    const srcRatio = srcW / srcH;
+    let cropW, cropH, cropX, cropY;
+    if (srcRatio > targetRatio) {
+      cropH = srcH; cropW = srcH * targetRatio;
+      cropX = (srcW - cropW) / 2; cropY = 0;
+    } else {
+      cropW = srcW; cropH = srcW / targetRatio;
+      cropX = 0; cropY = 0;
+    }
+    const outW = Math.min(maxW, cropW);
+    const outH = outW / targetRatio;
+    const thumb = document.createElement('canvas');
+    thumb.width = outW; thumb.height = outH;
+    const tctx = thumb.getContext('2d');
+    tctx.fillStyle = '#fff';
+    tctx.fillRect(0, 0, outW, outH);
+    tctx.drawImage(srcCanvas, cropX, cropY, cropW, cropH, 0, 0, outW, outH);
+    return thumb;
+  }
+
+  $('pdf-apply').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!pdfState.thumbBlob) return;
+    const n = pdfState.noteNumber;
+    const thumbFilename = `note-${n}-thumb.jpg`;
+    const pdfFilename = `papers/note-${n}.pdf`;
+
+    // Fill form only if empty (don't override user's work)
+    if (!$('f-titleKo').value && pdfState.pdfTitle) $('f-titleKo').value = pdfState.pdfTitle;
+    if (!$('f-titleEn').value && pdfState.pdfTitle) $('f-titleEn').value = pdfState.pdfTitle;
+    if (!$('f-excerptKo').value && pdfState.fullText) {
+      $('f-excerptKo').value = pdfState.fullText.slice(0, 240).trim() + (pdfState.fullText.length > 240 ? '...' : '');
+    }
+    if (!$('f-excerptEn').value && pdfState.fullText) {
+      // heuristic: if text is mostly ASCII, use as English excerpt
+      const isLatin = /^[\x00-\x7F\s]+$/.test(pdfState.fullText.slice(0, 200));
+      if (isLatin) {
+        $('f-excerptEn').value = pdfState.fullText.slice(0, 240).trim() + (pdfState.fullText.length > 240 ? '...' : '');
+      }
+    }
+    $('f-img').value = thumbFilename;
+    $('f-pdf').value = pdfFilename;
+
+    // Auto-detect tag from filename/title
+    const hay = (pdfState.pdfTitle + ' ' + pdfState.originalName + ' ' + pdfState.fullText.slice(0, 500)).toLowerCase();
+    let tag = 'METHOD';
+    if (/hit|batt|swing|타격|스윙/.test(hay)) tag = 'HITTING';
+    else if (/pitch|throw|투구|구속/.test(hay)) tag = 'PITCHING';
+    else if (/injur|부상|tj|elbow/.test(hay)) tag = 'INJURY';
+    else if (/kinemat|분리각|운동학/.test(hay)) tag = 'KINEMATICS';
+    else if (/coach|코칭/.test(hay)) tag = 'COACHING';
+    $('f-tag').value = tag;
+
+    showToast('✓ 폼에 자동 채움 완료 — 검토 후 "노트 추가" 버튼을 눌러주세요');
+    window.scrollTo({ top: document.querySelector('form').offsetTop - 40, behavior: 'smooth' });
+  });
+
+  $('pdf-dl-thumb').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!pdfState.thumbBlob) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(pdfState.thumbBlob);
+    a.download = `note-${pdfState.noteNumber}-thumb.jpg`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    showToast('✓ 썸네일 다운로드됨 — assets/ 폴더에 업로드하세요');
+  });
+
+  $('pdf-dl-pdf').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!pdfState.pdfBlob) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(pdfState.pdfBlob);
+    a.download = `note-${pdfState.noteNumber}.pdf`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    showToast('✓ PDF 다운로드됨 — assets/papers/ 폴더에 업로드하세요');
+  });
+
+  $('pdf-clear').addEventListener('click', (e) => {
+    e.preventDefault();
+    pdfState = { thumbBlob: null, pdfBlob: null, noteNumber: null, originalName: null };
+    pdfStatus.classList.remove('show');
+    dz.classList.remove('has-file');
+    pdfDzTitle.textContent = 'PDF 파일을 여기에 끌어다 놓으세요';
+    pdfInput.value = '';
+  });
+  // Stop clicks inside preview from re-opening file picker
+  pdfStatus.addEventListener('click', (e) => { e.stopPropagation(); });
+
+  // ============================================================
+  // TAB SWITCHING
+  // ============================================================
+  document.querySelectorAll('.adm-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.adm-tab').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.adm-panel-wrap').forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+    });
+  });
+
+  // ============================================================
+  // BOOKING (slots.json) MANAGEMENT
+  // ============================================================
+  const SLOTS_LS = 'bbl_admin_slots';
+  const ALL_TIMES = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+  const PRESETS = {
+    morning: ['10:00','11:00'],
+    afternoon: ['13:00','14:00','15:00','16:00'],
+    evening: ['17:00','18:00','19:00'],
+    all: [...ALL_TIMES],
+    clear: [],
+  };
+  const DEFAULT_SLOTS = {
+    adminEmail: 'bbl@kookmin.ac.kr',
+    openDates: {
+      '2026-04-22': ['10:00','11:00','14:00','15:00','16:00'],
+      '2026-04-23': ['10:00','11:00','14:00','15:00'],
+      '2026-04-24': ['10:00','11:00','14:00'],
+      '2026-04-28': ['10:00','11:00','14:00','15:00','16:00'],
+      '2026-04-29': ['10:00','11:00','14:00','15:00'],
+      '2026-04-30': ['14:00','15:00','16:00'],
+    },
+  };
+
+  let slotData = { adminEmail: '', openDates: {} };
+  let slotCursor = new Date(); slotCursor.setDate(1);
+  let selectedDate = null;
+
+  function loadSlots() {
+    try {
+      const s = localStorage.getItem(SLOTS_LS);
+      slotData = s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT_SLOTS));
+    } catch { slotData = JSON.parse(JSON.stringify(DEFAULT_SLOTS)); }
+    if (!slotData.openDates) slotData.openDates = {};
+    if (!slotData.adminEmail) slotData.adminEmail = DEFAULT_SLOTS.adminEmail;
+  }
+  function saveSlots() { localStorage.setItem(SLOTS_LS, JSON.stringify(slotData)); }
+
+  function keyOf(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${dd}`;
+  }
+
+  function renderSlotCal() {
+    $('slot-month').textContent = `${slotCursor.getFullYear()}년 ${slotCursor.getMonth()+1}월`;
+    const y = slotCursor.getFullYear(), m = slotCursor.getMonth();
+    const first = new Date(y, m, 1);
+    const last = new Date(y, m+1, 0);
+    const startDow = first.getDay();
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    const grid = $('slot-days');
+    grid.innerHTML = '';
+    for (let i = 0; i < startDow; i++) {
+      const el = document.createElement('div'); el.className = 'slot-day empty'; grid.appendChild(el);
+    }
+    for (let d = 1; d <= last.getDate(); d++) {
+      const date = new Date(y, m, d);
+      const k = keyOf(date);
+      const slots = slotData.openDates[k] || [];
+      const btn = document.createElement('button');
+      btn.className = 'slot-day';
+      btn.textContent = d;
+      if (date < today) btn.classList.add('past');
+      if (slots.length > 0) { btn.classList.add('has-slots'); btn.dataset.count = slots.length; }
+      if (selectedDate === k) btn.classList.add('selected');
+      btn.addEventListener('click', () => {
+        if (date < today) return;
+        selectedDate = k;
+        renderSlotCal();
+        renderEditor();
+      });
+      grid.appendChild(btn);
+    }
+    renderExport();
+  }
+
+  function renderEditor() {
+    const empty = $('editor-empty');
+    const content = $('editor-content');
+    if (!selectedDate) {
+      empty.style.display = 'block';
+      content.style.display = 'none';
+      return;
+    }
+    empty.style.display = 'none';
+    content.style.display = 'block';
+
+    const [y,mm,dd] = selectedDate.split('-');
+    const d = new Date(parseInt(y), parseInt(mm)-1, parseInt(dd));
+    const label = d.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+    $('editor-date').textContent = label;
+
+    const slots = slotData.openDates[selectedDate] || [];
+    $('editor-count').textContent = `${slots.length} / ${ALL_TIMES.length}`;
+
+    const grid = $('time-grid');
+    grid.innerHTML = '';
+    ALL_TIMES.forEach(t => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'time-chip' + (slots.includes(t) ? ' on' : '');
+      chip.textContent = t;
+      chip.addEventListener('click', () => {
+        const cur = slotData.openDates[selectedDate] || [];
+        const next = cur.includes(t) ? cur.filter(x => x !== t) : [...cur, t].sort();
+        if (next.length === 0) delete slotData.openDates[selectedDate];
+        else slotData.openDates[selectedDate] = next;
+        saveSlots();
+        renderSlotCal();
+        renderEditor();
+      });
+      grid.appendChild(chip);
+    });
+  }
+
+  function renderExport() {
+    slotData.adminEmail = $('f-admin-email').value.trim() || DEFAULT_SLOTS.adminEmail;
+    // Clean up past dates on export
+    const out = { adminEmail: slotData.adminEmail, openDates: {} };
+    const today = new Date(); today.setHours(0,0,0,0);
+    Object.keys(slotData.openDates).sort().forEach(k => {
+      const [y,mm,dd] = k.split('-').map(Number);
+      const d = new Date(y, mm-1, dd);
+      if (d >= today) out.openDates[k] = slotData.openDates[k];
+    });
+    $('slots-export-box').textContent = JSON.stringify(out, null, 2);
+  }
+
+  // Bind slot handlers
+  $('slot-prev').addEventListener('click', () => {
+    slotCursor = new Date(slotCursor.getFullYear(), slotCursor.getMonth()-1, 1);
+    renderSlotCal();
+  });
+  $('slot-next').addEventListener('click', () => {
+    slotCursor = new Date(slotCursor.getFullYear(), slotCursor.getMonth()+1, 1);
+    renderSlotCal();
+  });
+  document.querySelectorAll('[data-preset]').forEach(b => {
+    b.addEventListener('click', () => {
+      if (!selectedDate) return;
+      const preset = PRESETS[b.dataset.preset];
+      if (preset.length === 0) delete slotData.openDates[selectedDate];
+      else slotData.openDates[selectedDate] = [...preset];
+      saveSlots();
+      renderSlotCal();
+      renderEditor();
+    });
+  });
+  $('f-admin-email').addEventListener('input', () => { saveSlots(); renderExport(); });
+
+  $('btn-slots-copy').addEventListener('click', async () => {
+    const text = $('slots-export-box').textContent;
+    try { await navigator.clipboard.writeText(text); showToast('✓ 복사되었습니다'); }
+    catch {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+      showToast('✓ 복사되었습니다');
+    }
+  });
+  $('btn-slots-download').addEventListener('click', () => {
+    const blob = new Blob([$('slots-export-box').textContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'slots.json'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('✓ 다운로드되었습니다');
+  });
+
+  loadSlots();
+  $('f-admin-email').value = slotData.adminEmail;
+  renderSlotCal();
+  renderEditor();
+})();
+</script>
+</body>
+</html>

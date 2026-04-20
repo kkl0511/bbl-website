@@ -1,22 +1,18 @@
-// Booking.jsx — calendar-style booking (Cal.com-inspired)
+// Booking.jsx — calendar-style booking (dynamic slots + mailto submit)
 const SERVICES_LIST_KO = [
   { id: 'basic',    name: '기본 바이오메카닉스',  dur: '40분',   price: '30만원', tier: 'INDIV · 001' },
   { id: 'advanced', name: '정밀 바이오메카닉스',  dur: '90분',   price: '50–70만원', tier: 'INDIV · 002' },
-  { id: 'team1',    name: '1회 측정 (10명+)',     dur: '2시간',  price: '21만원 / 인', tier: 'TEAM · 003' },
+  { id: 'team1',    name: '1회 측정 (10명+)',     dur: '2시간 (10명 기준)',  price: '21만원 / 인', tier: 'TEAM · 003' },
   { id: 'teamann',  name: '연간 단체 패키지',     dur: '연 12회', price: '15만원 / 인 / 회', tier: 'TEAM · 004' },
 ];
 const SERVICES_LIST_EN = [
   { id: 'basic',    name: 'Basic Biomechanics',     dur: '40min',   price: '300,000 KRW', tier: 'INDIV · 001' },
   { id: 'advanced', name: 'Advanced Biomechanics',  dur: '90min',   price: '500–700,000 KRW', tier: 'INDIV · 002' },
-  { id: 'team1',    name: 'Team measurement (10+)', dur: '2h',      price: '210,000 / athlete', tier: 'TEAM · 003' },
+  { id: 'team1',    name: 'Team measurement (10+)', dur: '2h (10 athletes)',      price: '210,000 / athlete', tier: 'TEAM · 003' },
   { id: 'teamann',  name: 'Annual team package',    dur: '12×/yr',  price: '150,000 / session', tier: 'TEAM · 004' },
 ];
 
-const SLOTS_KO = {
-  morning: ['10:00', '11:00'],
-  afternoon: ['13:00', '14:00', '15:00', '16:00'],
-  evening: ['17:00', '18:00', '19:00'],
-};
+const DEFAULT_ADMIN_EMAIL = 'bbl@kookmin.ac.kr';
 
 function buildMonth(y, m) {
   const first = new Date(y, m, 1);
@@ -29,6 +25,24 @@ function buildMonth(y, m) {
   return days;
 }
 
+function dateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${dd}`;
+}
+
+function groupSlots(times) {
+  const m = [], a = [], e = [];
+  times.forEach(t => {
+    const h = parseInt(t.split(':')[0], 10);
+    if (h < 12) m.push(t);
+    else if (h < 17) a.push(t);
+    else e.push(t);
+  });
+  return { morning: m, afternoon: a, evening: e };
+}
+
 function Booking() {
   const T = window.useT();
   const locale = window.currentLocale();
@@ -37,7 +51,23 @@ function Booking() {
   const [service, setService] = React.useState('basic');
   const [date, setDate] = React.useState(null);
   const [slot, setSlot] = React.useState(null);
+  const [name, setName] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [memo, setMemo] = React.useState('');
+  const [openDates, setOpenDates] = React.useState({});
+  const [adminEmail, setAdminEmail] = React.useState(DEFAULT_ADMIN_EMAIL);
   const [sent, setSent] = React.useState(false);
+
+  React.useEffect(() => {
+    fetch('slots.json', { cache: 'no-cache' })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data && data.openDates) setOpenDates(data.openDates);
+        if (data && data.adminEmail) setAdminEmail(data.adminEmail);
+      })
+      .catch(() => {});
+  }, []);
 
   const services = locale === 'en' ? SERVICES_LIST_EN : SERVICES_LIST_KO;
   const currentService = services.find(s => s.id === service) || services[0];
@@ -52,20 +82,80 @@ function Booking() {
     if (!d) return false;
     const t = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     if (d < t) return false;
-    if (d.getDay() === 0) return false; // closed Sundays
-    return true;
+    const key = dateKey(d);
+    return !!(openDates[key] && openDates[key].length > 0);
   };
   const isSelected = (d) => d && date && d.toDateString() === date.toDateString();
 
+  const availableSlots = date ? (openDates[dateKey(date)] || []) : [];
+  const grouped = groupSlots(availableSlots);
+
+  const canSubmit = service && date && slot && name.trim() && phone.trim();
+
   const submit = () => {
-    if (!date || !slot) return;
+    if (!canSubmit) return;
+    const dateStr = date.toLocaleDateString(locale === 'en' ? 'en-US' : 'ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+    const subjectKo = `[BBL 예약] ${currentService.name} · ${dateStr} ${slot}`;
+    const subjectEn = `[BBL Booking] ${currentService.name} · ${dateStr} ${slot}`;
+    const subject = locale === 'en' ? subjectEn : subjectKo;
+
+    const bodyKo = `안녕하세요, BBL 분석 예약 문의드립니다.
+
+━━━ 예약 정보 ━━━
+• 서비스: ${currentService.name} (${currentService.tier})
+• 소요 시간: ${currentService.dur}
+• 비용: ${currentService.price}
+• 날짜: ${dateStr}
+• 시간: ${slot}
+
+━━━ 신청자 정보 ━━━
+• 이름: ${name}
+• 연락처: ${phone}
+• 이메일: ${email || '-'}
+
+━━━ 메모 ━━━
+${memo || '(없음)'}
+
+확정 여부 회신 부탁드립니다.
+감사합니다.`;
+
+    const bodyEn = `Hi BBL, I'd like to request a biomechanics session.
+
+━━━ Booking ━━━
+• Service: ${currentService.name} (${currentService.tier})
+• Duration: ${currentService.dur}
+• Fee: ${currentService.price}
+• Date: ${dateStr}
+• Time: ${slot}
+
+━━━ Contact ━━━
+• Name: ${name}
+• Phone: ${phone}
+• Email: ${email || '-'}
+
+━━━ Notes ━━━
+${memo || '(none)'}
+
+Please confirm availability. Thank you.`;
+
+    const body = locale === 'en' ? bodyEn : bodyKo;
+    const mailto = `mailto:${adminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
     setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setTimeout(() => setSent(false), 8000);
   };
 
   const step1 = true;
   const step2 = !!service;
   const step3 = !!date && !!slot;
+
+  const monthHasOpenDates = (() => {
+    const y = cursor.getFullYear(), m = cursor.getMonth();
+    return Object.keys(openDates).some(k => {
+      const [ky, km] = k.split('-').map(Number);
+      return ky === y && km === m + 1;
+    });
+  })();
 
   return (
     <section id="book" className="hp-section hp-book" data-screen-label="08 Book">
@@ -142,6 +232,11 @@ function Booking() {
                   );
                 })}
               </div>
+              {!monthHasOpenDates && (
+                <div className="hp-book-noopen mono">
+                  {locale === 'en' ? 'No open dates this month — try the next one →' : '이번 달 예약 가능한 날이 없습니다 — 다음 달을 확인해보세요 →'}
+                </div>
+              )}
             </div>
 
             <div className="hp-book-slots">
@@ -152,35 +247,86 @@ function Booking() {
                 </span>}
               </div>
 
-              {!date && <p className="hp-book-slots-empty">{locale === 'en' ? 'Select a date first.' : '먼저 날짜를 선택해주세요.'}</p>}
+              {!date && <p className="hp-book-slots-empty">{locale === 'en' ? 'Select an open date first.' : '먼저 열려있는 날짜를 선택해주세요.'}</p>}
 
-              {date && (
+              {date && availableSlots.length === 0 && (
+                <p className="hp-book-slots-empty">{locale === 'en' ? 'No slots available on this date.' : '이 날짜는 예약 가능한 시간이 없습니다.'}</p>
+              )}
+
+              {date && availableSlots.length > 0 && (
                 <div className="hp-book-slot-groups">
-                  {Object.entries(SLOTS_KO).map(([period, times]) => (
-                    <div key={period} className="hp-book-slot-group">
-                      <div className="hp-book-slot-period mono">{T(`book.${period}`)}</div>
-                      <div className="hp-book-slot-row">
-                        {times.map(t => (
-                          <button
-                            key={t}
-                            className={`hp-book-slot ${slot === t ? 'on' : ''}`}
-                            onClick={() => setSlot(t)}
-                          >{t}</button>
-                        ))}
+                  {['morning', 'afternoon', 'evening'].map(period => (
+                    grouped[period].length > 0 && (
+                      <div key={period} className="hp-book-slot-group">
+                        <div className="hp-book-slot-period mono">{T(`book.${period}`)}</div>
+                        <div className="hp-book-slot-row">
+                          {grouped[period].map(t => (
+                            <button
+                              key={t}
+                              className={`hp-book-slot ${slot === t ? 'on' : ''}`}
+                              onClick={() => setSlot(t)}
+                            >{t}</button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )
                   ))}
                 </div>
               )}
             </div>
 
+            {slot && (
+              <div className="hp-book-form">
+                <div className="hp-book-form-head mono">{T('book.contact')}</div>
+                <div className="hp-book-form-grid">
+                  <input
+                    type="text"
+                    placeholder={locale === 'en' ? 'Name *' : '이름 *'}
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    className="hp-book-input"
+                  />
+                  <input
+                    type="tel"
+                    placeholder={locale === 'en' ? 'Phone *' : '연락처 (010-xxxx-xxxx) *'}
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    className="hp-book-input"
+                  />
+                  <input
+                    type="email"
+                    placeholder={locale === 'en' ? 'Email (optional)' : '이메일 (선택)'}
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="hp-book-input"
+                  />
+                  <textarea
+                    placeholder={locale === 'en' ? 'Notes (position, goals, preferred contact time, etc.)' : '메모 (포지션 · 목표 · 선호 연락 시간 등)'}
+                    value={memo}
+                    onChange={e => setMemo(e.target.value)}
+                    className="hp-book-input hp-book-textarea"
+                    rows="3"
+                  />
+                </div>
+              </div>
+            )}
+
             <button
               className="btn btn-primary btn-full hp-book-confirm"
               onClick={submit}
-              disabled={!date || !slot}
+              disabled={!canSubmit}
             >
-              {sent ? T('book.confirmed') : `${T('book.confirm')} →`}
+              {sent
+                ? (locale === 'en' ? '✓ Email opened — please send it' : '✓ 메일 앱이 열렸습니다 — 발송해 주세요')
+                : `${T('book.submit')} →`}
             </button>
+            {sent && (
+              <p className="hp-book-sent-hint mono">
+                {locale === 'en'
+                  ? 'If your email app didn\'t open, please contact us directly: ' + adminEmail
+                  : '메일 앱이 열리지 않았다면 직접 문의해주세요: ' + adminEmail}
+              </p>
+            )}
           </div>
         </div>
       </div>

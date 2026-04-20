@@ -1,6 +1,16 @@
 // Testimonials.jsx — athlete/coach voices carousel
 const VOICES = [
   {
+    quoteKo: '상체만 고치면 되는 줄 알았습니다. 웨이트를 아무리 해도 제구가 안 잡혔죠. 분석 결과 원인은 하체 — 무릎이 흔들려 공 놓는 지점이 매번 달랐던 겁니다. 훈련법을 바꾼 그 해에 구속과 제구를 동시에 잡았고, KBO 드래프트에 지명됐습니다.',
+    quoteEn: 'I thought the problem was my upper body. No matter how much I lifted, command wouldn\'t come. The analysis pointed down — a wavering knee that shifted my release every pitch. The year I changed training, velocity and command locked in together. I was drafted by the KBO.',
+    nameKo: '정튼튼 · P',
+    nameEn: 'Pitcher Jeong T.',
+    roleKo: '고려대 야구부 → NC 다이노스 (2026 KBO 신인 드래프트 5R)',
+    roleEn: 'Korea Univ. → NC Dinos (2026 KBO Draft · R5)',
+    statKo: ['5라운드', 'KBO 지명'],
+    statEn: ['Round 5', 'KBO Draft'],
+  },
+  {
     quoteKo: '내 몸이 어떻게 움직이는지 처음으로 \'봤습니다\'. 감각이 그래프 한 장으로 정리된 날, 구속이 145에서 150으로 움직이기 시작했습니다.',
     quoteEn: 'The first time I actually saw how my body moves. The day feeling became a graph, my velocity started moving — 145 to 150.',
     nameKo: '김 · P',
@@ -59,7 +69,7 @@ function Testimonials() {
     <section id="voices" className="hp-section hp-testi" data-screen-label="07 Voices">
       <div className="hp-container">
         <header className="hp-sec-head">
-          <div className="hp-sec-label"><span>/</span>{T('testi.label')} <span className="dim">004·V</span></div>
+          <div className="hp-sec-label"><span>/</span>{T('testi.label')} <span className="dim">{String(VOICES.length).padStart(3,'0')}·V</span></div>
           <p className="hp-sec-lead">{T('testi.lead')}</p>
         </header>
 

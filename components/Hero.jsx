@@ -46,7 +46,7 @@ function Hero() {
           </h1>
           <p className="hp-hero-lead">{T('hero.lead')}</p>
           <div className="hp-hero-cta">
-            <a href="#why" className="btn btn-primary">{T('hero.cta.about')} <span className="arr">→</span></a>
+            <a href="#contact" className="btn btn-primary">{T('hero.cta.book')} <span className="arr">→</span></a>
             <a href="#services" className="btn btn-ghost">{T('hero.cta.services')}</a>
           </div>
         </div>

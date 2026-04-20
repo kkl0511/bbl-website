@@ -19,7 +19,7 @@ function useCountUp(target, run) {
 
 function Stat({ value, suffix, prefix, label, run }) {
   const v = useCountUp(value, run);
-  const display = value >= 100 ? Math.round(v) : v.toFixed(value>=10?0:1);
+  const display = Number.isInteger(value) ? Math.round(v) : (value >= 100 ? Math.round(v) : v.toFixed(value>=10?0:1));
   return (
     <div className="hp-stat">
       <div className="hp-stat-num">{prefix}{display}<em>{suffix}</em></div>
