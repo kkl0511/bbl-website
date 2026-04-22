@@ -134,8 +134,6 @@ function WhyBBL() {
           ))}
         </div>
 
-<<<<<<< HEAD
-=======
         <div className="hp-media-band">
           <div className="hp-media-meta">
             <div className="hp-media-kicker">
@@ -180,7 +178,6 @@ function WhyBBL() {
             </div>
           </div>
         </div>
->>>>>>> d5eba33d026c142cd1d7436000c78aefad2a2427
       </div>
     </section>
   );

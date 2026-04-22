@@ -134,12 +134,9 @@ function Footer() {
               <a href="#why">{T('nav.01')}</a>
               <a href="#system">{T('nav.02')}</a>
               <a href="#services">{T('nav.03')}</a>
-<<<<<<< HEAD
-=======
               <a href="#report">{T('nav.04')}</a>
               <a href="#research">{T('nav.05')}</a>
               <a href="#voices">{T('nav.06')}</a>
->>>>>>> d5eba33d026c142cd1d7436000c78aefad2a2427
               <a href="#book">{T('nav.07')}</a>
             </div>
             <div className="col">
