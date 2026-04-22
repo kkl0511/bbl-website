@@ -48,6 +48,7 @@ function Hero() {
         </div>
 
         <div className="hp-hero-visual">
+          <img src="assets/bbl-logo-full.png" alt="" className="hp-hero-logo-badge" aria-hidden="true" />
           <div className="hp-hero-frame">
             <div className="hp-hero-frame-chrome">
               <span className="rec"><span className="rec-d" /> REC</span>

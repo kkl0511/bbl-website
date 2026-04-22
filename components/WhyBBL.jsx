@@ -60,7 +60,7 @@ function WhyBBL() {
     {
       n: '03', kicker: 'EQUIPMENT', title: 'World-class instrumentation',
       desc: 'A measurement chain on par with MLB and Driveline. Qualisys 3D · Theia3D markerless · VALD ForceDecks · Rapsodo · Uplift Labs · AMTI · Swing Catalyst force plates.',
-      proof: [['300 Hz', '3D markerless motion capture'], ['1000 Hz', 'force plate sampling'], ['10+', 'MLB/Driveline-grade tools']],
+      proof: [['240 Hz', '3D markerless motion capture'], ['1000 Hz', 'force plate sampling'], ['10+', 'MLB/Driveline-grade tools']],
       tag: 'tools',
     },
   ] : [
@@ -79,7 +79,7 @@ function WhyBBL() {
     {
       n: '03', kicker: 'EQUIPMENT', title: '세계 최고 수준 분석 장비',
       desc: 'MLB · Driveline과 동급의 측정 체계. Qualisys 3D 모션캡쳐 · Theia3D 마커리스 · VALD ForceDecks · Rapsodo · Uplift Labs · AMTI · Swing Catalyst 포스플레이트.',
-      proof: [['300Hz', '3D 마커리스 모션캡처'], ['1000Hz', '포스플레이트 샘플링'], ['10종+', 'MLB/Driveline 급 장비']],
+      proof: [['240Hz', '3D 마커리스 모션캡처'], ['1000Hz', '포스플레이트 샘플링'], ['10종+', 'MLB/Driveline 급 장비']],
       tag: '장비',
     },
   ];

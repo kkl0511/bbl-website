@@ -1,14 +1,14 @@
 // FAQ + Contact + Footer (i18n)
 const FAQS_KO = [
   { q: 'BBL은 다른 측정 센터와 무엇이 다른가요?', a: '세 가지가 다릅니다. ① 30년간 쌓인 국민대 바이오메카닉스 연구가 분석의 뼈대입니다 — 검증된 학술 방법론, 논문 기반 진단. ② 선수 출신이면서 바이오메카닉스를 전공한 플레이어-애널리스트가 직접 설명합니다. ③ 한국 선수 1,000명 이상의 자체 벤치마크로, 해외 일반 평균이 아니라 당신 또래와 비교합니다.' },
-  { q: '처음인데 어떤 서비스를 선택해야 하나요?', a: '처음이라면 \'기본 바이오메카닉스\'(20만원 · 40분)로 시작하시길 권합니다. 동작과 체력의 베이스라인을 한 번에 측정합니다. 이후 고교·프로 선수는 지면반력·관절 토크까지 포함된 \'정밀 바이오메카닉스\'(아마추어 40만 · 프로 60만)로 더 깊게 들여다볼 수 있습니다.' },
+  { q: '처음인데 어떤 서비스를 선택해야 하나요?', a: '처음이라면 \'기본 바이오메카닉스\'(30만원 · 40분)로 시작하시길 권합니다. 동작과 체력의 베이스라인을 한 번에 측정합니다. 이후 고교·프로 선수는 지면반력·관절 토크까지 포함된 \'정밀 바이오메카닉스\'(아마추어 50만 · 프로 70만)로 더 깊게 들여다볼 수 있습니다.' },
   { q: '중학생도 이용할 수 있나요?', a: '네. 기본 바이오메카닉스는 중·고등학생이 주요 대상입니다. VALD 체력 평가는 신체 성장 편차 때문에 고교생 이상을 권장하며, 중학생은 성장 단계에 맞춰 동작 메카닉스 중심 세션으로 맞춰 드립니다.' },
   { q: '팀 단위 출장 분석이 가능한가요?', a: '네. 포터블 장비(Uplift Labs · Rapsodo · VALD)를 들고 팀이 있는 곳으로 갑니다. 10명 이상 단체 측정 시 선수 전원 리포트 + 현장 피드백 + 코치진 브리핑이 포함됩니다. 1회 단체(1인 15만원) 또는 연간 패키지(1인 1회 10만원, 연 12회) 중 선택할 수 있습니다.' },
   { q: '예약은 어떻게 하나요?', a: '상단 \'예약\' 섹션에서 서비스·날짜·시간을 선택하시거나, 아래 문의 폼 또는 메일(happygh@kookmin.ac.kr)로 포지션·학년·희망 일정을 남겨주세요. 초기 상담 약 15분이며, 예약은 보통 2주 이내로 잡힙니다.' },
 ];
 const FAQS_EN = [
   { q: 'How is BBL different from other measurement centers?', a: 'Three differences. ① Thirty years of Kookmin biomechanics research form the backbone — peer-reviewed methods, not proprietary guesswork. ② A player-analyst hybrid — former athletes with biomechanics grad degrees explain the data themselves. ③ A benchmark of 1,000+ Korean athletes, so you compare against peers, not a generic overseas average.' },
-  { q: 'Which service should a first-timer pick?', a: 'Start with Basic Biomechanics (200k KRW · 40 min) — a single-session baseline of motion and fitness. HS and pro athletes can then go deeper with Advanced Biomechanics (amateur 400k · pro 600k), adding ground reaction and joint torque.' },
+  { q: 'Which service should a first-timer pick?', a: 'Start with Basic Biomechanics (300k KRW · 40 min) — a single-session baseline of motion and fitness. HS and pro athletes can then go deeper with Advanced Biomechanics (amateur 500k · pro 700k), adding ground reaction and joint torque.' },
   { q: 'Can middle-school students use BBL?', a: 'Yes. Basic Biomechanics is built around MS and HS athletes. VALD fitness testing is recommended HS and up due to growth-stage variance; for MS we tailor a motion-mechanics focused session.' },
   { q: 'Do you travel to team locations?', a: 'Yes. Our portable chain (Uplift Labs · Rapsodo · VALD) travels to the team. 10+ athletes: full individual reports, on-site feedback and a staff briefing. Single session 150k KRW/athlete, or an annual package — 100k/athlete/session, 12× a year.' },
   { q: 'How do I book?', a: 'Pick service, date and time in the Booking section above, or email happygh@kookmin.ac.kr with your position, level and preferred schedule. ~15 min initial consult; typically bookable within 2 weeks.' },
@@ -101,9 +101,6 @@ function Contact() {
             <div className="hp-info-block">
               <div className="k">🏢 {locale === 'en' ? 'OPERATOR' : '운영'}</div>
               <div>{locale === 'en' ? 'BioMotion Inc.' : '㈜ 바이오모션'}</div>
-            </div>
-            <div className="hp-info-ascii" aria-hidden>
-              {`┌──────────────────────┐\n│  37.6104° N          │\n│  127.0029° E         │\n│                      │\n│  SEOUL · KR          │\n│  BIOMECHANICS LAB    │\n└──────────────────────┘`}
             </div>
           </aside>
         </div>

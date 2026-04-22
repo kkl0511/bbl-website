@@ -40,7 +40,7 @@ function Services() {
 
   const TEAM = locale === 'en' ? [
     {
-      k: 'TEAM · 003', t: '2h / 10 athletes',
+      k: 'TEAM · 003', t: '4h / 10 athletes',
       name: 'Single team session (10+)',
       desc: 'One-time HS/MS team measurement. Full athlete reports + staff briefing.',
       price: '210,000', unit: 'KRW / athlete',
@@ -56,7 +56,7 @@ function Services() {
     },
   ] : [
     {
-      k: 'TEAM · 003', t: '2시간 / 10인',
+      k: 'TEAM · 003', t: '4시간 / 10인',
       name: '1회 측정 (10명+)',
       desc: '중·고교팀 1회 단체 측정. 선수 전원 분석 + 코칭스태프 브리핑.',
       price: '21', unit: '만원 / 인',
@@ -78,7 +78,7 @@ function Services() {
   const specKo = [
     ['주요 대상', '초·중·고교생', '아마 유망주 · 프로', '중·고교팀', '중·고교팀 · 1년 계약'],
     ['방문 횟수', '1회', '1회', '1회', '연 12회 (10+2)'],
-    ['소요시간', '30분 + 10분', '60분 + 30분', '2시간 / 10인', '매 회 측정 + 피드백'],
+    ['소요시간', '30분 + 10분', '60분 + 30분', '4시간 / 10인', '매 회 측정 + 피드백'],
     ['모션캡쳐', 'Uplift Labs', 'Qualisys 3D 마커리스', 'Uplift Labs', 'Uplift + Qualisys (연 2회)'],
     ['VALD 체력 평가', '✓', '✓', '✓', '✓'],
     ['볼 트래킹 (Rapsodo)', '✓', '✓', '✓', '✓'],
@@ -94,7 +94,7 @@ function Services() {
   const specEn = [
     ['Primary audience', 'Youth · HS', 'Amateur prospect · Pro', 'HS / MS team', 'HS / MS · annual contract'],
     ['Visits', '1', '1', '1', '12 / yr (10 + 2)'],
-    ['Duration', '30 + 10min', '60 + 30min', '2h / 10 athletes', 'every session + feedback'],
+    ['Duration', '30 + 10min', '60 + 30min', '4h / 10 athletes', 'every session + feedback'],
     ['Motion capture', 'Uplift Labs', 'Qualisys 3D markerless', 'Uplift Labs', 'Uplift + Qualisys (×2/yr)'],
     ['VALD fitness', '✓', '✓', '✓', '✓'],
     ['Ball tracking (Rapsodo)', '✓', '✓', '✓', '✓'],
@@ -108,8 +108,8 @@ function Services() {
     ['Energy flow · leak points', '—', '✓', '—', '✓ (×2/yr)'],
   ];
   const priceRow = locale === 'en'
-    ? ['Price (incl. VAT)', '300,000', '500–700,000', '210,000 / athlete', '150,000 / athlete / session']
-    : ['가격 (VAT 포함)', '30만원', '50–70만원', '21만원 / 인', '15만원 / 인 / 회'];
+    ? ['Price (incl. VAT)', '300,000', '500,000 (amateur) / 700,000 (pro)', '210,000 / athlete', '150,000 / athlete / session']
+    : ['가격 (VAT 포함)', '30만원', '50만원(아마)/70만원(프로)', '21만원 / 인', '15만원 / 인 / 회'];
   const spec = locale === 'en' ? specEn : specKo;
   const header = locale === 'en'
     ? ['Item', 'Basic Biomechanics', 'Advanced Biomechanics', 'Single team', 'Annual team']

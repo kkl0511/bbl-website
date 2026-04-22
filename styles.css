@@ -167,7 +167,15 @@ em { font-style: normal; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 40px;
 }
-.hp-brand { display: inline-flex; align-items: center; }
+.hp-brand { display: inline-flex; align-items: center; gap: 12px; }
+.hp-brand-icon {
+  height: 36px; width: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 220ms;
+}
+.hp-brand:hover .hp-brand-icon { transform: translateY(-1px); }
+.hp-nav.is-scrolled .hp-brand-icon { height: 28px; }
 .hp-brand-lockup { display: flex; flex-direction: column; gap: 2px; line-height: 1.1; }
 .hp-brand-tag {
   font-family: var(--sans);
@@ -299,7 +307,29 @@ em { font-style: normal; }
 .hp-hero-cta { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* --- Visual frame --- */
-.hp-hero-visual { align-self: stretch; display: flex; flex-direction: column; }
+.hp-hero-visual { align-self: stretch; display: flex; flex-direction: column; position: relative; }
+.hp-hero-logo-badge {
+  position: absolute;
+  top: -28px;
+  right: -18px;
+  width: clamp(120px, 16vw, 170px);
+  height: auto;
+  z-index: 3;
+  opacity: 0.95;
+  filter: drop-shadow(0 6px 24px rgba(59, 130, 246, 0.25));
+  pointer-events: none;
+  user-select: none;
+  transition: transform 280ms ease, opacity 200ms;
+  animation: bblBadgeFloat 6s ease-in-out infinite;
+}
+.hp-hero-logo-badge:hover { opacity: 1; transform: scale(1.03); }
+@keyframes bblBadgeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@media (max-width: 960px) {
+  .hp-hero-logo-badge { top: -12px; right: -6px; width: 100px; }
+}
 .hp-hero-frame {
   position: relative;
   background: var(--bg-2);

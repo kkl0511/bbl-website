@@ -42,6 +42,7 @@ function Nav() {
     <nav className={`hp-nav ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="hp-nav-inner">
         <a href="#intro" className="hp-brand" onClick={() => setMobileOpen(false)} aria-label="BioMotion Baseball Lab">
+          <img src="assets/bbl-logo-icon.png" alt="" className="hp-brand-icon" />
           <div className="hp-brand-lockup">
             <div className="hp-brand-tag">BioMotion Baseball Lab<span className="hp-brand-abbr">(BBL)</span></div>
           </div>
