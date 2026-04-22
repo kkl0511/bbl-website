@@ -167,24 +167,22 @@ em { font-style: normal; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 40px;
 }
-.hp-brand { display: inline-flex; align-items: center; gap: 12px; }
-.hp-brand-logo {
-  height: 40px; width: auto;
-  display: block;
-  object-fit: contain;
-  transition: opacity 160ms, transform 220ms;
-}
-.hp-brand:hover .hp-brand-logo { transform: translateY(-1px); }
-[data-theme="dark"] .hp-brand-logo-light { display: none; }
-[data-theme="light"] .hp-brand-logo-dark { display: none; }
-.hp-nav.is-scrolled .hp-brand-logo { height: 32px; }
-
+.hp-brand { display: inline-flex; align-items: center; }
 .hp-brand-lockup { display: flex; flex-direction: column; gap: 2px; line-height: 1.1; }
 .hp-brand-tag {
-  font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em;
-  color: var(--ink-3); text-transform: uppercase; white-space: nowrap;
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  white-space: nowrap;
 }
-.hp-brand-tag span { color: var(--ink-4); }
+.hp-brand-abbr {
+  color: var(--primary-soft);
+  margin-left: 6px;
+  font-weight: 700;
+}
+.hp-brand:hover .hp-brand-abbr { color: var(--primary); }
 
 .hp-footer-logo {
   height: 88px; width: auto;
@@ -271,7 +269,7 @@ em { font-style: normal; }
 
 .hp-hero-head { align-self: center; padding-right: 20px; }
 .hp-hero-h1 {
-  font-size: clamp(54px, 8.5vw, 132px);
+  font-size: clamp(40px, 6vw, 88px);
   line-height: 0.96;
   letter-spacing: -0.04em;
   display: flex; flex-direction: column;
@@ -981,7 +979,8 @@ em { font-style: normal; }
 }
 .hp-note:last-child { border-bottom: none; }
 .hp-note:hover { background: rgba(255,255,255,0.015); }
-.hp-note:hover .hp-note-img img { transform: scale(1.04); filter: grayscale(0) contrast(1) brightness(1); }
+.hp-note:hover .hp-note-img img,
+.hp-note:hover .hp-note-img video { transform: scale(1.04); filter: grayscale(0) contrast(1) brightness(1); }
 .hp-note:hover .hp-note-title { color: var(--primary-soft); }
 
 .hp-note-meta { display: flex; flex-direction: column; gap: 12px; padding-top: 6px; }
@@ -1024,10 +1023,12 @@ a.hp-note-link:hover .hp-note-pdf { background: var(--primary); color: white; }
   background: var(--bg-3);
   border: 1px solid var(--rule);
 }
-.hp-note-img img {
+.hp-note-img img,
+.hp-note-img video {
   width: 100%; height: 100%; object-fit: cover;
   filter: grayscale(0.4) contrast(1.05) brightness(0.9);
   transition: transform 500ms, filter 400ms;
+  display: block;
 }
 
 .hp-notes-all { margin-top: 40px; text-align: center; }

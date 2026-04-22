@@ -45,7 +45,7 @@
       'about.h2.2': '처방을 드립니다.',
       'about.lead.1': '측정은 누구나 할 수 있습니다. 해석은 다릅니다.',
       'about.lead.2': 'BBL은 30년간 쌓인 바이오메카닉스 연구로, 숫자 뒤의 ‘왜’를 읽어냅니다.',
-      'about.lead.3': '그래서 기록지 한 장이 아닌, 무엇을 어떻게 바꿀지 구체적인 처방으로 돌려드립니다.',
+      'about.lead.3': '그래서 분석한 결과 설명을 넘어 무엇을 어떻게 바꿀지 구체적인 처방까지 드립니다.',
       'about.stat.1': '스포츠 바이오메카닉스 연구',
       'about.stat.2': '국내 최초 야구 바이오메카닉스',
       'about.stat.3': 'MLB·Driveline급 장비',
@@ -144,7 +144,7 @@
       'contact.sent': '접수 완료 ✓',
 
       // FOOTER
-      'footer.tag': 'BioMotion Baseball Lab (BBL)',
+      'footer.tag': 'BioMotion Baseball Lab',
       'footer.meta': '㈜ 바이오모션 · 국민대학교 · 서울 성북구 정릉로 77\n측정 · 해석 · 처방 — 30년의 연구를, 마운드와 타석 위에서.',
       'footer.site': 'SITE',
       'footer.contact': 'CONTACT',
@@ -193,7 +193,7 @@
       'about.h2.2': 'we give a prescription.',
       'about.lead.1': 'Anyone can measure. Interpretation is the difference.',
       'about.lead.2': 'Thirty years of biomechanics research at BBL read the ‘why’ behind every number.',
-      'about.lead.3': 'You leave with a specific prescription — not a comparison chart, but exactly what to change, and how.',
+      'about.lead.3': 'So you get more than an explanation of the results — you get a concrete prescription for exactly what to change, and how.',
       'about.stat.1': 'Years of biomechanics research',
       'about.stat.2': 'Years leading baseball biomechanics in Korea',
       'about.stat.3': 'MLB · Driveline-grade instruments',
@@ -292,7 +292,7 @@
       'contact.sent': 'Received ✓',
 
       // FOOTER
-      'footer.tag': 'BioMotion Baseball Lab (BBL)',
+      'footer.tag': 'BioMotion Baseball Lab',
       'footer.meta': 'BioMotion Inc. · Kookmin University · 77 Jeongneung-ro, Seongbuk-gu, Seoul\nMeasure · interpret · prescribe — 30 years of research, now on the mound and the plate.',
       'footer.site': 'SITE',
       'footer.contact': 'CONTACT',

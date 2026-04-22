@@ -65,7 +65,15 @@ function ResearchNotes() {
                   </div>
                 </div>
                 <div className="hp-note-img">
-                  <img src={`assets/${note.img}`} alt="" onError={(e) => { e.target.style.opacity = '0.3'; }} />
+                  {note.video ? (
+                    <video
+                      src={`assets/${note.video}`}
+                      autoPlay muted loop playsInline preload="metadata"
+                      aria-label=""
+                    />
+                  ) : note.img ? (
+                    <img src={`assets/${note.img}`} alt="" onError={(e) => { e.target.style.opacity = '0.3'; }} />
+                  ) : null}
                 </div>
               </>
             );

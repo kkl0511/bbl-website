@@ -9,7 +9,7 @@ function Nav() {
   React.useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      const secs = ['intro','why','system','services','report','research','voices','book','faq','contact'];
+      const secs = ['intro','why','system','services','faq','contact'];
       for (const id of secs) {
         const el = document.getElementById(id);
         if (!el) continue;
@@ -26,9 +26,6 @@ function Nav() {
     ['why', T('nav.01')],
     ['system', T('nav.02')],
     ['services', T('nav.03')],
-    ['report', T('nav.04')],
-    ['research', T('nav.05')],
-    ['book', T('nav.07')],
     ['faq', T('nav.08')],
   ];
 
@@ -44,11 +41,9 @@ function Nav() {
   return (
     <nav className={`hp-nav ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="hp-nav-inner">
-        <a href="#intro" className="hp-brand" onClick={() => setMobileOpen(false)} aria-label="BioMotion Baseball Lab (BBL)">
-          <img src="assets/bbl-mark-dark.png" alt="" className="hp-brand-logo hp-brand-logo-dark" />
-          <img src="assets/bbl-mark-light.png" alt="" className="hp-brand-logo hp-brand-logo-light" />
+        <a href="#intro" className="hp-brand" onClick={() => setMobileOpen(false)} aria-label="BioMotion Baseball Lab">
           <div className="hp-brand-lockup">
-            <div className="hp-brand-tag">BIOMOTION BASEBALL LAB <span>(BBL)</span></div>
+            <div className="hp-brand-tag">BioMotion Baseball Lab<span className="hp-brand-abbr">(BBL)</span></div>
           </div>
         </a>
         <div className={`hp-nav-links ${mobileOpen ? 'mobile-open' : ''}`}>

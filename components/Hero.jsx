@@ -25,26 +25,22 @@ function Hero() {
   return (
     <section id="intro" className="hp-hero" data-screen-label="01 Hero">
       <div className="hp-hero-grid">
-        <div className="hp-hero-meta">
-          <div className="hp-hero-tag">
-            <span className="dot" />
-            {T('hero.tag')}
-          </div>
-          <div className="hp-hero-coord">
-            37.6104° N &nbsp; · &nbsp; 127.0029° E<br/>
-            {T('hero.coord')}
-          </div>
-        </div>
-
         <div className="hp-hero-head">
           <h1 className="hp-hero-h1" key={window.TWEAKS.heroHeadline}>
             <span className="line">
-              <span className="hp-hero-index">01 —</span> {T(`hero.v.${window.TWEAKS.heroHeadline || 'feel'}.1`)}
+              {(window.TWEAKS.heroHeadline || 'feel') === 'measure' ? (
+                window.currentLocale() === 'ko' ? (
+                  <><em>측정</em>되지 않으면</>
+                ) : (
+                  <em>{T('hero.v.measure.1')}</em>
+                )
+              ) : (
+                T(`hero.v.${window.TWEAKS.heroHeadline || 'feel'}.1`)
+              )}
             </span>
             <span className="line">{T(`hero.v.${window.TWEAKS.heroHeadline || 'feel'}.2`)}</span>
-            <span className="line hp-hero-h1-accent">{T(`hero.v.${window.TWEAKS.heroHeadline || 'feel'}.3`)}</span>
+            <span className={`line ${(window.TWEAKS.heroHeadline || 'feel') === 'measure' ? '' : 'hp-hero-h1-accent'}`}>{T(`hero.v.${window.TWEAKS.heroHeadline || 'feel'}.3`)}</span>
           </h1>
-          <p className="hp-hero-lead">{T('hero.lead')}</p>
           <div className="hp-hero-cta">
             <a href="#contact" className="btn btn-primary">{T('hero.cta.book')} <span className="arr">→</span></a>
             <a href="#services" className="btn btn-ghost">{T('hero.cta.services')}</a>
@@ -92,17 +88,6 @@ function Hero() {
                 })}
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="hp-hero-footer">
-          <div className="hp-hero-footer-item">
-            <span className="k">{T('hero.equipment')}</span>
-            <span>Qualisys · Theia3D · VALD ForceDecks · Rapsodo · Uplift Labs · AMTI · Swing Catalyst</span>
-          </div>
-          <div className="hp-hero-footer-item right">
-            <span className="k">{T('hero.scroll')}</span>
-            <span className="scroll-hint">↓</span>
           </div>
         </div>
       </div>

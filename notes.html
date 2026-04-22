@@ -28,6 +28,7 @@
   .note-card { display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: inherit; padding-top: 22px; border-top: 1px solid var(--rule); transition: transform 220ms, border-color 220ms; }
   .note-card:hover { border-top-color: var(--primary-soft); transform: translateY(-2px); }
   .note-card .img { aspect-ratio: 4 / 3; background: #0f1114 center/cover no-repeat; border-radius: 2px; overflow: hidden; }
+  .note-card video.img { width: 100%; object-fit: cover; display: block; }
   .note-card .meta { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); }
   .note-card .meta .tag { color: var(--primary-soft); }
   .note-card .n { color: var(--ink-4); }
@@ -86,9 +87,12 @@
       const href    = n.pdf ? ('assets/' + n.pdf) : 'index.html#research';
       const target  = n.pdf ? '_blank' : '_self';
       const img     = n.img ? ('assets/' + n.img) : '';
+      const media   = n.video
+        ? `<video class="img" src="assets/${n.video}" autoplay muted loop playsinline preload="metadata"></video>`
+        : (img ? `<div class="img" style="background-image:url('${img}')"></div>` : '');
       return `
         <a class="note-card" href="${href}" ${n.pdf ? 'target="_blank" rel="noopener"' : ''}>
-          ${img ? `<div class="img" style="background-image:url('${img}')"></div>` : ''}
+          ${media}
           <div class="meta"><span class="tag">${n.tag}</span><span class="n">${n.n} · ${n.date}</span></div>
           <h2>${title}</h2>
           <p>${excerpt}</p>

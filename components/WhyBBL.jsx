@@ -48,38 +48,38 @@ function WhyBBL() {
     {
       n: '01', kicker: 'COMMUNICATION', title: 'Field-ready communication',
       desc: 'Results spoken in the athlete\'s language. Our player-analysts — former competitive players with biomechanics grad degrees — handle both measurement and feedback.',
-      proof: [['PLAYER', '→ ANALYST hybrid'], ['24h', 'report delivery'], ['1,000+', 'Korean athlete benchmarks']],
+      proof: [['Former player', 'MSc/PhD biomechanist'], ['1h', 'instant feedback'], ['2,000+', 'Korean athlete big-data']],
       tag: 'talk',
     },
     {
       n: '02', kicker: 'INSIGHT', title: 'Insight that prescribes',
-      desc: 'Data-driven, objective analysis. Validated academic methods and paper-backed diagnosis tell you not just what, but how to fix it.',
+      desc: 'Objective analysis driven by big data from over 2,000 measured athletes. Validated academic methods and paper-backed diagnosis tell you not just what, but how to fix it.',
       proof: [['30 yr+', 'sports biomechanics research'], ['15 yr+', 'baseball biomechanics in Korea'], ['PhD', 'researcher-led analysis']],
       tag: 'think',
     },
     {
       n: '03', kicker: 'EQUIPMENT', title: 'World-class instrumentation',
       desc: 'A measurement chain on par with MLB and Driveline. Qualisys 3D · Theia3D markerless · VALD ForceDecks · Rapsodo · Uplift Labs · AMTI · Swing Catalyst force plates.',
-      proof: [['240 Hz', '3D motion capture'], ['1000 Hz', 'force plate sampling'], ['10+', 'MLB/Driveline-grade tools']],
+      proof: [['300 Hz', '3D markerless motion capture'], ['1000 Hz', 'force plate sampling'], ['10+', 'MLB/Driveline-grade tools']],
       tag: 'tools',
     },
   ] : [
     {
       n: '01', kicker: 'COMMUNICATION', title: '현장 전달 소통 스킬',
       desc: '선수의 언어로 분석 결과 전달. 전직 야구선수이면서 대학원에서 바이오메카닉스를 전공한 플레이어-애널리스트가 측정과 피드백을 모두 담당합니다.',
-      proof: [['PLAYER', '→ ANALYST 하이브리드'], ['24h', '리포트 전달 이내'], ['1,000+', '한국 선수 벤치마크']],
+      proof: [['선수 출신', '석박사급 바이오메카니스트'], ['1h', '즉각적인 피드백'], ['2,000+', '한국 선수 빅데이터 활용']],
       tag: '소통',
     },
     {
       n: '02', kicker: 'INSIGHT', title: '통찰력 있는 분석 능력',
-      desc: '빅데이터 기반 객관적 분석. 검증된 학술 방법론과 논문 기반 진단으로 단순 비교가 아닌 무엇을 어떻게 고칠지 알려드립니다.',
+      desc: '2,000명 이상 측정한 빅데이터를 이용한 객관적 분석. 검증된 학술 방법론과 논문 기반 진단으로 단순 비교가 아닌 무엇을 어떻게 고칠지 알려드립니다.',
       proof: [['30년+', '스포츠 바이오메카닉스 연구'], ['15년+', '국내 최초 야구 바이오메카닉스'], ['PhD', '박사 연구진 직접 분석']],
       tag: '통찰',
     },
     {
       n: '03', kicker: 'EQUIPMENT', title: '세계 최고 수준 분석 장비',
       desc: 'MLB · Driveline과 동급의 측정 체계. Qualisys 3D 모션캡쳐 · Theia3D 마커리스 · VALD ForceDecks · Rapsodo · Uplift Labs · AMTI · Swing Catalyst 포스플레이트.',
-      proof: [['240Hz', '3D 모션캡쳐'], ['1000Hz', '포스플레이트 샘플링'], ['10종+', 'MLB/Driveline 급 장비']],
+      proof: [['300Hz', '3D 마커리스 모션캡처'], ['1000Hz', '포스플레이트 샘플링'], ['10종+', 'MLB/Driveline 급 장비']],
       tag: '장비',
     },
   ];
@@ -132,51 +132,6 @@ function WhyBBL() {
               </div>
             </article>
           ))}
-        </div>
-
-        <div className="hp-media-band">
-          <div className="hp-media-meta">
-            <div className="hp-media-kicker">
-              <span className="hp-media-dot" aria-hidden="true" />
-              {locale === 'en' ? 'AS SEEN ON · EBS' : '방송 출연 · EBS'}
-            </div>
-            <h3 className="hp-media-title">
-              {locale === 'en'
-                ? 'Hitting is science.'
-                : '타격은 과학이다.'}
-              <br/>
-              <em>{locale === 'en'
-                ? 'The secret behind a hit.'
-                : '안타의 비밀.'}</em>
-            </h3>
-            <p className="hp-media-desc">
-              {locale === 'en'
-                ? 'Prof. Lee Kigwang — BBL founder — joins KBO analyst Park Yong-taek on EBS "Hobby is Science" to break down hitting mechanics from the biomechanics lab.'
-                : 'BBL 설립자 이기광 교수가 KBO 해설위원 박용택과 함께 EBS 『취미는 과학』에서 타격 메카닉을 연구실의 언어로 풀어냅니다.'}
-            </p>
-            <div className="hp-media-tags">
-              <span>EBS · 취미는 과학</span>
-              <span>50화 · 확장판</span>
-              <span>{locale === 'en' ? 'feat. Park Yong-taek' : 'feat. 박용택 해설위원'}</span>
-            </div>
-            <a className="hp-media-link" href="https://www.youtube.com/watch?v=yvIOv-xecVU&t=1093s" target="_blank" rel="noopener noreferrer">
-              {locale === 'en' ? 'Watch on YouTube' : '유튜브에서 보기'} <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-          <div className="hp-media-frame">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/yvIOv-xecVU?start=1093&rel=0&modestbranding=1"
-              title="EBS 취미는 과학 · 타격은 과학이다 (feat. 이기광 교수, 박용택 위원)"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
-            <div className="hp-media-frame-chrome">
-              <span className="hp-media-frame-k"><span className="hp-media-frame-d" />YouTube · EBS</span>
-              <span className="hp-media-frame-t">yvIOv-xecVU · t=1093</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
