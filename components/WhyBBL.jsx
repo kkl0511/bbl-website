@@ -134,6 +134,53 @@ function WhyBBL() {
           ))}
         </div>
 
+<<<<<<< HEAD
+=======
+        <div className="hp-media-band">
+          <div className="hp-media-meta">
+            <div className="hp-media-kicker">
+              <span className="hp-media-dot" aria-hidden="true" />
+              {locale === 'en' ? 'AS SEEN ON · EBS' : '방송 출연 · EBS'}
+            </div>
+            <h3 className="hp-media-title">
+              {locale === 'en'
+                ? 'Hitting is science.'
+                : '타격은 과학이다.'}
+              <br/>
+              <em>{locale === 'en'
+                ? 'The secret behind a hit.'
+                : '안타의 비밀.'}</em>
+            </h3>
+            <p className="hp-media-desc">
+              {locale === 'en'
+                ? 'Prof. Lee Kigwang — BBL founder — joins KBO analyst Park Yong-taek on EBS "Hobby is Science" to break down hitting mechanics from the biomechanics lab.'
+                : 'BBL 설립자 이기광 교수가 KBO 해설위원 박용택과 함께 EBS 『취미는 과학』에서 타격 메카닉을 연구실의 언어로 풀어냅니다.'}
+            </p>
+            <div className="hp-media-tags">
+              <span>EBS · 취미는 과학</span>
+              <span>50화 · 확장판</span>
+              <span>{locale === 'en' ? 'feat. Park Yong-taek' : 'feat. 박용택 해설위원'}</span>
+            </div>
+            <a className="hp-media-link" href="https://www.youtube.com/watch?v=yvIOv-xecVU&t=1093s" target="_blank" rel="noopener noreferrer">
+              {locale === 'en' ? 'Watch on YouTube' : '유튜브에서 보기'} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div className="hp-media-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/yvIOv-xecVU?start=1093&rel=0&modestbranding=1"
+              title="EBS 취미는 과학 · 타격은 과학이다 (feat. 이기광 교수, 박용택 위원)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            <div className="hp-media-frame-chrome">
+              <span className="hp-media-frame-k"><span className="hp-media-frame-d" />YouTube · EBS</span>
+              <span className="hp-media-frame-t">yvIOv-xecVU · t=1093</span>
+            </div>
+          </div>
+        </div>
+>>>>>>> d5eba33d026c142cd1d7436000c78aefad2a2427
       </div>
     </section>
   );

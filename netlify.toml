@@ -1,71 +1,26 @@
-# ==========================================================================
-# Netlify 배포 설정 파일 — BBL (BioMotion Baseball Biomechanics Lab)
-# ==========================================================================
-# 이 파일은 Netlify가 자동으로 읽어 배포 환경을 구성합니다.
-# 수정 시 Git push (또는 재배포) 하면 새 설정이 반영됩니다.
-# ==========================================================================
-
 [build]
-  # 빌드 명령: posts/*.md를 스캔해 posts.js 생성
-  command = "node build-index.js"
   publish = "."
+  command = ""
 
-# Node.js 버전 지정 (Decap CMS 호환)
-[build.environment]
-  NODE_VERSION = "20"
-
-# --------------------------------------------------------------------------
-# 보안 헤더 (모든 페이지에 적용)
-# --------------------------------------------------------------------------
 [[headers]]
   for = "/*"
   [headers.values]
-    # Clickjacking 방지 (다른 사이트에서 iframe으로 못 여는 설정)
     X-Frame-Options = "SAMEORIGIN"
-    # MIME 타입 스니핑 방지
     X-Content-Type-Options = "nosniff"
-    # 리퍼러 정보 제한 (프라이버시)
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # 브라우저 권한 제한 (위치, 카메라 등 사용 안 함)
-    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
-    # HTTPS 강제 (1년)
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
-# --------------------------------------------------------------------------
-# 캐싱 정책 — 에셋 (이미지·영상·아이콘) : 1년 캐시
-# --------------------------------------------------------------------------
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-# --------------------------------------------------------------------------
-# 캐싱 정책 — HTML : 항상 최신 (새 배포가 바로 반영되도록)
-# --------------------------------------------------------------------------
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
-  for = "/"
+  for = "/*.jsx"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-
-# --------------------------------------------------------------------------
-# 캐싱 정책 — robots.txt, sitemap.xml : 1시간
-# --------------------------------------------------------------------------
-[[headers]]
-  for = "/robots.txt"
-  [headers.values]
-    Cache-Control = "public, max-age=3600"
+    Content-Type = "text/babel"
 
 [[headers]]
-  for = "/sitemap.xml"
+  for = "/*.json"
   [headers.values]
-    Cache-Control = "public, max-age=3600"
-
-# --------------------------------------------------------------------------
-# 404 처리 — Netlify는 /404.html 파일이 있으면 자동 사용
-# (별도 redirect 설정 불필요)
-# --------------------------------------------------------------------------
+    Cache-Control = "public, max-age=60, must-revalidate"

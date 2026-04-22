@@ -9,7 +9,11 @@ function Nav() {
   React.useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
+<<<<<<< HEAD
       const secs = ['intro','why','system','services','book','faq','contact'];
+=======
+      const secs = ['intro','why','system','services','report','research','voices','book','faq','contact'];
+>>>>>>> d5eba33d026c142cd1d7436000c78aefad2a2427
       for (const id of secs) {
         const el = document.getElementById(id);
         if (!el) continue;
@@ -26,6 +30,11 @@ function Nav() {
     ['why', T('nav.01')],
     ['system', T('nav.02')],
     ['services', T('nav.03')],
+<<<<<<< HEAD
+=======
+    ['report', T('nav.04')],
+    ['research', T('nav.05')],
+>>>>>>> d5eba33d026c142cd1d7436000c78aefad2a2427
     ['book', T('nav.07')],
     ['faq', T('nav.08')],
   ];

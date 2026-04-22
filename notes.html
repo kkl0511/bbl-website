@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연구 노트 · BioMotion Baseball Lab</title>
+<meta name="description" content="BBL 연구 노트 — 랩에서 현장으로 이어지는 바이오메카닉스 인사이트. 논문·세션 기록·코칭 노트.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<link rel="icon" type="image/png" href="assets/bbl-mark-light.png">
+<link rel="stylesheet" href="styles.css?v=13">
+<style>
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; }
+  .notes-page { max-width: 1200px; margin: 0 auto; padding: 100px var(--gutter) 120px; }
+  .notes-head { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 28px; border-bottom: 1px solid var(--rule); margin-bottom: 56px; flex-wrap: wrap; gap: 16px; }
+  .notes-back { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: var(--ink-3); text-decoration: none; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--rule-2); border-radius: 999px; transition: color 160ms, border-color 160ms; }
+  .notes-back:hover { color: var(--ink); border-color: var(--primary-soft); }
+  .notes-title-block { flex: 1; min-width: 280px; }
+  .notes-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: var(--primary-soft); text-transform: uppercase; margin-bottom: 14px; }
+  .notes-h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 16px; }
+  .notes-lead { color: var(--ink-2); font-size: 16px; line-height: 1.6; max-width: 60ch; margin: 0; }
+  .notes-lang { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--rule-2); border-radius: 999px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; }
+  .notes-lang button { background: transparent; color: var(--ink-3); border: 0; padding: 8px 14px; border-radius: 999px; cursor: pointer; font: inherit; letter-spacing: inherit; }
+  .notes-lang button.on { background: var(--primary); color: #fff; }
+  .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 36px 28px; }
+  .note-card { display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: inherit; padding-top: 22px; border-top: 1px solid var(--rule); transition: transform 220ms, border-color 220ms; }
+  .note-card:hover { border-top-color: var(--primary-soft); transform: translateY(-2px); }
+  .note-card .img { aspect-ratio: 4 / 3; background: #0f1114 center/cover no-repeat; border-radius: 2px; overflow: hidden; }
+  .note-card .meta { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); }
+  .note-card .meta .tag { color: var(--primary-soft); }
+  .note-card .n { color: var(--ink-4); }
+  .note-card h2 { font-family: var(--serif); font-weight: 500; font-size: 22px; line-height: 1.25; letter-spacing: -0.015em; margin: 2px 0 4px; color: var(--ink); }
+  .note-card p { color: var(--ink-2); font-size: 14.5px; line-height: 1.6; margin: 0 0 2px; }
+  .note-card .read { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-4); padding-top: 4px; }
+  .note-card .read .arr { color: var(--primary-soft); margin-left: 6px; }
+  @media (max-width: 600px) {
+    .notes-page { padding-top: 80px; }
+    .notes-h1 { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+<main class="notes-page">
+  <div class="notes-head">
+    <div class="notes-title-block">
+      <div class="notes-kicker" id="kicker">/ RESEARCH NOTES · 006</div>
+      <h1 class="notes-h1" id="h1">연구 노트</h1>
+      <p class="notes-lead" id="lead">랩 연구실에서 현장으로 이어지는 바이오메카닉스 인사이트 — 논문·세션 기록·코칭 노트.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+      <a href="index.html" class="notes-back" id="back">← 홈으로</a>
+      <div class="notes-lang">
+        <button id="langKo" class="on" onclick="setLang('ko')">KO</button>
+        <button id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-grid" id="grid"></div>
+</main>
+
+<script>
+  const COPY = {
+    ko: { kicker: '/ RESEARCH NOTES · 006', h1: '연구 노트', lead: '랩 연구실에서 현장으로 이어지는 바이오메카닉스 인사이트 — 논문·세션 기록·코칭 노트.', back: '← 홈으로', read: '분 읽기', open: '열기' },
+    en: { kicker: '/ RESEARCH NOTES · 006', h1: 'Research notes',  lead: 'Biomechanics insights that travel from the lab to the field — papers, session records, coaching notes.', back: '← Home', read: 'min read', open: 'Open' }
+  };
+  let NOTES = [];
+  let locale = localStorage.getItem('bbl-locale') || 'ko';
+
+  function render() {
+    const c = COPY[locale];
+    document.documentElement.lang = locale === 'en' ? 'en' : 'ko';
+    document.getElementById('kicker').textContent = c.kicker;
+    document.getElementById('h1').textContent = c.h1;
+    document.getElementById('lead').textContent = c.lead;
+    document.getElementById('back').textContent = c.back;
+    document.getElementById('langKo').classList.toggle('on', locale === 'ko');
+    document.getElementById('langEn').classList.toggle('on', locale === 'en');
+    const grid = document.getElementById('grid');
+    grid.innerHTML = NOTES.map(n => {
+      const title   = locale === 'en' ? n.titleEn   : n.titleKo;
+      const excerpt = locale === 'en' ? n.excerptEn : n.excerptKo;
+      const read    = locale === 'en' ? n.readEn    : n.readKo;
+      const href    = n.pdf ? ('assets/' + n.pdf) : 'index.html#research';
+      const target  = n.pdf ? '_blank' : '_self';
+      const img     = n.img ? ('assets/' + n.img) : '';
+      return `
+        <a class="note-card" href="${href}" ${n.pdf ? 'target="_blank" rel="noopener"' : ''}>
+          ${img ? `<div class="img" style="background-image:url('${img}')"></div>` : ''}
+          <div class="meta"><span class="tag">${n.tag}</span><span class="n">${n.n} · ${n.date}</span></div>
+          <h2>${title}</h2>
+          <p>${excerpt}</p>
+          <div class="read">${read} ${c.read}<span class="arr">→</span></div>
+        </a>`;
+    }).join('');
+  }
+  function setLang(l) { locale = l; localStorage.setItem('bbl-locale', l); render(); }
+
+  fetch('notes.json?v=' + Date.now()).then(r => r.json()).then(data => { NOTES = data; render(); });
+</script>
+</body>
+</html>
