@@ -1,3 +1,14 @@
+# BioMotion Baseball — 공식 홈페이지
+
+- 운영 주소: https://biomotion.kr/
+- 운영 배포: Netlify의 기존 bblhome 프로젝트, 이 저장소의 main 브랜치
+- 홈페이지 소스: index.html, center.css, center.js
+- 배포: `python3 scripts/build.py`로 생성된 `dist/`만 게시
+- 미리보기: `python3 -m http.server 8765 --directory dist`
+- 공개 파일: 빌드 스크립트에 지정된 자산만 포함. 기존 저장소의 다른 경로는 이전 작업 기록.
+
+---
+
 # BioMotion Baseball Lab (BBL) — Homepage
 
 국민대 야구 바이오메카닉스 랩의 공식 홈페이지. 정적 사이트로 작성되어 GitHub Pages, Netlify, Vercel, Cloudflare Pages 등 어떤 정적 호스팅에도 바로 배포할 수 있습니다.

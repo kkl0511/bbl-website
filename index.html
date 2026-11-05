@@ -1,223 +1,319 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BioMotion Baseball Lab · 국민대 야구 바이오메카닉스 랩</title>
-<meta name="description" content="BioMotion Baseball Lab. 국민대 30년 바이오메카닉스 연구 기반, 선수를 위한 3D 모션캡쳐 분석 센터. 감(感)의 시대는 끝났다.">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
-<link rel="icon" type="image/png" href="assets/bbl-mark-light.png">
-<link rel="stylesheet" href="styles.css?v=23">
-<link rel="stylesheet" href="styles-kseq-split.css?v=4">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08131f">
+  <title>바이오모션 베이스볼 | BIOMOTION BASEBALL — 3D 투구·타격 분석 &amp; 전담 코칭</title>
+  <meta name="description" content="바이오모션 베이스볼 하남 감일센터. 3D 투구·타격 분석, 양발 지면반력 측정, 개인 코칭과 재측정. 이기광 교수 · 조성훈 투수 코치.">
+  <link rel="canonical" href="https://biomotion.kr/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://biomotion.kr/">
+  <meta property="og:title" content="바이오모션 베이스볼 | 3D 투구·타격 분석과 코칭">
+  <meta property="og:description" content="하남 감일센터 · 선수의 움직임을 읽고 훈련 과제를 찾는 3D 분석과 코칭">
+  <meta property="og:image" content="https://biomotion.kr/assets/facility-interior-wide.jpg">
+  <link rel="icon" href="assets/brand/biomotion-symbol.svg">
+  <link rel="stylesheet" href="center.css?v=20261106">
+  <script src="center.js?v=20261106" defer></script>
 </head>
 <body>
-<div id="root"></div>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="header" id="page-header">
+  <div class="nav-inner wrap">
+    <a class="brand" href="#intro" aria-label="바이오모션 베이스볼 홈">
+      <span class="brand-lockup">
+        <img src="assets/brand/biomotion-horizontal-color.svg" width="736" height="160" alt="BioMotion">
+        <small>바이오모션 베이스볼 · BIOMOTION BASEBALL</small>
+      </span>
+    </a>
+    <button class="menu" aria-expanded="false" aria-controls="navigation"><span>메뉴</span><i aria-hidden="true"></i></button>
+    <nav id="navigation" aria-label="주 메뉴">
+      <a href="#solutions">선수·학부모</a>
+      <a href="#analysis">투구·타격 분석</a>
+      <a href="#team">교수·코치</a>
+      <a href="#services">프로그램</a>
+      <a href="#facility">센터 3D 투어</a>
+      <a class="nav-contact" href="#contact">예약·상담 문의 <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"><span id="page-progress"></span></div>
+</header>
 
-<script>
-// --- Tweaks panel state (persisted to file via __edit_mode_set_keys) ---
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "dark",
-  "primaryColor": "#2563EB",
-  "heroVariant": "editorial",
-  "heroHeadline": "measure",
-  "locale": "ko"
-}/*EDITMODE-END*/;
-window.TWEAKS = Object.assign({}, TWEAK_DEFAULTS);
+<main id="main">
+  <!-- 00. HERO -->
+  <section class="hero" id="intro">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="accent-line"></span> BIOMOTION BASEBALL · 하남 감일센터</p>
+        <h1>동작의 연결을 읽고,<br><em>훈련의 방향을 찾다.</em></h1>
+        <ul class="hero-bullet-summary" aria-label="센터 핵심 안내">
+          <li><strong>투구·타격 3D 분석</strong> · 양발 지면반력과 공·배트 데이터</li>
+          <li><strong>이기광 교수 × 조성훈 코치</strong> · 분석에서 투구 코칭으로</li>
+          <li><strong>지상 2층 150평</strong> · 높은 층고와 자연광</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="button button-white" href="#contact">분석·레슨 상담 <span aria-hidden="true">↗</span></a>
+          <a class="hero-secondary" href="#facility">센터 3D 투어 <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
 
-function applyTweaks() {
-  const t = window.TWEAKS;
-  document.documentElement.dataset.theme = t.theme;
-  document.documentElement.style.setProperty('--primary', t.primaryColor);
-  // Derive soft variant
-  const softMap = {
-    '#2563EB': '#60a5fa',
-    '#DC2626': '#f87171',
-    '#059669': '#34d399',
-    '#7c3aed': '#a78bfa',
-    '#f97316': '#fb923c',
-  };
-  document.documentElement.style.setProperty('--primary-soft', softMap[t.primaryColor] || t.primaryColor);
-}
-applyTweaks();
-</script>
+      <figure class="hero-visual">
+        <div class="visual-topline">
+          <span><i aria-hidden="true"></i> BIOMOTION BASEBALL SHOWCASE</span>
+          <div class="hero-sport-switch" role="group" aria-label="첫 화면 영상 선택">
+            <button type="button" data-hero-sport="official" aria-pressed="true">센터 소개</button>
+            <button type="button" data-hero-sport="tour" aria-pressed="false">공간 투어</button>
+            <button type="button" data-hero-sport="pitching" aria-pressed="false">3D 투구</button>
+          </div>
+        </div>
+        <div class="hero-media is-contain" id="hero-media-stage">
+          <video id="hero-video" src="assets/baseball-center-intro-20261106.mp4" poster="assets/baseball-center-intro-poster.jpg" data-video-label="이기광 교수 × 조성훈 코치 센터 소개 영상" muted loop playsinline preload="metadata" aria-label="이기광 교수 × 조성훈 코치 센터 소개 영상"></video>
+          <span class="visual-coordinate coord-left" aria-hidden="true">BIOMOTION<br>BASEBALL</span>
+          <span class="visual-coordinate coord-right" id="hero-sport-label" aria-hidden="true">PROF. LEE × COACH JO</span>
+          <span class="corner corner-tl" aria-hidden="true"></span><span class="corner corner-br" aria-hidden="true"></span>
+        </div>
+        <figcaption>
+          <div><strong>See how you move.</strong><span id="hero-caption">이기광 교수 × 조성훈 코치 · 3D 측정과 훈련</span></div>
+          <div class="hero-video-actions">
+            <button class="video-control" id="hero-video-control" aria-label="바이오모션 베이스볼 센터 소개 영상 재생"><span class="pause-icon" aria-hidden="true"></span><span class="control-label">재생</span></button>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-
-<script src="components/i18n.js?v=9"></script>
-<script type="text/babel" src="components/Nav.jsx?v=10"></script>
-<script type="text/babel" src="components/Hero.jsx?v=6"></script>
-<script type="text/babel" src="components/WhyBBL.jsx?v=7"></script>
-<script type="text/babel" src="components/System.jsx?v=16"></script>
-<script type="text/babel" src="components/Services.jsx?v=5"></script>
-<script type="text/babel" src="components/ResearchNotes.jsx?v=4"></script>
-<script type="text/babel" src="components/Testimonials.jsx?v=3"></script>
-<script type="text/babel" src="components/FaqContact.jsx?v=5"></script>
-
-<script type="text/babel">
-
-function Ticker({ items }) {
-  const doubled = [...items, ...items];
-  return (
-    <div className="hp-ticker">
-      <div className="hp-ticker-track">
-        {doubled.map((it, i) => (
-          <React.Fragment key={i}>
-            <span className={it.em ? 'em' : ''}>{it.text}</span>
-            <span className="star">✦</span>
-          </React.Fragment>
-        ))}
+    <div class="pillars-strip" id="process" aria-label="바이오모션 베이스볼 4단계 프로세스">
+      <div class="wrap">
+        <div><span class="mono">STEP 01</span><div><strong>측정</strong><span>3D 동작 · 양발 지면반력 · 트래킹</span></div></div>
+        <i aria-hidden="true">→</i>
+        <div><span class="mono">STEP 02</span><div><strong>피드백</strong><span>유지할 강점 · 우선 과제 1~2개</span></div></div>
+        <i aria-hidden="true">→</i>
+        <div><span class="mono">STEP 03</span><div><strong>코칭</strong><span>동작 큐와 드릴 적용</span></div></div>
+        <i aria-hidden="true">→</i>
+        <div><span class="mono">STEP 04</span><div><strong>재측정</strong><span>같은 조건에서 동작과 결과 비교</span></div></div>
       </div>
     </div>
-  );
-}
+  </section>
 
-function TweaksPanel() {
-  const [open, setOpen] = React.useState(false);
-  const [tick, setTick] = React.useState(0);
-  const rerender = () => setTick(t => t+1);
-
-  React.useEffect(() => {
-    const onMsg = (e) => {
-      const d = e.data;
-      if (!d) return;
-      if (d.type === '__activate_edit_mode') setOpen(true);
-      if (d.type === '__deactivate_edit_mode') setOpen(false);
-    };
-    window.addEventListener('message', onMsg);
-    window.parent.postMessage({type: '__edit_mode_available'}, '*');
-    return () => window.removeEventListener('message', onMsg);
-  }, []);
-
-  const set = (k, v) => {
-    window.TWEAKS[k] = v;
-    applyTweaks();
-    window.parent.postMessage({type: '__edit_mode_set_keys', edits: {[k]: v}}, '*');
-    window.dispatchEvent(new CustomEvent('tweaks-changed', {detail:{k, v}}));
-    rerender();
-  };
-
-  const t = window.TWEAKS;
-  const colors = [
-    ['#2563EB', 'Royal'],
-    ['#DC2626', 'Red'],
-    ['#059669', 'Green'],
-    ['#7c3aed', 'Purple'],
-    ['#f97316', 'Amber'],
-  ];
-
-  return (
-    <div className={`tweaks-panel ${open ? 'on' : ''}`}>
-      <div className="tweaks-head">
-        <h4>TWEAKS</h4>
-        <button onClick={()=>setOpen(false)} style={{background:'transparent',border:'none',color:'var(--ink-3)',fontSize:18,cursor:'pointer'}}>×</button>
+  <!-- 01. CONSUMER SOLUTIONS (Pro & Independent / High School & Elite / Parents & Youth) -->
+  <section id="solutions" class="solutions-section section">
+    <div id="start" class="sr-only" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-top">
+        <div><p class="eyebrow">01 / FOR PLAYERS &amp; PARENTS</p><h2>누구를 위한 분석인가요?</h2></div>
+        <p class="section-description">레슨 등록 없이 1회 분석 가능</p>
       </div>
-      <div className="tweaks-body">
-        <div className="tweaks-row">
-          <label>Theme</label>
-          <div className="tweaks-chips">
-            {['dark','light'].map(v => (
-              <button key={v} className={`tweaks-chip ${t.theme===v?'on':''}`} onClick={()=>set('theme', v)}>
-                {v === 'dark' ? '🌙 Dark' : '☀️ Light'}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="tweaks-row">
-          <label>Accent Color</label>
-          <div className="tweaks-swatches">
-            {colors.map(([c, n]) => (
-              <button
-                key={c}
-                className={`tweaks-swatch ${t.primaryColor===c?'on':''}`}
-                onClick={()=>set('primaryColor', c)}
-                style={{background: c}}
-                title={n}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="tweaks-row">
-          <label>Hero Variant</label>
-          <div className="tweaks-chips">
-            {['editorial','split','centered'].map(v => (
-              <button key={v} className={`tweaks-chip ${t.heroVariant===v?'on':''}`} onClick={()=>set('heroVariant', v)}>
-                {v}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="tweaks-row">
-          <label>Hero Headline</label>
-          <div className="tweaks-chips tweaks-chips-col">
-            {[
-              ['feel',    '감(感)의 시대는 끝났다.'],
-              ['data',    '데이터는 거짓말을 하지 않는다.'],
-              ['measure', '측정되지 않으면 개선되지 않는다.'],
-              ['key',     '보이지 않던 실력의 열쇠를 찾아낸다.'],
-              ['body',    '몸의 언어를 숫자로 읽는다.'],
-              ['science', '과학이 이기는 야구를 만든다.'],
-            ].map(([k, label]) => (
-              <button key={k} className={`tweaks-chip tweaks-chip-wide ${t.heroHeadline===k?'on':''}`} onClick={()=>set('heroHeadline', k)}>
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+      <div class="consumer-grid">
+        <article class="consumer-card">
+          <div class="consumer-head"><span class="consumer-tag">프로·독립리그</span></div>
+          <h3>내 동작의 기준 만들기</h3>
+          <ul class="consumer-points"><li>정규 거리 투구와 3D 동작 측정</li><li>소속팀과 공유할 수 있는 개인 리포트</li></ul>
+          <a href="#contact" class="price-link" data-consult="프로·독립리그 선수 1회 정밀 분석 문의">선수 분석 상담 <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="consumer-card consumer-card-featured">
+          <div class="consumer-head"><span class="consumer-tag">중학·고교·대학 선수</span></div>
+          <h3>지금 집중할 훈련 과제</h3>
+          <ul class="consumer-points"><li>유지할 강점과 우선 과제 1~2개</li><li>맞춤 레슨과 재측정 연계</li></ul>
+          <a href="#contact" class="price-link" data-consult="중학·고교·대학 선수 분석·코칭 문의">분석·코칭 상담 <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="consumer-card">
+          <div class="consumer-head"><span class="consumer-tag">유소년·학부모</span></div>
+          <h3>아이의 움직임 함께 보기</h3>
+          <ul class="consumer-points"><li>영상과 리포트로 강점·보완점 설명</li><li>연령과 목표에 맞는 프로그램 상담</li></ul>
+          <a href="#contact" class="price-link" data-consult="유소년·학부모 상담">유소년 상담 <span aria-hidden="true">↗</span></a>
+        </article>
       </div>
     </div>
-  );
-}
+  </section>
 
-function App() {
-  React.useEffect(() => {
-    const onScroll = () => {
-      const bar = document.getElementById('hp-progress');
-      if (!bar) return;
-      const h = document.documentElement;
-      const p = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
-      bar.style.width = `${Math.max(0, Math.min(1, p)) * 100}%`;
-    };
-    window.addEventListener('scroll', onScroll, {passive:true});
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  <!-- 02. 3D PITCHING & BATTING ANALYSIS -->
+  <section id="analysis" class="analysis-section section">
+    <div id="philosophy" class="sr-only" aria-hidden="true"></div>
+    <div id="pitching" class="sr-only" aria-hidden="true"></div>
+    <div id="feedback" class="sr-only" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-top">
+        <div>
+          <p class="eyebrow">02 / 3D PITCHING &amp; BATTING SOLUTION</p>
+          <h2>발에서 공과 배트까지</h2>
+        </div>
+        <p class="section-description">3D 동작 · 양발 지면반력 · 공과 배트의 움직임<br>같은 시점에 놓고 동작과 결과를 비교</p>
+      </div>
 
-  const tickerA = [
-    { text: 'KOOKMIN · BIOMECHANICS LAB', em: true },
-    { text: '3D MOTION CAPTURE · 240Hz' },
-    { text: 'FORCE PLATES · 1000Hz' },
-    { text: 'KINEMATIC SEQUENCE · PROXIMAL → DISTAL', em: true },
-    { text: 'QUALISYS · THEIA3D · VALD · RAPSODO · UPLIFT' },
-    { text: '감(感)의 시대는 끝났다', em: true },
-    { text: 'SEOUL · KR · 37.6104° N · 127.0029° E' },
-  ];
+      <div class="analysis-toolbar">
+        <div class="tabs" role="tablist" aria-label="분석 종목 선택">
+          <button id="tab-pitching" role="tab" aria-selected="true" aria-controls="analysis-panel" data-sport="pitching"><span>01</span> 투구 분석 <small>PITCHING 3D</small></button>
+          <button id="tab-batting" role="tab" aria-selected="false" aria-controls="analysis-panel" data-sport="batting" tabindex="-1"><span>02</span> 타격 분석 <small>BATTING 3D</small></button>
+        </div>
+        <span class="toolbar-note">3D MOTION / GROUND REACTION FORCE / TRACKING</span>
+      </div>
 
-  return (
-    <>
-      <Nav />
-      <main>
-        <Hero />
-        <Ticker items={tickerA} />
-        <WhyBBL />
-        <System />
-        <Services />
-        <ResearchNotes />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-      <TweaksPanel />
-    </>
-  );
-}
+      <div id="analysis-panel" role="tabpanel" aria-labelledby="tab-pitching" tabindex="0"></div>
+    </div>
+  </section>
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+  <section id="team" class="team-section section wrap">
+    <div class="section-top">
+      <div><p class="eyebrow">03 / SCIENCE &amp; COACHING</p><h2>이기광 교수 × 조성훈 코치</h2></div>
+      <p class="section-description">바이오메카닉스 분석과 마운드 경험의 연결</p>
+    </div>
+    <div class="public-team-grid">
+      <article class="team-card">
+        <img src="assets/prof-lee-3d-skeleton.jpg" alt="투구 3D 골격을 설명하는 이기광 교수" loading="lazy">
+        <div class="public-team-copy">
+          <p class="mini-label">BIOMECHANICS</p><h3>이기광 교수</h3>
+          <ul class="team-roles"><li>국민대학교 생체역학 및 스포츠공학 연구실</li><li>투구·타격 바이오메카닉스 분석 총괄</li></ul>
+          <a class="text-link" href="https://www.kookmin.ac.kr/user/unIntr/campusGuide/labrumGuide/index.do" target="_blank" rel="noopener noreferrer">국민대학교 연구실 안내 <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+      <article class="team-card">
+        <div class="public-team-media"><video src="assets/coach-jo-measurement-20261106.mp4" poster="assets/coach-jo-lab-mound.jpg" controls playsinline preload="none" aria-label="조성훈 코치의 지면반력 마운드 투구 측정"></video></div>
+        <div class="public-team-copy">
+          <p class="mini-label">PITCHING COACH</p><h3>조성훈 코치</h3>
+          <ul class="team-roles"><li>2018 KBO 신인 2차 지명 · SK 1라운드 5순위</li><li>프로 투수 출신 · 투구 분석 기반 코칭</li></ul>
+          <div class="public-team-links">
+            <a class="text-link" href="https://www.koreabaseball.com/Futures/Player/PitcherDetail.aspx?playerId=68848" target="_blank" rel="noopener noreferrer">KBO 선수 기록 <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="https://www.joynews24.com/view/1047921" target="_blank" rel="noopener noreferrer">지명 당시 기사 <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="https://www.instagram.com/unconscious_pitching/" target="_blank" rel="noopener noreferrer">선수 시절·측정 영상 <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 04. PROGRAMS & SERVICES -->
+  <section id="services" class="pricing-section section">
+    <div id="programs" class="sr-only" aria-hidden="true"></div>
+    <div id="pitching-options" class="sr-only" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-top">
+        <div>
+          <p class="eyebrow">04 / PROGRAMS &amp; PACKAGES</p>
+          <h2>개인 분석·레슨부터 팀 측정까지</h2>
+        </div>
+        <div class="pricing-meta">
+          <span class="outline-label">맞춤 일정 · 비용 상담 안내</span>
+          <p>세부 일정과 비용은 상담 시 안내</p>
+        </div>
+      </div>
+
+      <div class="pricing-tabs" role="tablist" aria-label="서비스 카테고리 선택">
+        <button type="button" id="ptab-individual" role="tab" aria-selected="true" aria-controls="pricing-panel-individual" data-pricing-tab="individual">
+          <span class="mono">01</span> 개인 분석·레슨
+        </button>
+        <button type="button" id="ptab-batting" role="tab" aria-selected="false" aria-controls="pricing-panel-batting" data-pricing-tab="batting" tabindex="-1">
+          <span class="mono">02</span> 타격 3단계
+        </button>
+        <button type="button" id="ptab-team" role="tab" aria-selected="false" aria-controls="pricing-panel-team" data-pricing-tab="team" tabindex="-1">
+          <span class="mono">03</span> 학교·구단 단체 측정
+        </button>
+      </div>
+
+      <div id="pricing-panel-individual" class="pricing-tab-panel" role="tabpanel" aria-labelledby="ptab-individual" tabindex="0">
+        <div id="individual-pricing-content"></div>
+      </div>
+
+      <div id="pricing-panel-batting" class="pricing-tab-panel" role="tabpanel" aria-labelledby="ptab-batting" tabindex="0" hidden>
+        <div id="price-cards" class="price-grid"></div>
+      </div>
+
+      <div id="pricing-panel-team" class="pricing-tab-panel" role="tabpanel" aria-labelledby="ptab-team" tabindex="0" hidden>
+        <div id="team-pricing-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="facility" class="facility-section section">
+    <div class="wrap">
+      <div class="section-top">
+        <div><p class="eyebrow">05 / GAMIL CENTER</p><h2>자연광이 드는 지상 2층, 150평 랩</h2></div>
+        <p class="section-description">높은 층고 · 정규 18.44m 투구 거리<br>투수판에서 뒤쪽 안전망까지 20.60m <small>(설계 기준)</small></p>
+      </div>
+      <figure class="public-tour">
+        <video id="facility-tour-wide-video" src="assets/facility-tour-20261106.mp4" poster="assets/facility-interior-wide.jpg" controls playsinline preload="none" aria-label="감일센터 공간 3D 조감도 투어"></video>
+        <figcaption>감일센터 3D 조감도 · 설계 기준 공간 미리보기</figcaption>
+      </figure>
+      <div class="facility-grid">
+        <article class="facility-card"><span class="mini-label">01 / PITCHING</span><h3>투구</h3><p>정규 거리 마운드 · 양발 지면반력 측정</p></article>
+        <article class="facility-card"><span class="mini-label">02 / BATTING</span><h3>타격</h3><p>지면반력 타석 · 배트와 타구 트래킹</p></article>
+        <article class="facility-card"><span class="mini-label">03 / PERFORMANCE</span><h3>체력 측정·상담</h3><p>체력 측정과 동작 리포트 설명</p></article>
+        <article class="facility-card"><span class="mini-label">04 / VISIT</span><h3>하남 감일센터</h3><p>경기도 하남시 감일동 376-168 지상 2층<br>방문 전 일정 문의</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06. CONSULTATION & FAQ -->
+  <section id="contact" class="contact-section section">
+    <div id="faq" class="sr-only" aria-hidden="true"></div>
+    <div class="wrap contact-grid">
+      <div class="contact-copy">
+        <img class="contact-brand-logo" src="assets/brand/biomotion-horizontal-dark.svg" width="736" height="160" alt="BioMotion">
+        <p class="eyebrow">RESERVATION &amp; FAQ · BIOMOTION BASEBALL</p>
+        <h2>예약·상담 문의</h2>
+
+        <div class="contact-meta-grid">
+          <div>
+            <span class="mini-label">DIRECT EMAIL</span>
+            <p><a class="contact-inline-mail" href="mailto:happygh@kookmin.ac.kr">happygh@kookmin.ac.kr <span aria-hidden="true">↗</span></a></p>
+          </div>
+          <div>
+            <span class="mini-label">BIOMOTION BASEBALL</span>
+            <p>경기도 하남시 감일동 376-168 지상 2층<br>100% 사전 예약제 · 방문 가능 일정은 상담 시 안내</p>
+          </div>
+        </div>
+
+        <div class="contact-faq-wrap" aria-label="선수 및 학부모 자주 묻는 질문">
+          <span class="mini-label">자주 묻는 질문 (FAQ)</span>
+          <div id="faq-list"></div>
+        </div>
+      </div>
+
+      <div class="consult">
+        <div class="consult-heading"><span class="mono">BIOMOTION BASEBALL / RESERVATION</span><span aria-hidden="true">↗</span></div>
+        <h3>희망 프로그램 선택</h3>
+        <label for="consult-sport">관심 프로그램 선택</label>
+        <select id="consult-sport">
+          <option>중학·고교·대학 선수 분석·코칭 문의</option>
+          <option>프로·독립리그 선수 1회 정밀 분석 문의</option>
+          <option>유소년·학부모 상담</option>
+          <option>투구 1회 정밀 분석 + 피드백 (단독 신청)</option>
+          <option>타격 1회 정밀 분석 + 피드백 (단독 신청)</option>
+          <option>투구·타격 1:1 레슨 문의</option>
+          <option>타격 패키지 — STEP 1 측정 + 피드백</option>
+          <option>타격 패키지 — STEP 2 측정 + 피드백 + 레슨(60분)</option>
+          <option>타격 패키지 — STEP 3 측정 + 피드백 + 레슨 + 재측정</option>
+          <option>유소년 프로그램 문의</option>
+          <option>학교·구단 단체 측정 문의</option>
+        </select>
+        <p class="consult-check-title">메일에 적을 내용</p>
+        <ul>
+          <li>선수 구분(프로·독립리그 / 대학·고교·중학 / 유소년) 및 포지션</li>
+          <li>해결 희망 과제 (구속 · 제구 · 타구 속도 등)</li>
+          <li>희망 방문 시기</li>
+        </ul>
+        <a class="button button-white" id="email-link" href="mailto:happygh@kookmin.ac.kr">이메일로 예약 · 상담 문의하기 <span aria-hidden="true">↗</span></a>
+        <p class="consult-notice">메일 앱에서 내용을 확인하고 직접 보내는 방식</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <a class="brand" href="#intro" aria-label="바이오모션 베이스볼 홈">
+        <span class="brand-lockup">
+          <img src="assets/brand/biomotion-horizontal-color.svg" width="736" height="160" alt="BioMotion">
+          <small>바이오모션 베이스볼 · BIOMOTION BASEBALL</small>
+        </span>
+      </a>
+      <p>동작의 연결을 읽고, 훈련의 방향을 찾다.</p>
+      <a class="back-top" href="#intro">BACK TO TOP <span aria-hidden="true">↑</span></a>
+    </div>
+    <div class="footer-bottom">
+      <p>바이오모션 베이스볼 (BIOMOTION BASEBALL)</p>
+      <p>© 2026 BIOMOTION BASEBALL <span>경기도 하남시 감일동 376-168 지상 2층 (150평 자연채광 랩 · 100% 사전 예약제)</span></p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
