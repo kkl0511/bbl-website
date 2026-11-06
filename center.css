@@ -554,3 +554,104 @@
 @media (max-width: 680px) {
   .hero-grid { padding-top: 34px; gap: 18px; }
 }
+
+/* SPORTS KU case study */
+.case-study-card {
+  margin-top: 28px;
+  border: 1px solid #cdd8e4;
+  background: #f8fafc;
+  padding: 32px 34px 34px;
+}
+.case-study-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.case-study-header .mini-label {
+  color: var(--blue);
+  display: block;
+  margin-bottom: 6px;
+}
+.case-study-header h3 {
+  font-size: clamp(21px, 2.2vw, 27px);
+  font-weight: 650;
+  letter-spacing: -0.7px;
+  line-height: 1.38;
+}
+.case-study-header h3 small {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #465b73;
+  letter-spacing: -0.2px;
+  margin-top: 4px;
+}
+.case-study-badge {
+  background: #10233a;
+  color: #e9f2fc;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 7px 13px;
+  border: 1px solid #2b4d73;
+}
+.case-study-lead {
+  margin-top: 14px;
+  color: #445568;
+  font-size: 14.5px;
+  line-height: 1.85;
+  max-width: 920px;
+}
+.case-study-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.case-step {
+  background: #fff;
+  border: 1px solid #d4dee9;
+  padding: 18px 20px;
+}
+.case-step-highlight {
+  border-left: 3px solid var(--blue);
+  background: #f2f7fe;
+}
+.case-step .mono {
+  display: block;
+  font-size: 10px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.case-step strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.case-step p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.case-study-links {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #d5dfe9;
+}
+@media (max-width: 900px) {
+  .case-study-steps {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 680px) {
+  .case-study-card {
+    padding: 22px 20px 24px;
+  }
+}
