@@ -169,8 +169,8 @@ const sports = {
 
 const heroMediaModes = {
   official: {
-    video: 'assets/baseball-center-intro-ko-20261106.mp4',
-    poster: 'assets/baseball-center-intro-ko-poster.jpg',
+    video: 'assets/baseball-center-hero-final-20261106.mp4',
+    poster: 'assets/baseball-center-hero-final-poster-20261106.jpg',
     label: '이기광 교수 × 조성훈 코치 센터 소개',
     aria: '이기광 교수 × 조성훈 코치 바이오모션 베이스볼 센터 소개',
     coord: '이기광 교수 × 조성훈 코치', caption: '이기광 교수 × 조성훈 코치 · 3D 측정과 훈련', contain: true,
