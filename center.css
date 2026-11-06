@@ -536,7 +536,10 @@
   font-weight: 700;
 }
 @media (max-width: 680px) {
-  .hero-media[data-hero-mode="official"] { aspect-ratio: 16 / 9; }
+  .hero-grid { padding-top: 34px; gap: 18px; }
+  .hero-media[data-hero-mode="official"] { aspect-ratio: 3 / 2; }
+  .hero-media[data-hero-mode="official"] .visual-coordinate,
+  .hero-media[data-hero-mode="official"] .corner { display: none; }
   .hero-caption-desktop { display: none; }
   .hero-caption-mobile { display: block; word-break: keep-all; }
   .hero-visual .hero-caption-mobile strong {

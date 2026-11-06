@@ -12,6 +12,8 @@ assets = (
     "assets/brand/biomotion-symbol.svg",
     "assets/baseball-center-hero-final-20261106.mp4",
     "assets/baseball-center-hero-final-poster-20261106.jpg",
+    "assets/baseball-center-hero-mobile-20261106.mp4",
+    "assets/baseball-center-hero-mobile-poster-20261106.jpg",
     "assets/coach-jo-measurement-20261106.mp4",
     "assets/coach-jo-lab-mound.jpg",
     "assets/prof-lee-3d-skeleton.jpg",

@@ -171,6 +171,8 @@ const heroMediaModes = {
   official: {
     video: 'assets/baseball-center-hero-final-20261106.mp4',
     poster: 'assets/baseball-center-hero-final-poster-20261106.jpg',
+    mobileVideo: 'assets/baseball-center-hero-mobile-20261106.mp4',
+    mobilePoster: 'assets/baseball-center-hero-mobile-poster-20261106.jpg',
     label: '이기광 교수 × 조성훈 코치 센터 소개',
     aria: '이기광 교수 × 조성훈 코치 바이오모션 베이스볼 센터 소개',
     coord: '이기광 교수 × 조성훈 코치', caption: '이기광 교수 × 조성훈 코치 · 3D 측정과 훈련', contain: true,
@@ -308,7 +310,16 @@ const heroMediaStage = document.querySelector('#hero-media-stage');
 const heroSceneTitle = document.querySelector('#hero-scene-title');
 const heroSceneDetail = document.querySelector('#hero-scene-detail');
 const heroDesignNote = document.querySelector('#hero-design-note');
+const mobileHero = window.matchMedia('(max-width: 680px)');
 let activeHeroMode = heroMediaModes.official;
+
+function setHeroVideoSource(data) {
+  const useMobile = mobileHero.matches && data.mobileVideo;
+  heroVideoEl.src = useMobile ? data.mobileVideo : data.video;
+  heroVideoEl.poster = useMobile ? data.mobilePoster : data.poster;
+}
+
+if (mobileHero.matches) setHeroVideoSource(activeHeroMode);
 registerVideo(heroVideoEl, document.querySelector('#hero-video-control'));
 
 function refreshHeroScene(time = heroVideoEl.currentTime) {
@@ -329,11 +340,9 @@ function showHeroSport(key) {
   video.pause();
   activeHeroMode = data;
   video.muted = true;
-  video.src = data.video;
+  setHeroVideoSource(data);
   video.dataset.videoLabel = data.label;
   video.setAttribute('aria-label', data.aria);
-  if (data.poster) video.setAttribute('poster', data.poster);
-  else video.removeAttribute('poster');
   if (heroMediaStage) {
     heroMediaStage.classList.toggle('is-contain', Boolean(data.contain));
     heroMediaStage.dataset.heroMode = key;
@@ -347,6 +356,21 @@ function showHeroSport(key) {
   refreshVideoButton(video);
   if (!userPaused.has(video) && !reducedMotion.matches) video.play().catch(() => {});
 }
+
+mobileHero.addEventListener('change', () => {
+  if (!activeHeroMode.mobileVideo) return;
+  const video = heroVideoEl;
+  const time = video.currentTime;
+  const wasPlaying = !video.paused;
+  setHeroVideoSource(activeHeroMode);
+  const source = video.src;
+  video.addEventListener('loadedmetadata', () => {
+    if (video.src !== source) return;
+    video.currentTime = time;
+    if (wasPlaying && !userPaused.has(video)) video.play().catch(() => {});
+  }, { once: true });
+  video.load();
+});
 
 document.querySelectorAll('[data-hero-sport]').forEach(button => button.addEventListener('click', () => showHeroSport(button.dataset.heroSport)));
 showSport('pitching');
