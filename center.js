@@ -141,8 +141,8 @@ const sports = {
     subtitle: 'PITCHING · 투구',
     title: '발의 움직임부터 공을 놓는 순간까지',
     description: '양발 지면반력 · 골반과 몸통의 회전 · 릴리스와 구속',
-    video: 'assets/pitch-3d-orbit.mp4',
-    poster: 'assets/pitch-3d-poster.jpg',
+    video: 'assets/pitch-3d-ko-20261106.mp4',
+    poster: 'assets/pitch-3d-ko-poster.jpg',
     caption: '투구 3D 시각화 예시 · 동작 구간에 맞춰 관찰',
     stages: ['준비', '뒷발 밀기', '앞발 착지', '몸통 회전', '릴리스', '감속'],
     triage: [
@@ -155,8 +155,8 @@ const sports = {
     subtitle: 'BATTING · 타격',
     title: '하체 움직임부터 배트와 공이 만나는 순간까지',
     description: '양발 지면반력 · 몸통 회전과 배트 궤적 · 임팩트와 타구',
-    video: 'assets/swing-3d-orbit.mp4',
-    poster: 'assets/swing-3d-poster.jpg',
+    video: 'assets/swing-3d-ko-20261106.mp4',
+    poster: 'assets/swing-3d-ko-poster.jpg',
     caption: '타격 3D 시각화 예시 · 동작 구간에 맞춰 관찰',
     stages: ['준비', '뒷발 밀기', '앞발 착지', '몸통·배트 회전', '임팩트'],
     triage: [
@@ -169,21 +169,21 @@ const sports = {
 
 const heroMediaModes = {
   official: {
-    video: 'assets/baseball-center-intro-20261106.mp4',
-    poster: 'assets/baseball-center-intro-poster.jpg',
+    video: 'assets/baseball-center-intro-ko-20261106.mp4',
+    poster: 'assets/baseball-center-intro-ko-poster.jpg',
     label: '이기광 교수 × 조성훈 코치 센터 소개',
     aria: '이기광 교수 × 조성훈 코치 바이오모션 베이스볼 센터 소개',
-    coord: 'PROF. LEE × COACH JO', caption: '이기광 교수 × 조성훈 코치 · 3D 측정과 훈련', contain: true,
+    coord: '이기광 교수 × 조성훈 코치', caption: '이기광 교수 × 조성훈 코치 · 3D 측정과 훈련', contain: true,
   },
   tour: {
-    video: 'assets/facility-tour-20261106.mp4',
+    video: 'assets/facility-tour-ko-20261106.mp4',
     poster: 'assets/facility-interior-wide.jpg',
     label: '하남 감일센터 3D 투어', aria: '하남 감일센터 3D 조감도 투어',
     coord: 'GAMIL CENTER', caption: '지상 2층 · 자연광과 높은 층고 · 공간 3D 조감도', contain: false,
   },
   pitching: {
-    video: 'assets/pitch-3d-orbit.mp4',
-    poster: 'assets/pitch-3d-poster.jpg',
+    video: 'assets/pitch-3d-ko-20261106.mp4',
+    poster: 'assets/pitch-3d-ko-poster.jpg',
     label: '3D 투구 시각화', aria: '투구 동작 3D 시각화 예시',
     coord: 'PITCHING 3D', caption: '발에서 릴리스까지, 동작을 구간별로 관찰', contain: true,
   },
@@ -253,7 +253,7 @@ function showSport(key) {
       <div class="stage-head">
         <span>BIOMOTION BASEBALL / ${data.subtitle}</span>
       </div>
-      <div class="stage-viewport"><video id="analysis-video" src="${data.video}" ${data.poster ? `poster="${data.poster}"` : ''} muted loop playsinline preload="metadata" aria-label="${key === 'pitching' ? '투구' : '타격'} 3차원 동작 시각화 예시"></video><span class="stage-media-label">3D MOTION &amp; FORCE CAPTURE</span><button class="video-control stage-play" aria-label="분석 예시 영상 재생"><span class="pause-icon" aria-hidden="true"></span><span class="control-label">재생</span></button></div>
+      <div class="stage-viewport"><video id="analysis-video" src="${data.video}" ${data.poster ? `poster="${data.poster}"` : ''} muted loop playsinline preload="metadata" aria-label="${key === 'pitching' ? '투구' : '타격'} 3차원 동작 시각화 예시"></video><span class="stage-media-label">3D 동작·지면반력</span><button class="video-control stage-play" aria-label="분석 예시 영상 재생"><span class="pause-icon" aria-hidden="true"></span><span class="control-label">재생</span></button></div>
       <div class="stage-events stage-events-${data.stages.length}">${data.stages.map(st => `<div><span>${st}</span></div>`).join('')}</div>
       <figcaption class="stage-caption">${data.caption}</figcaption>
     </figure>
