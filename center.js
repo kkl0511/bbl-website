@@ -174,18 +174,30 @@ const heroMediaModes = {
     label: '이기광 교수 × 조성훈 코치 센터 소개',
     aria: '이기광 교수 × 조성훈 코치 바이오모션 베이스볼 센터 소개',
     coord: '이기광 교수 × 조성훈 코치', caption: '이기광 교수 × 조성훈 코치 · 3D 측정과 훈련', contain: true,
+    designPreview: true,
+    // Start times in the 24-second homepage video, in reverse playback order.
+    scenes: [
+      { start: 18.8, title: '하남 감일센터', detail: '마운드·타석·체력 측정 공간' },
+      { start: 14.4, title: '3D 타격 분석', detail: '배트 궤적과 공이 맞는 순간' },
+      { start: 9.2, title: '조성훈 코치', detail: '지면반력 마운드에서 투구 측정' },
+      { start: 4.6, title: '이기광 교수', detail: '국민대 연구실의 3D 동작 분석' },
+      { start: 0, title: '3D 투구 분석', detail: '투구 동작과 양발 지면반력' },
+    ],
   },
   tour: {
     video: 'assets/facility-tour-ko-20261106.mp4',
     poster: 'assets/facility-interior-wide.jpg',
     label: '하남 감일센터 3D 투어', aria: '하남 감일센터 3D 조감도 투어',
     coord: 'GAMIL CENTER', caption: '지상 2층 · 자연광과 높은 층고 · 공간 3D 조감도', contain: false,
+    designPreview: true,
+    mobileTitle: '감일센터 공간 투어', mobileDetail: '지상 2층 · 자연광과 높은 층고',
   },
   pitching: {
     video: 'assets/pitch-3d-ko-20261106.mp4',
     poster: 'assets/pitch-3d-ko-poster.jpg',
     label: '3D 투구 시각화', aria: '투구 동작 3D 시각화 예시',
     coord: 'PITCHING 3D', caption: '발에서 릴리스까지, 동작을 구간별로 관찰', contain: true,
+    mobileTitle: '3D 투구 시각화', mobileDetail: '발에서 릴리스까지 구간별 관찰',
   },
 };
 
@@ -293,12 +305,29 @@ document.querySelectorAll('[data-sport]').forEach(button => {
 
 const heroVideoEl = document.querySelector('#hero-video');
 const heroMediaStage = document.querySelector('#hero-media-stage');
+const heroSceneTitle = document.querySelector('#hero-scene-title');
+const heroSceneDetail = document.querySelector('#hero-scene-detail');
+const heroDesignNote = document.querySelector('#hero-design-note');
+let activeHeroMode = heroMediaModes.official;
 registerVideo(heroVideoEl, document.querySelector('#hero-video-control'));
+
+function refreshHeroScene(time = heroVideoEl.currentTime) {
+  const scene = activeHeroMode.scenes?.find(({ start }) => time >= start);
+  const title = scene?.title ?? activeHeroMode.mobileTitle;
+  const detail = scene?.detail ?? activeHeroMode.mobileDetail;
+  if (heroSceneTitle.textContent !== title) heroSceneTitle.textContent = title;
+  if (heroSceneDetail.textContent !== detail) heroSceneDetail.textContent = detail;
+}
+
+for (const event of ['timeupdate', 'seeked', 'loadedmetadata']) {
+  heroVideoEl.addEventListener(event, () => refreshHeroScene());
+}
 
 function showHeroSport(key) {
   const video = heroVideoEl;
   const data = heroMediaModes[key] || heroMediaModes.official;
   video.pause();
+  activeHeroMode = data;
   video.muted = true;
   video.src = data.video;
   video.dataset.videoLabel = data.label;
@@ -307,8 +336,11 @@ function showHeroSport(key) {
   else video.removeAttribute('poster');
   if (heroMediaStage) {
     heroMediaStage.classList.toggle('is-contain', Boolean(data.contain));
+    heroMediaStage.dataset.heroMode = key;
   }
   video.load();
+  heroDesignNote.hidden = !data.designPreview;
+  refreshHeroScene(0);
   document.querySelector('#hero-sport-label').textContent = data.coord;
   document.querySelector('#hero-caption').textContent = data.caption;
   document.querySelectorAll('[data-hero-sport]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.heroSport === key)));

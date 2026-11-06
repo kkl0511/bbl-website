@@ -511,3 +511,45 @@
   .public-team-copy { padding: 18px 20px 22px; }
   .facility-card { padding: 13px; }
 }
+
+.hero-visual > figcaption {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 15px;
+}
+.hero-caption-mobile { display: none; }
+.hero-visual .hero-design-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid #25313f;
+  color: #cad7e6;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+.hero-visual .hero-design-note strong {
+  display: inline;
+  margin-right: 5px;
+  color: #f8d88b;
+  font-size: inherit;
+  font-weight: 700;
+}
+@media (max-width: 680px) {
+  .hero-media[data-hero-mode="official"] { aspect-ratio: 16 / 9; }
+  .hero-caption-desktop { display: none; }
+  .hero-caption-mobile { display: block; word-break: keep-all; }
+  .hero-visual .hero-caption-mobile strong {
+    color: #f5f8fc;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .hero-caption-mobile p {
+    margin: 4px 0 0;
+    color: #cad7e6;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .hero-video-actions .video-control { min-height: 44px; }
+}
