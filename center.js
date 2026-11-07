@@ -173,9 +173,9 @@ const heroMediaModes = {
     poster: 'assets/baseball-center-hero-desktop-poster-20261106.jpg',
     mobileVideo: 'assets/baseball-center-hero-mobile-20261106.mp4',
     mobilePoster: 'assets/baseball-center-hero-mobile-poster-20261106.jpg',
-    label: '이기광 교수 × 조성훈 코치 센터 소개',
-    aria: '이기광 교수 × 조성훈 코치 바이오모션 베이스볼 센터 소개',
-    coord: '이기광 교수 × 조성훈 코치', contain: true,
+    label: '바이오모션 베이스볼 센터 소개',
+    aria: '바이오모션 베이스볼 센터 소개',
+    coord: '분석·자문·코칭진', contain: true,
     designPreview: true,
     // Start times in the 24-second homepage video, in reverse playback order.
     scenes: [
@@ -386,6 +386,8 @@ reducedMotion.addEventListener('change', () => {
 
 // 3. Consumer FAQ — Bullet-Point Style (개조식)
 const faqs = [
+  ['처음 방문할 때 무엇을 알려드리면 되나요?', '선수 구분과 포지션, 투구·타격 중 희망 분석, 현재 고민과 희망 방문 시기를 알려주세요. 종목과 목표에 맞춰 측정 범위와 준비사항을 안내합니다.'],
+  ['측정 결과는 어떤 자료로 받나요?', '개인 온라인 리포트와 결과 피드백을 제공합니다. 확인된 강점과 우선 과제, 훈련에서 점검할 내용을 설명합니다. 제공 항목과 안내 일정은 프로그램 상담 시 확인합니다.'],
   ['분석만 한 번 받을 수 있나요?', '레슨 등록 없이 1회 신청 가능 · 결과 피드백과 리포트 제공'],
   ['학부모도 결과를 들을 수 있나요?', '선수와 함께 결과 설명 가능 · 연령과 종목에 따른 측정 항목 사전 안내'],
   ['레슨 전후에 무엇을 비교하나요?', '같은 조건에서 목표 동작과 구속·타구 결과, 기존 강점 비교'],
@@ -458,3 +460,10 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-15% 0px -55% 0px', threshold: 0 });
   document.querySelectorAll('main>section').forEach(section => sectionObserver.observe(section));
 }
+
+// Closing a profile also stops its media; reopening never starts it automatically.
+document.querySelectorAll('.profile-disclosure').forEach(detail => {
+  detail.addEventListener('toggle', () => {
+    if (!detail.open) detail.querySelectorAll('video').forEach(video => video.pause());
+  });
+});
