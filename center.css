@@ -499,20 +499,30 @@
 .professor-lead { margin: 0 0 16px; color: #244b7c; font-size: 19px; font-weight: 600; line-height: 1.65; }
 .professor-copy .team-roles { font-size: 14px; }
 .professor-copy .public-team-links { gap: 6px 20px; }
-.team-showcase .advisor-profile { display: grid; grid-template-columns: 107px minmax(0, 1fr); grid-template-areas: "portrait identity" "portrait career" "portrait sources"; gap: 18px 28px; margin-top: 20px; padding: 26px 28px; background: #fff; }
+.team-showcase .advisor-profile { display: grid; grid-template-columns: 107px minmax(0, 1fr); grid-template-areas: "portrait identity" "feature feature" "sources sources"; gap: 24px 28px; margin-top: 20px; padding: 26px 28px; background: #fff; }
 .advisor-portrait { grid-area: portrait; }
 .advisor-portrait img { display: block; width: 107px; height: 120px; object-fit: contain; background: #f1f4f6; }
 .advisor-identity { grid-area: identity; }
 .advisor-position { color: #244b7c; font-size: 15px; font-weight: 600; line-height: 1.7; }
 .advisor-education { margin-top: 5px; color: #63748a; font-size: 13px; line-height: 1.8; }
-.advisor-career-grid { grid-area: career; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; }
+.advisor-feature { grid-area: feature; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); grid-template-areas: "video career"; gap: 28px; align-items: start; min-width: 0; }
+.advisor-career-video { grid-area: video; min-width: 0; border: 1px solid #d5dfe8; background: #f8fafc; }
+.advisor-video-media { width: 100%; aspect-ratio: 22 / 15; background: #0a1929; }
+.advisor-video-media video { display: block; width: 100%; height: 100%; object-fit: contain; }
+.advisor-career-video figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding: 12px 14px 0; line-height: 1.6; }
+.advisor-career-video figcaption strong { font-size: 14px; font-weight: 600; }
+.advisor-career-video figcaption > span { font-size: 12px; color: #63748a; }
+.advisor-video-source { margin: 0; padding: 4px 14px 12px; color: #63748a; font-size: 11px; line-height: 1.7; word-break: keep-all; }
+.advisor-video-source a:hover { color: var(--blue); }
+.advisor-career-grid { grid-area: career; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
 .advisor-career-grid h4 { margin: 0 0 8px; color: #244b7c; font-size: 14px; font-weight: 600; }
 .advisor-career-grid ul { margin: 0; padding-left: 17px; color: #526171; font-size: 14px; line-height: 1.9; }
 .advisor-career-grid li + li { margin-top: 4px; }
 .advisor-sources { grid-area: sources; }
 .advisor-sources .public-team-links { padding-bottom: 8px; gap: 6px 20px; }
 @media (max-width: 900px) {
-  .team-showcase .advisor-profile { grid-template-areas: "portrait identity" "career career" "sources sources"; }
+  .team-showcase .advisor-profile { grid-template-areas: "portrait identity" "feature feature" "sources sources"; }
+  .advisor-feature { grid-template-columns: minmax(0, 1fr); grid-template-areas: "video" "career"; gap: 24px; }
   .advisor-career-grid { gap: 18px; }
 }
 @media (max-width: 620px) {
