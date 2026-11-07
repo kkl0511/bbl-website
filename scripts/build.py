@@ -16,6 +16,8 @@ assets = (
     "assets/baseball-center-hero-mobile-poster-20261106.jpg",
     "assets/coach-jo-measurement-20261106.mp4",
     "assets/coach-jo-lab-mound.jpg",
+    "assets/coach-jo-sk-career-20261107.jpg",
+    "assets/coach-jo-ssg-career-20261107.jpg",
     "assets/prof-lee-3d-skeleton.jpg",
     "assets/facility-tour-ko-20261106.mp4",
     "assets/facility-interior-wide.jpg",

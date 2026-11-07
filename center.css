@@ -496,6 +496,27 @@
 .public-team-grid .team-card h3 { margin: 6px 0 12px; }
 .public-team-copy .team-roles { margin: 0 0 16px; }
 .public-team-links { display: flex; gap: 12px 20px; flex-wrap: wrap; }
+.public-team-grid { align-items: start; }
+.coach-career-photos { background: #f1f4f6; }
+.coach-career-photo-pair { display: grid; grid-template-columns: .9fr 1.1fr; aspect-ratio: 16 / 9; gap: 8px; padding: 12px; }
+.coach-career-photo-pair img { display: block; width: 100%; height: 100%; min-height: 0; min-width: 0; object-fit: contain; }
+.coach-career-photos figcaption { padding: 0 14px 10px; font-size: 11px; line-height: 1.6; color: #526171; }
+.coach-profile-lead { margin-bottom: 18px; color: #244b7c; font-size: 15px; font-weight: 600; line-height: 1.65; }
+.coach-profile .team-roles { font-size: 14px; line-height: 1.85; }
+.coach-profile .team-roles li + li { margin-top: 6px; }
+.coach-news-links { margin-block: 20px 12px; border-top: 1px solid #d5dfe8; }
+.coach-news-links a { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; padding: 13px 0; border-bottom: 1px solid #d5dfe8; font-size: 14px; line-height: 1.7; }
+.coach-news-source { grid-column: 1; color: #63748a; font-size: 11px; letter-spacing: .3px; }
+.coach-news-links a > span:nth-child(2) { grid-column: 1; }
+.coach-news-links a > span:last-child { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+.coach-news-links a:hover { color: var(--blue); }
+.coach-measurement { margin-top: 18px; border-top: 1px solid #d5dfe8; }
+.coach-measurement summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 10px 0; font-size: 13px; list-style: none; }
+.coach-measurement summary::-webkit-details-marker { display: none; }
+.coach-measurement summary > span { font-size: 20px; }
+.coach-measurement[open] summary > span { transform: rotate(45deg); }
+.coach-measurement .public-team-media { margin-top: 4px; }
+
 .public-tour { margin: 0 0 18px; background: #101f31; color: #e9f1fb; }
 .public-tour video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 580px; object-fit: contain; background: #0a1929; }
 .public-tour figcaption { padding: 12px 18px; font-size: .88rem; }
