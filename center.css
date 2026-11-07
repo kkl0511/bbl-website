@@ -484,43 +484,74 @@
   .hero-sport-switch button{flex:1;text-align:center;padding:6px 4px;font-size:7.5px}
 }
 
-/* Public homepage: two staff profiles and one facility tour. */
+/* Public coaching team: analysis lead followed by two parallel coaching profiles. */
 .hero-bullet-summary li { line-height: 1.65; }
-.public-team-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-.public-team-grid .team-card { padding: 0; overflow: hidden; }
-.public-team-grid .team-card > img,
-.public-team-media { width: 100%; aspect-ratio: 16 / 9; background: #0a1929; }
-.public-team-grid .team-card > img { display: block; object-fit: cover; }
-.public-team-media video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.team-showcase .team-card { padding: 0; overflow: hidden; }
 .public-team-copy { padding: 24px 28px 30px; }
-.public-team-grid .team-card h3 { margin: 6px 0 12px; }
-.public-team-copy .team-roles { margin: 0 0 16px; }
 .public-team-links { display: flex; gap: 12px 20px; flex-wrap: wrap; }
-.public-team-grid { align-items: start; }
+.team-showcase .team-card h3 { margin: 6px 0 12px; }
+.public-team-copy .team-roles { margin: 0 0 16px; }
+.team-showcase .professor-profile { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); background: #f8fafc; }
+.professor-media { position: relative; min-height: 0; aspect-ratio: 16 / 9; overflow: hidden; background: #0a1929; }
+.professor-media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+.professor-copy { align-self: center; padding: 28px 36px; }
+.professor-copy h3 { font-size: 28px; }
+.professor-lead { margin: 0 0 16px; color: #244b7c; font-size: 19px; font-weight: 600; line-height: 1.65; }
+.professor-copy .team-roles { font-size: 14px; }
+.professor-copy .public-team-links { gap: 6px 20px; }
+.public-team-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; margin-top: 20px; align-items: start; }
+.team-showcase .coach-profile { display: grid; grid-template-rows: auto auto auto auto; }
+@supports (grid-template-rows: subgrid) {
+  .team-showcase .coach-profile { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+}
 .coach-career-photos { background: #f1f4f6; }
 .coach-career-photo-pair { display: grid; grid-template-columns: .9fr 1.1fr; aspect-ratio: 16 / 9; gap: 8px; padding: 12px; }
 .coach-career-photo-pair img { display: block; width: 100%; height: 100%; min-height: 0; min-width: 0; object-fit: contain; }
 .coach-career-photos figcaption { padding: 0 14px 10px; font-size: 11px; line-height: 1.6; color: #526171; }
+.coach-profile-intro { padding: 22px 28px 20px; }
+.coach-profile-intro .team-roles { margin-bottom: 0; }
 .coach-profile-lead { margin-bottom: 18px; color: #244b7c; font-size: 15px; font-weight: 600; line-height: 1.65; }
 .coach-profile .team-roles { font-size: 14px; line-height: 1.85; }
 .coach-profile .team-roles li + li { margin-top: 6px; }
-.coach-career-video { margin-top: 22px; border: 1px solid #d5dfe8; background: #f8fafc; }
+.coach-video-wrap { padding: 0 28px; }
+.public-team-media { width: 100%; aspect-ratio: 16 / 9; background: #0a1929; }
+.public-team-media video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.coach-career-video { border: 1px solid #d5dfe8; background: #f8fafc; }
 .coach-career-video figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; padding: 10px 12px; line-height: 1.6; }
 .coach-career-video figcaption strong { font-size: 14px; font-weight: 600; }
 .coach-career-video figcaption span { font-size: 12px; color: #63748a; }
-
-.coach-news-links { margin-block: 20px 12px; border-top: 1px solid #d5dfe8; }
+.coach-resources { padding: 16px 28px 24px; }
+.coach-news-links { margin-block: 0 12px; }
 .coach-news-links a { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; padding: 13px 0; border-bottom: 1px solid #d5dfe8; font-size: 14px; line-height: 1.7; }
 .coach-news-source { grid-column: 1; color: #63748a; font-size: 11px; letter-spacing: .3px; }
 .coach-news-links a > span:nth-child(2) { grid-column: 1; }
 .coach-news-links a > span:last-child { grid-column: 2; grid-row: 1 / 3; align-self: center; }
 .coach-news-links a:hover { color: var(--blue); }
-.coach-measurement { margin-top: 18px; border-top: 1px solid #d5dfe8; }
-.coach-measurement summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 10px 0; font-size: 13px; list-style: none; }
-.coach-measurement summary::-webkit-details-marker { display: none; }
-.coach-measurement summary > span { font-size: 20px; }
-.coach-measurement[open] summary > span { transform: rotate(45deg); }
-.coach-measurement .public-team-media { margin-top: 4px; }
+.coach-more, .coach-measurement, .coach-contact-link { border-top: 1px solid #d5dfe8; }
+.coach-more summary, .coach-measurement summary, .coach-contact-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 10px 0; font-size: 13px; list-style: none; }
+.coach-more summary::-webkit-details-marker, .coach-measurement summary::-webkit-details-marker { display: none; }
+.coach-more summary > span, .coach-measurement summary > span { font-size: 20px; }
+.coach-more[open] summary > span, .coach-measurement[open] summary > span { transform: rotate(45deg); }
+.coach-measurement .public-team-media { margin: 4px 0 12px; }
+.coach-training-photo { padding: 4px 0 12px; }
+.coach-training-photo img { display: block; width: 100%; height: auto; max-height: 540px; object-fit: contain; background: #f1f4f6; }
+.coach-training-photo figcaption { margin-top: 8px; font-size: 12px; color: #63748a; }
+.coach-contact-link:hover { color: var(--blue); }
+@media (max-width: 900px) {
+  .team-showcase .professor-profile { grid-template-columns: minmax(0, 1fr); }
+  .professor-media { aspect-ratio: 16 / 9; }
+  .professor-copy { padding: 24px 28px; }
+  .public-team-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .team-showcase .coach-profile { display: flex; grid-row: auto; }
+  .coach-profile-intro { padding: 22px 28px 20px; }
+}
+@media (max-width: 620px) {
+  .professor-copy h3 { font-size: 25px; }
+  .professor-lead { font-size: 17px; }
+  .professor-copy, .coach-profile-intro { padding: 20px; }
+  .coach-video-wrap { padding-inline: 20px; }
+  .coach-resources { padding: 14px 20px 20px; }
+}
 
 .public-tour { margin: 0 0 18px; background: #101f31; color: #e9f1fb; }
 .public-tour video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 580px; object-fit: contain; background: #0a1929; }
