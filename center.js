@@ -182,7 +182,7 @@ const heroMediaModes = {
       { start: 18.8, title: '하남 감일센터', detail: '마운드·타석·체력 측정 공간' },
       { start: 14.4, title: '3D 타격 분석', detail: '배트 궤적과 공이 맞는 순간' },
       { start: 9.2, title: '조성훈 코치', detail: '지면반력 마운드에서 투구 측정' },
-      { start: 6.6, title: 'SPORTS KU 보도 사례 · 정튼튼', detail: '하체 안정성 분석 · 화면은 연구실 시연' },
+      { start: 6.6, title: '방송·언론 소개 사례 · 정튼튼', detail: 'KBS·문화일보 소개 · 화면은 연구실 시연' },
       { start: 4.6, title: '이기광 교수', detail: '국민대 연구실의 3D 동작 분석' },
       { start: 0, title: '3D 투구 분석', detail: '투구 동작과 양발 지면반력' },
     ],

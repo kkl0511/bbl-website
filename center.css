@@ -615,7 +615,7 @@
   .hero-grid { padding-top: 34px; gap: 18px; }
 }
 
-/* SPORTS KU case study */
+/* Player case with primary broadcast and press sources. */
 .case-study-card {
   margin-top: 28px;
   border: 1px solid #cdd8e4;
@@ -665,6 +665,26 @@
   line-height: 1.85;
   max-width: 920px;
 }
+.case-media-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.case-media-links a {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid #d4dee9;
+  background: #fff;
+  color: #526171;
+  line-height: 1.65;
+}
+.case-media-links strong { color: #244b7c; font-size: 14px; font-weight: 600; }
+.case-media-links a > span { font-size: 13px; }
+.case-media-links small { font-size: 11px; }
+.case-media-links a:hover { border-color: #7a9bc3; background: #f2f7fe; }
 .case-study-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -711,6 +731,7 @@
   }
 }
 @media (max-width: 680px) {
+  .case-media-links { grid-template-columns: minmax(0, 1fr); }
   .case-study-card {
     padding: 22px 20px 24px;
   }
