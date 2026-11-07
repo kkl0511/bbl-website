@@ -504,6 +504,11 @@
 .coach-profile-lead { margin-bottom: 18px; color: #244b7c; font-size: 15px; font-weight: 600; line-height: 1.65; }
 .coach-profile .team-roles { font-size: 14px; line-height: 1.85; }
 .coach-profile .team-roles li + li { margin-top: 6px; }
+.coach-career-video { margin-top: 22px; border: 1px solid #d5dfe8; background: #f8fafc; }
+.coach-career-video figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; padding: 10px 12px; line-height: 1.6; }
+.coach-career-video figcaption strong { font-size: 14px; font-weight: 600; }
+.coach-career-video figcaption span { font-size: 12px; color: #63748a; }
+
 .coach-news-links { margin-block: 20px 12px; border-top: 1px solid #d5dfe8; }
 .coach-news-links a { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; padding: 13px 0; border-bottom: 1px solid #d5dfe8; font-size: 14px; line-height: 1.7; }
 .coach-news-source { grid-column: 1; color: #63748a; font-size: 11px; letter-spacing: .3px; }
