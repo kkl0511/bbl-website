@@ -640,6 +640,12 @@
 .case-broadcast figcaption { display: grid; gap: 4px; padding: 13px 15px; color: #526171; font-size: 13px; line-height: 1.7; }
 .case-broadcast figcaption strong { color: #244b7c; font-size: 14px; font-weight: 600; }
 .case-broadcast figcaption a { color: #526b89; font-size: 11px; }
+.case-broadcast-chapters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #d4dee9; border-bottom: 1px solid #d4dee9; }
+.case-broadcast-chapters button { display: grid; gap: 2px; justify-items: center; padding: 9px 5px; min-height: 54px; background: #f3f7fc; color: #244b7c; font-size: 12px; font-weight: 600; line-height: 1.5; border: 0; }
+.case-broadcast-chapters button + button { border-left: 1px solid #d4dee9; }
+.case-broadcast-chapters button span { font-family: var(--mono); font-size: 10px; color: #637992; }
+.case-broadcast-chapters button:hover { background: #e5eef9; }
+.case-broadcast-chapters button:focus-visible { outline: 2px solid #366db1; outline-offset: -3px; }
 .case-study-header {
   display: flex;
   justify-content: space-between;

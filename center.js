@@ -461,6 +461,17 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('main>section').forEach(section => sectionObserver.observe(section));
 }
 
+// Broadcast chapters play only after the visitor selects a scene.
+document.querySelectorAll('[data-kbs-seek]').forEach(button => {
+  button.addEventListener('click', () => {
+    const video = document.querySelector('#jeong-kbs-video');
+    if (!video) return;
+    const start = Number(button.dataset.kbsSeek);
+    video.currentTime = start;
+    video.play().catch(() => {});
+  });
+});
+
 // Closing a profile also stops its media; reopening never starts it automatically.
 document.querySelectorAll('.profile-disclosure').forEach(detail => {
   detail.addEventListener('toggle', () => {
