@@ -27,6 +27,8 @@ assets = (
     "assets/coach-kim-game-batting-poster-20261107.jpg",
     "assets/prof-lee-3d-skeleton.jpg",
     "assets/prof-lee-profile-20261107.jpg",
+    "assets/jeong-kbs-docu-excerpt-20261107.mp4",
+    "assets/jeong-kbs-docu-poster-20261107.jpg",
     "assets/advisor-cha-portrait-20261107.png",
     "assets/advisor-cha-doosan-pitching-20261107.mp4",
     "assets/advisor-cha-doosan-pitching-poster-20261107.jpg",
